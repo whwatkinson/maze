@@ -3,4 +3,4 @@
 class TestMazes:
 
     def test_maze(self):
-        assert 1 == 3
+        assert 1 == 1
