@@ -17,3 +17,13 @@ class TestMaze:
             start = 's'
 
             assert maze[0][2] == start
+
+    def test_height(self):
+
+        for case in self.test_cases:
+
+            s = SimpleMaze(height=case['height'])
+            maze = s.maze
+
+            for row in maze:
+                assert len(row) == case['height']

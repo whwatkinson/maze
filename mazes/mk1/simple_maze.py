@@ -27,7 +27,7 @@ class SimpleMaze:
         maze += [[self.top, self.top,  self.start,  self.top, self.top]]
 
         for _ in range(height):
-            self.get_n_row(maze, height-2)
+            self.get_n_row(maze, height)
 
         maze += [[self.bottom, self.bottom,  self.finish,  self.bottom, self.bottom]]
 
