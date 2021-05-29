@@ -3,25 +3,24 @@ from random import randint
 
 class SimpleMaze:
 
-    side = '|'
     top = '_'
-    bottom = '‾'
     start = 's'
-    finish = 'f'
-    wall = 'x'
+    side = '|'
     clear = ' '
+    wall = 'x'
+    finish = 'f'
+    bottom = '‾'
 
     def __init__(self):
-        self.maze = self.get_maze()
+        self.maze = self.get_new_maze()
 
-    @staticmethod
-    def get_maze():
+    def get_new_maze(self):
 
-        row0 = ['_', '_',  's',  '_',  '_']
-        row1 = ['|', 'x',  'x',  'x',  '|']
-        row2 = ['|', 'x',  'x',  'x',  '|']
-        row3 = ['|', 'x',  'x',  'x',  '|']
-        row4 = ['‾', '‾',  'f',  '‾',  '‾']
+        row0 = [self.top, self.top,  self.start,  self.top, self.top]
+        row1 = [self.side, self.clear, self.clear, self.clear, self.side]
+        row2 = [self.side, self.clear, self.clear, self.clear, self.side]
+        row3 = [self.side, self.clear, self.clear, self.clear, self.side]
+        row4 = [self.bottom, self.bottom,  self.finish,  self.bottom, self.bottom]
 
         maze = [row0, row1, row2, row3, row4]
 
