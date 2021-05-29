@@ -1,4 +1,4 @@
-from pyte
+from pytest import raises
 
 from mazes.mk1.simple_maze import SimpleMaze
 
@@ -51,6 +51,10 @@ class TestMaze:
         for case in self.test_cases:
 
             if case['exception']:
+                with raises(case['exception']) as exec_info:
+                    s = SimpleMaze(**case)
+                    maze = s.maze
+
 
 
             s = SimpleMaze(**case)
