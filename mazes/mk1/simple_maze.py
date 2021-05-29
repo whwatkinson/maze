@@ -36,48 +36,43 @@ class SimpleMaze:
     def get_start_end_pos(width: int) -> Tuple[int, int]:
 
         ub = width - 2
-
         start_pos = randint(1, ub)
-
         end_pos = randint(1, ub)
 
         return start_pos, end_pos
 
-    def get_n_row(self, row_n: list, width: int = 5) -> List[str]:
+    def get_n_row(self, maze: list, width: int = 5) -> List[str]:
 
         clear_needed = width - 2
 
-        row_n += [[self.markers['side']] + [self.markers['clear'] for _ in range(clear_needed)] + [self.markers['side']]]
+        maze += [[self.markers['side']] + [self.markers['clear'] for _ in range(clear_needed)] + [self.markers['side']]]
 
-        return row_n
+        return maze
 
     def get_new_maze(self, height: int, width: int) -> List[List[str]]:
 
-        maze = []
         start_pos, finish_pos = self.get_start_end_pos(width=width)
-        top = [[self.markers['top'] for _ in range(width)]]
+        top = [self.markers['top'] for _ in range(width)]
 
-        top[0][start_pos] = self.markers['start']
+        top[start_pos] = self.markers['start']
 
-        maze += top
-
-        # maze += [[self.markers['top'], self.markers['top'],  self.markers['start'],  self.markers['top'], self.markers['top']]]
+        maze = [top]
 
         height_needed = height - 2
+
         for _ in range(height_needed):
+
             self.get_n_row(maze, width)
 
-        # maze += [[self.markers['bottom'], self.markers['bottom'],  self.markers['finish'], self.markers['bottom'], self.markers['bottom']]]
-        bottom = [[self.markers['bottom'] for _ in range(width)]]
+        bottom = [self.markers['bottom'] for _ in range(width)]
+        bottom[finish_pos] = self.markers['finish']
 
-        bottom[0][finish_pos] = self.markers['finish']
-
-        maze += bottom
+        maze += [bottom]
 
         return maze
 
     @staticmethod
-    def display_maze(maze):
+    def display_maze(maze) -> None:
 
         for row in maze:
             print(row)
