@@ -14,13 +14,15 @@ class SimpleMaze:
         'bottom':  '‾'
     }
 
-    def __init__(self, height: int = 5):
+    def __init__(self, height: int = 5, width: int = 5):
 
         self.maze = self.get_new_maze(height=height)
 
     def get_n_row(self, row_n: list, height: int) -> List[str]:
 
-        row_n += [[self.markers['side']] + [self.clear for _ in range(height - 2)] + [self.markers['side']]]
+        clear_needed = height - 2
+
+        row_n += [[self.markers['side']] + [self.markers['clear'] for _ in range(clear_needed)] + [self.markers['side']]]
 
         return row_n
 

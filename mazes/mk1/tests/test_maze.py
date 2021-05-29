@@ -27,3 +27,12 @@ class TestMaze:
 
             for row in maze:
                 assert len(row) == case['height']
+
+    def test_side(self):
+
+        for case in self.test_cases:
+
+            s = SimpleMaze(height=case['height'])
+            maze = s.maze
+
+            for row in maze:
