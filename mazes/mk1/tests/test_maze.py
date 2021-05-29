@@ -9,13 +9,23 @@ class TestMaze:
         {
             'height': 5,
             'width': 5
-
         },
         {
-
             'height': 44,
             'width': 4
         },
+        {
+            'height': 3,
+            'width': 3
+        },
+        {
+            'height': 99,
+            'width': 99
+        },
+        {
+            'height': 500,
+            'width': 250
+        }
     ]
 
     def test_start(self):
@@ -24,26 +34,16 @@ class TestMaze:
 
             s = SimpleMaze(**case)
             maze = s.maze
+            height = case['height']
             width = case['width']
-            valid_pos = maze[0][1:width-1]
 
+            valid_pos_start = maze[0][1:width-1]
+            valid_pos_finish = maze[height-1][1:width-1]
+            finish = 'f'
             start = 's'
 
-            assert start in valid_pos
-
-    def test_finish(self):
-
-        for case in self.test_cases:
-
-            s = SimpleMaze(**case)
-            maze = s.maze
-            width = case['width']
-            height = case['height']
-            valid_pos = maze[height-1][1:width-1]
-
-            finish = 'f'
-
-            assert finish in valid_pos
+            assert start in valid_pos_start
+            assert finish in valid_pos_finish
 
     def test_height_width(self):
 

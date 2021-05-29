@@ -27,7 +27,7 @@ class SimpleMaze:
             raise ValueError('This maze is to narrow.')
         self.height = height
         self.width = width
-        self.maze = self.get_new_maze(
+        self.maze = self.get_blank_maze(
             height=height,
             width=width
         )
@@ -36,50 +36,40 @@ class SimpleMaze:
     def get_start_end_pos(width: int) -> Tuple[int, int]:
 
         ub = width - 2
-
         start_pos = randint(1, ub)
-
         end_pos = randint(1, ub)
 
         return start_pos, end_pos
 
-    def get_n_row(self, row_n: list, width: int = 5) -> List[str]:
+    def get_n_row(self, width: int) -> List[List[str]]:
 
-        clear_needed = width - 2
-
-        row_n += [[self.markers['side']] + [self.markers['clear'] for _ in range(clear_needed)] + [self.markers['side']]]
+        clear_markers_needed = width - 2
+        row_n = [[self.markers['side']] + [self.markers['clear'] for _ in range(clear_markers_needed)] + [self.markers['side']]]
 
         return row_n
 
-    def get_new_maze(self, height: int, width: int) -> List[List[str]]:
+    def get_blank_maze(self, height: int, width: int) -> List[List[str]]:
 
-        maze = []
         start_pos, finish_pos = self.get_start_end_pos(width=width)
-        top = [[self.markers['top'] for _ in range(width)]]
 
-        top[0][start_pos] = self.markers['start']
+        top = [self.markers['top'] for _ in range(width)]
+        top[start_pos] = self.markers['start']
+        maze = [top]
 
-        maze += top
+        rows_n_needed = height - 2
 
-        # maze += [[self.markers['top'], self.markers['top'],  self.markers['start'],  self.markers['top'], self.markers['top']]]
+        for _ in range(rows_n_needed):
+            maze += self.get_n_row(width)
 
-        height_needed = height - 2
-        for _ in range(height_needed):
-            self.get_n_row(maze, width)
-
-        # maze += [[self.markers['bottom'], self.markers['bottom'],  self.markers['finish'], self.markers['bottom'], self.markers['bottom']]]
-        bottom = [[self.markers['bottom'] for _ in range(width)]]
-
-        bottom[0][finish_pos] = self.markers['finish']
-
-        maze += bottom
+        bottom = [self.markers['bottom'] for _ in range(width)]
+        bottom[finish_pos] = self.markers['finish']
+        maze += [bottom]
 
         return maze
 
-    @staticmethod
-    def display_maze(maze):
+    def display_maze(self) -> None:
 
-        for row in maze:
+        for row in self.maze:
             print(row)
 
         return None
