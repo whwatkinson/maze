@@ -1,6 +1,6 @@
 from pytest import raises
 
-from mazes.mk1.simple_maze import SimpleMaze
+from mazes.mk1 import SimpleMaze
 
 
 class TestMaze:
@@ -16,7 +16,6 @@ class TestMaze:
             'height': 44,
             'width': 4
         },
-
     ]
 
     def test_start(self):
