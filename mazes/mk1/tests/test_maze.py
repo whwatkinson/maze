@@ -8,13 +8,13 @@ class TestMaze:
     test_cases = [
         {
             'height': 5,
-            'width': 5,
-            'exception': None
+            'width': 5
+
         },
         {
-            'height': 2,
-            'width': 2,
-            'exception': ValueError
+
+            'height': 44,
+            'width': 4
         },
 
     ]
@@ -48,15 +48,10 @@ class TestMaze:
 
     def test_height_width(self):
 
+        with raises(ValueError):
+            SimpleMaze(2, 2)
+
         for case in self.test_cases:
-
-            if case['exception']:
-                with raises(case['exception']) as exec_info:
-                    s = SimpleMaze(**case)
-                    maze = s.maze
-
-
-
             s = SimpleMaze(**case)
             maze = s.maze
 
@@ -82,8 +77,3 @@ class TestMaze:
                 if idx not in void:
 
                     assert row[0] == row[width-1] == '|'
-
-
-
-
-
