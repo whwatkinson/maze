@@ -87,7 +87,8 @@ class SimpleMaze:
                 x = a if a != width else a - 1
                 y = b if b != height else b - 1
 
-                maze_wall[x][y] = self.markers['wall'] if maze_wall[x][y] != '|' else '|'
+                if maze_wall[x][y] != '|':
+                    maze_wall[x][y] = self.markers['wall']
 
         return maze_wall
 
