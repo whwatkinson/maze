@@ -1,8 +1,6 @@
 from random import randint
 from typing import Tuple, List
 
-from mazes.mk1 import SimpleMaze
-
 
 class SimpleWall:
 
@@ -51,18 +49,6 @@ class SimpleWall:
             wall_meta.append({"v": v, "length": length, "x": x, "y": y, "wall_coors": wall_coors})
 
         return wall_meta
-
-    def place_walls(self, height: int, width: int) -> SimpleMaze:
-
-        simple_maze = SimpleMaze(height=height, width=width)
-
-        for wall in self.wall_meta:
-
-            for a, b in wall['wall_coors']:
-
-                simple_maze.maze[a if a != width else a - 1][b if b != height else b - 1] = self.markers['wall']
-
-        return simple_maze
 
     def __repr__(self):
         return f"SIMPLE_WALL (number_of_walls: {self.number_of_walls})"

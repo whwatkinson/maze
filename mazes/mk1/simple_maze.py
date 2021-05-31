@@ -1,5 +1,6 @@
 from random import randint
 from typing import List, Tuple
+from mazes.mk1.simple_wall import SimpleWall
 
 
 class SimpleMaze:
@@ -9,11 +10,12 @@ class SimpleMaze:
         'start':  's',
         'side':  '|',
         'clear':  ' ',
+        'wall': 'W',
         'finish':  'f',
         'bottom':  '‾'
     }
 
-    def __init__(self, height: int = 10, width: int = 10):
+    def __init__(self, height: int = 10, width: int = 10, number_of_walls: int = 10):
 
         if height < 3:
             raise ValueError('This maze is to short.')
@@ -22,9 +24,15 @@ class SimpleMaze:
             raise ValueError('This maze is to narrow.')
         self.height = height
         self.width = width
-        self.maze = self.get_blank_maze(
+        self.number_of_walls = number_of_walls
+        self.blank_maze = self.get_blank_maze(
             height=height,
-            width=width
+            width=width,
+        )
+        self.maze = self.place_walls(
+            height=height,
+            width=width,
+            number_of_walls=number_of_walls
         )
 
     @staticmethod
@@ -68,6 +76,19 @@ class SimpleMaze:
             print(row)
 
         return None
+
+    def place_walls(self, height: int, width: int, number_of_walls: int) -> List[List[str]]:
+
+        w = SimpleWall(height=height, width=width, number_of_walls=number_of_walls)
+        wall_meta = w.wall_meta
+        maze_wall = None
+        for wall in wall_meta:
+
+            for a, b in wall['wall_coors']:
+                maze_wall = self.blank_maze.copy()
+                maze_wall[a if a != width else a - 1][b if b != height else b - 1] = self.markers['wall']
+
+        return maze_wall
 
     def __repr__(self):
         return f"SIMPLE_MAZE (height: {self.height}, width {self.width})"
