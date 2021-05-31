@@ -80,9 +80,14 @@ class SimpleMaze:
         wall_meta = w.wall_meta
         maze_wall = None
         for wall in wall_meta:
-            for a, b in wall['wall_coors']:
+
+            for a, b in wall['wall_coords']:
+
                 maze_wall = self.blank_maze.copy()
-                maze_wall[a if a != width else a - 1][b if b != height else b - 1] = self.markers['wall']
+                x = a if a != width else a - 1
+                y = b if b != height else b - 1
+
+                maze_wall[x][y] = self.markers['wall'] if maze_wall[x][y] != '|' else '|'
 
         return maze_wall
 

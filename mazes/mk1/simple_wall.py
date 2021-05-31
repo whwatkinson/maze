@@ -10,13 +10,9 @@ class SimpleWall:
 
     def __init__(self, height: int, width: int, number_of_walls: int = 10):
         self.number_of_walls = number_of_walls
-        self.wall_meta = self.get_walls(height=height, width=width)
-
-
+        self.wall_meta = self.get_wall_meta(height=height, width=width)
 
     #  need check to not place on wall
-
-
 
     @staticmethod
     def get_wall_coords(v: bool, length: int, x: int, y: int) -> List[Tuple[int, int]]:
@@ -32,7 +28,7 @@ class SimpleWall:
 
         return wall_coords
 
-    def get_walls(self, height: int, width: int) -> List[dict]:
+    def get_wall_meta(self, height: int, width: int) -> List[dict]:
 
         wall_meta = []
 
@@ -50,9 +46,17 @@ class SimpleWall:
             # y coordinate
             y = randint(1, height - length)
 
-            wall_coors = self.get_wall_coords(v, length, x, y)
+            wall_coords = self.get_wall_coords(v, length, x, y)
 
-            wall_meta.append({"v": v, "length": length, "x": x, "y": y, "wall_coors": wall_coors})
+            wall_meta.append(
+                {
+                    "v": v,
+                    "length": length,
+                    "x": x,
+                    "y": y,
+                    "wall_coords": wall_coords
+                }
+            )
 
         return wall_meta
 
