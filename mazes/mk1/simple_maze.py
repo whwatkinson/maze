@@ -13,7 +13,7 @@ class SimpleMaze:
         'bottom':  '‾'
     }
 
-    def __init__(self, height: int = 5, width: int = 5):
+    def __init__(self, height: int = 10, width: int = 10):
 
         if height < 3:
             raise ValueError('This maze is to short.')

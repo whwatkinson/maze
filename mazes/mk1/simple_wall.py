@@ -10,11 +10,12 @@ class SimpleWall:
         'wall': 'w'
     }
 
-    def __init__(self, number_of_walls: int = 5):
+    def __init__(self, height: int, width: int, number_of_walls: int = 10):
         self.number_of_walls = number_of_walls
+        self.wall_meta = self.get_walls(height=height, width=width)
 
     @staticmethod
-    def get_wall_coords(x: int, y: int, length: int, v: bool) -> List[Tuple[int, int]]:
+    def get_wall_coords(v: bool, length: int, x: int, y: int) -> List[Tuple[int, int]]:
 
         wall_coords = []
 
@@ -27,7 +28,7 @@ class SimpleWall:
 
         return wall_coords
 
-    def get_walls(self, height: int, width: int) -> List[List[Tuple[int, int]]]:
+    def get_walls(self, height: int, width: int) -> List[dict]:
 
         wall_meta = []
 
@@ -40,18 +41,14 @@ class SimpleWall:
             length = randint(1, 4)
 
             # x coordinate
-            x = randint(1, width)
+            x = randint(1, width - length)
 
             # y coordinate
-            y = randint(1, width-1)
+            y = randint(1, height - length)
 
+            wall_coors = self.get_wall_coords(v, length, x, y)
 
-
-
-
-            wall_coor = self.get_wall_coords(x, y, length, v)
-
-            wall_meta.append(wall_coor)
+            wall_meta.append({"v": v, "length": length, "x": x, "y": y, "wall_coors": wall_coors})
 
         return wall_meta
 
@@ -59,14 +56,11 @@ class SimpleWall:
 
         simple_maze = SimpleMaze(height=height, width=width)
 
-        wall_meta = self.get_walls(height=height, width=width)
+        for wall in self.wall_meta:
 
-        for wall in wall_meta:
-
-            for a, b in wall:
+            for a, b in wall['wall_coors']:
 
                 simple_maze.maze[a if a != width else a - 1][b if b != height else b - 1] = self.markers['wall']
-
 
         return simple_maze
 
