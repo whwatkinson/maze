@@ -73,3 +73,6 @@ class SimpleMaze:
             print(row)
 
         return None
+
+    def __repr__(self):
+        return f"SIMPLE_MAZE (height: {self.height}, width {self.width})"
