@@ -70,25 +70,28 @@ class SimpleMaze:
 
         return maze
 
+    def place_walls(self, height: int, width: int, number_of_walls: int) -> List[List[str]]:
+
+        w = SimpleWall(
+            height=height,
+            width=width,
+            number_of_walls=number_of_walls
+        )
+        wall_meta = w.wall_meta
+        maze_wall = None
+        for wall in wall_meta:
+            for a, b in wall['wall_coors']:
+                maze_wall = self.blank_maze.copy()
+                maze_wall[a if a != width else a - 1][b if b != height else b - 1] = self.markers['wall']
+
+        return maze_wall
+
     def display_maze(self) -> None:
 
         for row in self.maze:
             print(row)
 
         return None
-
-    def place_walls(self, height: int, width: int, number_of_walls: int) -> List[List[str]]:
-
-        w = SimpleWall(height=height, width=width, number_of_walls=number_of_walls)
-        wall_meta = w.wall_meta
-        maze_wall = None
-        for wall in wall_meta:
-
-            for a, b in wall['wall_coors']:
-                maze_wall = self.blank_maze.copy()
-                maze_wall[a if a != width else a - 1][b if b != height else b - 1] = self.markers['wall']
-
-        return maze_wall
 
     def __repr__(self):
         return f"SIMPLE_MAZE (height: {self.height}, width {self.width})"

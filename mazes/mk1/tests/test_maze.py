@@ -8,23 +8,28 @@ class TestMaze:
     test_cases = [
         {
             'height': 5,
-            'width': 5
+            'width': 5,
+            'number_of_walls': 2
         },
         {
             'height': 44,
-            'width': 4
+            'width': 4,
+            'number_of_walls': 33
         },
         {
             'height': 3,
-            'width': 3
+            'width': 3,
+            'number_of_walls': 1
         },
         {
             'height': 99,
-            'width': 99
+            'width': 99,
+            'number_of_walls': 0
         },
         {
             'height': 500,
-            'width': 250
+            'width': 250,
+            'number_of_walls': 200
         }
     ]
 

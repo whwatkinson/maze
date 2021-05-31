@@ -12,6 +12,12 @@ class SimpleWall:
         self.number_of_walls = number_of_walls
         self.wall_meta = self.get_walls(height=height, width=width)
 
+
+
+    #  need check to not place on wall
+
+
+
     @staticmethod
     def get_wall_coords(v: bool, length: int, x: int, y: int) -> List[Tuple[int, int]]:
 
