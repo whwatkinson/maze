@@ -7,9 +7,24 @@ class TestWall:
 
     test_case = [
         {
-            'height': 25,
-            'width': 25,
+            'height': 5,
+            'width': 5,
+            'number_of_walls': 2
+        },
+        {
+            'height': 7,
+            'width': 66,
             'number_of_walls': 25
+        },
+        {
+            'height': 45,
+            'width': 23,
+            'number_of_walls': 77
+        },
+        {
+            'height': 99,
+            'width': 99,
+            'number_of_walls': 3
         }
     ]
 
