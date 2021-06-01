@@ -19,7 +19,6 @@ class SimpleMaze:
 
         if height < 3:
             raise ValueError('This maze is to short.')
-
         if width < 3:
             raise ValueError('This maze is to narrow.')
         self.height = height
@@ -29,10 +28,15 @@ class SimpleMaze:
             height=height,
             width=width,
         )
-        self.maze = self.place_walls(
+        self.walls = SimpleWall(
             height=height,
             width=width,
             number_of_walls=number_of_walls
+        )
+        self.maze_with_walls = self.place_walls(
+            walls_meta=self.walls.walls_meta,
+            height=height,
+            width=width,
         )
 
     @staticmethod
@@ -70,34 +74,28 @@ class SimpleMaze:
 
         return maze
 
-    def place_walls(self, height: int, width: int, number_of_walls: int) -> List[List[str]]:
+    def place_walls(self, walls_meta: dict, height: int, width: int) -> List[List[str]]:
 
-        w = SimpleWall(
-            height=height,
-            width=width,
-            number_of_walls=number_of_walls
-        )
-        wall_meta = w.wall_meta
-        maze_wall = None
-        for wall in wall_meta:
+        maze_with_wall = self.blank_maze.copy()
+
+        for wall in walls_meta:
 
             for a, b in wall['wall_coords']:
 
-                maze_wall = self.blank_maze.copy()
                 x = a if a != width else a - 1
                 y = b if b != height else b - 1
 
-                if maze_wall[x][y] != '|':
-                    maze_wall[x][y] = self.markers['wall']
+                if maze_with_wall[x][y] == ' ':
+                    maze_with_wall[x][y] = self.markers['wall']
 
-        return maze_wall
+        return maze_with_wall
 
     def display_maze(self) -> None:
 
-        for row in self.maze:
+        for row in self.maze_with_walls:
             print(row)
 
         return None
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return f"SIMPLE_MAZE (height: {self.height}, width {self.width})"

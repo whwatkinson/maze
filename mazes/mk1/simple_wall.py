@@ -10,7 +10,7 @@ class SimpleWall:
 
     def __init__(self, height: int, width: int, number_of_walls: int = 10):
         self.number_of_walls = number_of_walls
-        self.wall_meta = self.get_wall_meta(height=height, width=width)
+        self.walls_meta = self.get_walls_meta(height=height, width=width)
 
     #  need check to not place on wall
 
@@ -28,9 +28,9 @@ class SimpleWall:
 
         return wall_coords
 
-    def get_wall_meta(self, height: int, width: int) -> List[dict]:
+    def get_walls_meta(self, height: int, width: int) -> List[dict]:
 
-        wall_meta = []
+        walls_meta = []
 
         for _ in range(self.number_of_walls):
 
@@ -48,7 +48,7 @@ class SimpleWall:
 
             wall_coords = self.get_wall_coords(v, length, x, y)
 
-            wall_meta.append(
+            walls_meta.append(
                 {
                     "v": v,
                     "length": length,
@@ -58,7 +58,7 @@ class SimpleWall:
                 }
             )
 
-        return wall_meta
+        return walls_meta
 
     def __repr__(self):
         return f"SIMPLE_WALL (number_of_walls: {self.number_of_walls})"
