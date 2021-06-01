@@ -4,13 +4,9 @@ from typing import Tuple, List
 
 class SimpleWall:
 
-    markers = {
-        'wall': 'w'
-    }
-
-    def __init__(self, height: int, width: int, number_of_walls: int = 10):
+    def __init__(self, height: int, width: int, number_of_walls: int = 10, wall_length: int = 5):
         self.number_of_walls = number_of_walls
-        self.walls_meta = self.get_walls_meta(height=height, width=width)
+        self.walls_meta = self.get_walls_meta(height=height, width=width, wall_length=wall_length)
 
     #  need check to not place on wall
 
@@ -22,13 +18,13 @@ class SimpleWall:
         for _ in range(length):
             wall_coords.append((x, y))
             if v:
-                y += 1
-            else:
                 x += 1
+            else:
+                y += 1
 
         return wall_coords
 
-    def get_walls_meta(self, height: int, width: int) -> List[dict]:
+    def get_walls_meta(self, height: int, width: int, wall_length: int) -> List[dict]:
 
         walls_meta = []
 
@@ -38,14 +34,13 @@ class SimpleWall:
             v = bool(randint(0, 1))
 
             # Length of wall
-            length = randint(1, 4)
+            length = randint(1, wall_length)
 
             # x coordinate
-            x = randint(1, width - length)
+            x = randint(1, height - 1)
 
             # y coordinate
-            y = randint(1, height - length)
-
+            y = randint(1, width - 1)
             wall_coords = self.get_wall_coords(v, length, x, y)
 
             walls_meta.append(

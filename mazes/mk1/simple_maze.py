@@ -79,11 +79,14 @@ class SimpleMaze:
         maze_with_wall = self.blank_maze.copy()
 
         for wall in walls_meta:
-
+            print(wall)
             for a, b in wall['wall_coords']:
 
-                if maze_with_wall[a][b] == ' ':
-                    maze_with_wall[a][b] = self.markers['wall']
+                try:
+                    if maze_with_wall[a][b] == ' ':
+                        maze_with_wall[a][b] = self.markers['wall']
+                except IndexError:
+                    pass
 
         return maze_with_wall
 
