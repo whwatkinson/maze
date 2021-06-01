@@ -83,4 +83,4 @@ class TestMaze:
 
                 if idx not in void:
 
-                    assert row[0] == row[width-1] == '|'
+                    assert row[0] == row[width-1] == s.markers['side']
