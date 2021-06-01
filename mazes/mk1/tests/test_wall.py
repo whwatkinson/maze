@@ -33,6 +33,16 @@ class TestWall:
 
             wall_meta = w.walls_meta
 
+            assert len(wall_meta) == case['number_of_walls']
+
+
+    def test_get_wall_meta_return(self):
+
+        for case in self.test_case:
+            w = SimpleWall(**case)
+
+            wall_meta = w.walls_meta
+
             for wall in wall_meta:
 
                 assert type(wall['v']) is bool
@@ -41,5 +51,5 @@ class TestWall:
                 assert type(wall['y']) is int
                 assert type(wall['wall_coords']) is list
 
-            assert len(wall_meta) == case['number_of_walls']
-
+    def test_wall_length(self):
+        pass
