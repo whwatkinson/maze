@@ -1,5 +1,6 @@
 from random import randint
 from typing import List, Tuple
+from mazes.mk1.simple_wall import SimpleWall
 
 
 class SimpleMaze:
@@ -9,27 +10,33 @@ class SimpleMaze:
         'start':  's',
         'side':  '|',
         'clear':  ' ',
-        'wall': 'x',
+        'wall': 'W',
         'finish':  'f',
         'bottom':  '‾'
     }
 
-    def __init__(
-            self,
-            height: int = 5,
-            width: int = 5,
-    ):
+    def __init__(self, height: int = 10, width: int = 10, number_of_walls: int = 10):
 
         if height < 3:
             raise ValueError('This maze is to short.')
-
         if width < 3:
             raise ValueError('This maze is to narrow.')
+
         self.height = height
         self.width = width
-        self.maze = self.get_blank_maze(
-            height=height,
-            width=width
+        self.number_of_walls = number_of_walls
+
+        self.blank_maze = self.get_blank_maze(
+            height=self.height,
+            width=self.width,
+        )
+        self.walls = SimpleWall(
+            height=self.height,
+            width=self.width,
+            number_of_walls=self.number_of_walls
+        )
+        self.maze_with_walls = self.place_walls(
+            walls_meta=self.walls.walls_meta
         )
 
     @staticmethod
@@ -67,9 +74,29 @@ class SimpleMaze:
 
         return maze
 
+    def place_walls(self, walls_meta: dict) -> List[List[str]]:
+
+        # TODO this is not working
+        maze_with_wall = self.blank_maze.copy()
+
+        for wall in walls_meta:
+
+            for a, b in wall['wall_coords']:
+
+                try:
+                    if maze_with_wall[a][b] == ' ':
+                        maze_with_wall[a][b] = self.markers['wall']
+                except IndexError:
+                    pass
+
+        return maze_with_wall
+
     def display_maze(self) -> None:
 
-        for row in self.maze:
+        for row in self.maze_with_walls:
             print(row)
 
         return None
+
+    def __repr__(self) -> str:
+        return f"SIMPLE_MAZE (height: {self.height}, width {self.width})"

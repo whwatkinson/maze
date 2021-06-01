@@ -8,23 +8,28 @@ class TestMaze:
     test_cases = [
         {
             'height': 5,
-            'width': 5
+            'width': 5,
+            'number_of_walls': 2
         },
         {
             'height': 44,
-            'width': 4
+            'width': 4,
+            'number_of_walls': 3
         },
         {
             'height': 3,
-            'width': 3
+            'width': 3,
+            'number_of_walls': 1
         },
         {
             'height': 99,
-            'width': 99
+            'width': 99,
+            'number_of_walls': 0
         },
         {
             'height': 500,
-            'width': 250
+            'width': 250,
+            'number_of_walls': 200
         }
     ]
 
@@ -33,7 +38,8 @@ class TestMaze:
         for case in self.test_cases:
 
             s = SimpleMaze(**case)
-            maze = s.maze
+            maze = s.blank_maze
+            s.display_maze()
             height = case['height']
             width = case['width']
 
@@ -47,12 +53,13 @@ class TestMaze:
 
     def test_height_width(self):
 
-        with raises(ValueError):
+        with raises(ValueError) as exec_info:
             SimpleMaze(2, 2)
+        assert exec_info.type is ValueError
 
         for case in self.test_cases:
             s = SimpleMaze(**case)
-            maze = s.maze
+            maze = s.blank_maze
 
             assert len(maze) == case['height']
 
@@ -64,7 +71,7 @@ class TestMaze:
         for case in self.test_cases:
 
             s = SimpleMaze(**case)
-            maze = s.maze
+            maze = s.blank_maze
 
             height = case['height']
             width = case['width']
