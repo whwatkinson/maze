@@ -21,22 +21,22 @@ class SimpleMaze:
             raise ValueError('This maze is to short.')
         if width < 3:
             raise ValueError('This maze is to narrow.')
+
         self.height = height
         self.width = width
         self.number_of_walls = number_of_walls
+
         self.blank_maze = self.get_blank_maze(
-            height=height,
-            width=width,
+            height=self.height,
+            width=self.width,
         )
         self.walls = SimpleWall(
-            height=height,
-            width=width,
-            number_of_walls=number_of_walls
+            height=self.height,
+            width=self.width,
+            number_of_walls=self.number_of_walls
         )
         self.maze_with_walls = self.place_walls(
-            walls_meta=self.walls.walls_meta,
-            height=height,
-            width=width,
+            walls_meta=self.walls.walls_meta
         )
 
     @staticmethod
@@ -74,7 +74,7 @@ class SimpleMaze:
 
         return maze
 
-    def place_walls(self, walls_meta: dict, height: int, width: int) -> List[List[str]]:
+    def place_walls(self, walls_meta: dict) -> List[List[str]]:
 
         maze_with_wall = self.blank_maze.copy()
 
@@ -82,11 +82,8 @@ class SimpleMaze:
 
             for a, b in wall['wall_coords']:
 
-                x = a if a != width else a - 1
-                y = b if b != height else b - 1
-
-                if maze_with_wall[x][y] == ' ':
-                    maze_with_wall[x][y] = self.markers['wall']
+                if maze_with_wall[a][b] == ' ':
+                    maze_with_wall[a][b] = self.markers['wall']
 
         return maze_with_wall
 
