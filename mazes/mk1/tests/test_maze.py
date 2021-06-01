@@ -40,17 +40,14 @@ class TestMaze:
             s = SimpleMaze(**case)
             markers = s.markers
             maze = s.blank_maze
-            s.display_maze()
             height = case['height']
             width = case['width']
 
             valid_pos_start = maze[0][1:width-1]
             valid_pos_finish = maze[height-1][1:width-1]
-            start = markers['start']
-            finish = markers['finish']
 
-            assert start in valid_pos_start
-            assert finish in valid_pos_finish
+            assert markers['start'] in valid_pos_start
+            assert markers['finish'] in valid_pos_finish
 
     def test_height_width(self):
 
