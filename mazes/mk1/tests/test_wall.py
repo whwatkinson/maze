@@ -1,6 +1,5 @@
 from mazes.mk1 import SimpleWall
 
-from mazes.mk1.tests.test_maze import TestMaze
 
 class TestWall:
 

@@ -53,8 +53,9 @@ class TestMaze:
 
     def test_height_width(self):
 
-        with raises(ValueError):
+        with raises(ValueError) as exec_info:
             SimpleMaze(2, 2)
+        assert exec_info.type is ValueError
 
         for case in self.test_cases:
             s = SimpleMaze(**case)
