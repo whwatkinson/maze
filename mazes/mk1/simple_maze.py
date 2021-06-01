@@ -76,10 +76,11 @@ class SimpleMaze:
 
     def place_walls(self, walls_meta: dict) -> List[List[str]]:
 
+        # TODO this is not working
         maze_with_wall = self.blank_maze.copy()
 
         for wall in walls_meta:
-            print(wall)
+
             for a, b in wall['wall_coords']:
 
                 try:
