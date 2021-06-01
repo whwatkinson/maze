@@ -38,6 +38,7 @@ class TestMaze:
         for case in self.test_cases:
 
             s = SimpleMaze(**case)
+            markers = s.markers
             maze = s.blank_maze
             s.display_maze()
             height = case['height']
@@ -45,8 +46,8 @@ class TestMaze:
 
             valid_pos_start = maze[0][1:width-1]
             valid_pos_finish = maze[height-1][1:width-1]
-            finish = 'f'
-            start = 's'
+            start = markers['start']
+            finish = markers['finish']
 
             assert start in valid_pos_start
             assert finish in valid_pos_finish
