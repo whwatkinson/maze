@@ -1,4 +1,5 @@
-from solver.mk1 import SimpleSolver, solver_names
+from solver import solver_names
+from solver.mk1 import SimpleSolver
 
 
 class TestSimpleSolver:

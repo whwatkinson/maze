@@ -2,7 +2,7 @@ from typing import List, Tuple
 from random import randint
 
 
-from solver.mk1.solver_meta import solver_names
+from solver import solver_names
 
 
 class SimpleSolver:
