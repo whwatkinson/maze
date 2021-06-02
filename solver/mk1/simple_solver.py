@@ -1,4 +1,4 @@
-from typing import List, Tuple
+from typing import List, Tuple, Optional
 from random import randint
 
 
@@ -43,7 +43,7 @@ class SimpleSolver:
         return new_brain
 
     @staticmethod
-    def get_path_taken(path: List[int]):
+    def get_path_taken(path: List[Tuple[int, int]]) -> List:
         if path:
             return path
 
