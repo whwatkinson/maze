@@ -3,7 +3,7 @@ from pytest import raises
 from mazes.mk1 import SimpleMaze
 
 
-class TestMaze:
+class TestSimpleMaze:
 
     test_cases = [
         {

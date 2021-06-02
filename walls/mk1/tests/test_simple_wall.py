@@ -1,7 +1,7 @@
 from walls.mk1 import SimpleWall
 
 
-class TestWall:
+class TestSimpleWall:
 
     test_case = [
         {
