@@ -15,7 +15,12 @@ class SimpleMaze:
         'bottom':  '‾'
     }
 
-    def __init__(self, height: int = 10, width: int = 10, number_of_walls: int = 10):
+    def __init__(
+            self,
+            height: int = 10,
+            width: int = 10,
+            number_of_walls: int = 10
+    ):
 
         if height < 3:
             raise ValueError('This maze is to short.')
@@ -26,7 +31,7 @@ class SimpleMaze:
         self.width = width
         self.number_of_walls = number_of_walls
 
-        self.blank_maze = self.get_blank_maze(
+        blank_maze, self.start_coords, self.finish_coords = self.get_blank_maze(
             height=self.height,
             width=self.width,
         )
@@ -35,13 +40,14 @@ class SimpleMaze:
             width=self.width,
             number_of_walls=self.number_of_walls
         )
-        self.maze_with_walls = self.place_walls(
+        self.simple_maze = self.place_walls(
+            blank_maze=blank_maze,
             walls_meta=self.walls.walls_meta
         )
 
     @staticmethod
     def get_start_end_pos(width: int) -> Tuple[int, int]:
-
+        """Get the postionion of the start and finish"""
         ub = width - 2
         start_pos = randint(1, ub)
         end_pos = randint(1, ub)
@@ -49,52 +55,63 @@ class SimpleMaze:
         return start_pos, end_pos
 
     def get_n_row(self, width: int) -> List[List[str]]:
-
+        """Get the middle rows"""
         clear_markers_needed = width - 2
+        # TODO: ugly can do better
         row_n = [[self.markers['side']] + [self.markers['clear'] for _ in range(clear_markers_needed)] + [self.markers['side']]]
 
         return row_n
 
-    def get_blank_maze(self, height: int, width: int) -> List[List[str]]:
-
+    def get_blank_maze(self, height: int, width: int) -> Tuple[List[List[str]], Tuple[int, int], Tuple[int, int]]:
+        """Get a new maze with walls"""
+        # Get start and finish postions
         start_pos, finish_pos = self.get_start_end_pos(width=width)
 
+        # Get top row
         top = [self.markers['top'] for _ in range(width)]
         top[start_pos] = self.markers['start']
         maze = [top]
 
+        # Get n middle rows
         rows_n_needed = height - 2
-
         for _ in range(rows_n_needed):
             maze += self.get_n_row(width)
 
+        # Get bottom row
         bottom = [self.markers['bottom'] for _ in range(width)]
         bottom[finish_pos] = self.markers['finish']
         maze += [bottom]
 
-        return maze
+        return maze, (0, start_pos), (height-1, finish_pos)
 
-    def place_walls(self, walls_meta: dict) -> List[List[str]]:
+    def ok_to_place_wall(self, blank_maze: List[List[str]], a: int, b: int) -> bool:
+        """Check the placement of the wall"""
+        if blank_maze[a][b] == self.markers['clear']:
+            if blank_maze[a-1][b] != self.markers['start']:
+                if blank_maze[a+1][b] != self.markers['finish']:
+                    return True
+        else:
+            return False
 
-        # TODO this is not working
-        maze_with_wall = self.blank_maze.copy()
+    def place_walls(self, blank_maze: List[List[str]], walls_meta: dict) -> List[List[str]]:
 
+        # Each row
         for wall in walls_meta:
-
+            # Over each pair of coordinates
             for a, b in wall['wall_coords']:
 
                 try:
-                    if maze_with_wall[a][b] == self.markers['clear'] and maze_with_wall[a-1][b] == self.markers['start'] and maze_with_wall[a][b+1] == self.markers['finish']:
-
-                        maze_with_wall[a][b] = self.markers['wall']
+                    if self.ok_to_place_wall(blank_maze, a, b):
+                        blank_maze[a][b] = self.markers['wall']
                 except IndexError:
+                    # Got to love and except inde error
                     continue
 
-        return maze_with_wall
+        return blank_maze
 
     def display_maze(self) -> None:
 
-        for row in self.maze_with_walls:
+        for row in self.simple_maze:
             print(row)
 
         return None
