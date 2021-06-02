@@ -7,12 +7,14 @@ class TestWall:
         {
             'height': 5,
             'width': 5,
-            'number_of_walls': 2
+            'number_of_walls': 2,
+            'max_wall_length': 1
         },
         {
             'height': 7,
             'width': 66,
-            'number_of_walls': 25
+            'number_of_walls': 25,
+            'max_wall_length': 12
         },
         {
             'height': 45,
@@ -22,7 +24,8 @@ class TestWall:
         {
             'height': 99,
             'width': 99,
-            'number_of_walls': 3
+            'number_of_walls': 0,
+            'max_wall_length': 12
         }
     ]
 
