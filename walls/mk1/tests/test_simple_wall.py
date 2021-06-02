@@ -55,4 +55,3 @@ class TestSimpleWall:
 
     def test_wall_length(self):
         pass
-

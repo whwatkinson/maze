@@ -38,7 +38,7 @@ class SimpleSolver:
                 'memory': {
                     'steps': 0
                 },
-                'last_known_position': None
+                'last_known_position': None,
             }
         return new_brain
 
