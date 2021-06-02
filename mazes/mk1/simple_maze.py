@@ -26,7 +26,7 @@ class SimpleMaze:
         self.width = width
         self.number_of_walls = number_of_walls
 
-        self.blank_maze = self.get_blank_maze(
+        self.blank_maze, self.start_coords, self.finish_coords = self.get_blank_maze(
             height=self.height,
             width=self.width,
         )
@@ -55,7 +55,7 @@ class SimpleMaze:
 
         return row_n
 
-    def get_blank_maze(self, height: int, width: int) -> List[List[str]]:
+    def get_blank_maze(self, height: int, width: int) -> Tuple[List[List[str]], Tuple[int, int], Tuple[int, int]]:
 
         start_pos, finish_pos = self.get_start_end_pos(width=width)
 
@@ -72,7 +72,7 @@ class SimpleMaze:
         bottom[finish_pos] = self.markers['finish']
         maze += [bottom]
 
-        return maze
+        return maze, (0, start_pos), (height-1, finish_pos)
 
     def place_walls(self, walls_meta: dict) -> List[List[str]]:
 
@@ -84,9 +84,10 @@ class SimpleMaze:
             for a, b in wall['wall_coords']:
 
                 try:
-                    if maze_with_wall[a][b] == self.markers['clear'] and maze_with_wall[a-1][b] == self.markers['start'] and maze_with_wall[a][b+1] == self.markers['finish']:
+                    if maze_with_wall[a][b] == self.markers['clear'] and maze_with_wall[a-1][b] != self.markers['start'] and maze_with_wall[a+1][b] != self.markers['finish']:
 
                         maze_with_wall[a][b] = self.markers['wall']
+
                 except IndexError:
                     continue
 
