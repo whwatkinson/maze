@@ -26,7 +26,7 @@ class SimpleMaze:
         self.width = width
         self.number_of_walls = number_of_walls
 
-        self.blank_maze, self.start_coords, self.finish_coords = self.get_blank_maze(
+        blank_maze, self.start_coords, self.finish_coords = self.get_blank_maze(
             height=self.height,
             width=self.width,
         )
@@ -35,7 +35,8 @@ class SimpleMaze:
             width=self.width,
             number_of_walls=self.number_of_walls
         )
-        self.maze_with_walls = self.place_walls(
+        self.simple_maze = self.place_walls(
+            blank_maze=blank_maze,
             walls_meta=self.walls.walls_meta
         )
 
@@ -74,28 +75,34 @@ class SimpleMaze:
 
         return maze, (0, start_pos), (height-1, finish_pos)
 
-    def place_walls(self, walls_meta: dict) -> List[List[str]]:
+    def ok_to_place_wall(self, blank_maze: List[List[str]], a: int, b: int) -> bool:
 
-        # TODO this is not working
-        maze_with_wall = self.blank_maze.copy()
+        if blank_maze[a][b] == self.markers['clear']:
+            if blank_maze[a-1][b] != self.markers['start']:
+                if blank_maze[a+1][b] != self.markers['finish']:
+                    return True
+
+        else:
+            return False
+
+    def place_walls(self, blank_maze: List[List[str]], walls_meta: dict) -> List[List[str]]:
 
         for wall in walls_meta:
 
             for a, b in wall['wall_coords']:
 
                 try:
-                    if maze_with_wall[a][b] == self.markers['clear'] and maze_with_wall[a-1][b] != self.markers['start'] and maze_with_wall[a+1][b] != self.markers['finish']:
-
-                        maze_with_wall[a][b] = self.markers['wall']
+                    if self.ok_to_place_wall(blank_maze, a, b):
+                        blank_maze[a][b] = self.markers['wall']
 
                 except IndexError:
                     continue
 
-        return maze_with_wall
+        return blank_maze
 
     def display_maze(self) -> None:
 
-        for row in self.maze_with_walls:
+        for row in self.simple_maze:
             print(row)
 
         return None

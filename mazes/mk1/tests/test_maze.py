@@ -39,7 +39,7 @@ class TestMaze:
 
             s = SimpleMaze(**case)
             markers = s.markers
-            maze = s.blank_maze
+            maze = s.simple_maze
             height = case['height']
             width = case['width']
 
@@ -57,7 +57,7 @@ class TestMaze:
 
         for case in self.test_cases:
             s = SimpleMaze(**case)
-            maze = s.blank_maze
+            maze = s.simple_maze
 
             assert len(maze) == case['height']
 
@@ -69,7 +69,7 @@ class TestMaze:
         for case in self.test_cases:
 
             s = SimpleMaze(**case)
-            maze = s.blank_maze
+            maze = s.simple_maze
 
             height = case['height']
             width = case['width']
