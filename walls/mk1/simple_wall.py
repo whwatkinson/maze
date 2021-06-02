@@ -4,9 +4,20 @@ from typing import Tuple, List
 
 class SimpleWall:
 
-    def __init__(self, height: int, width: int, number_of_walls: int = 10, max_wall_length: int = 5):
+    def __init__(
+            self,
+            height: int,
+            width: int,
+            number_of_walls: int = 10,
+            max_wall_length: int = 5
+    ):
         self.number_of_walls = number_of_walls
-        self.walls_meta = self.get_walls_meta(height=height, width=width, max_wall_length=max_wall_length)
+        self.max_wall_length = max_wall_length
+        self.walls_meta = self.get_walls_meta(
+            height=height,
+            width=width,
+            max_wall_length=max_wall_length
+        )
 
     @staticmethod
     def get_wall_coords(v: bool, length: int, x: int, y: int) -> List[Tuple[int, int]]:
