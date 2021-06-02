@@ -7,13 +7,15 @@ from solver.mk1.solver_meta import solver_names
 
 class SimpleSolver:
 
-    def __init__(self, brain: list = None, path_taken: list = None):
+    def __init__(self, brain: list = None, path_taken: list = None, position: Tuple[int, int] = None):
 
         if not brain:
             self.brain = self.get_brain(brain)
 
         if not path_taken:
             self.path_taken = self.get_path_taken(path_taken)
+
+        self.position = position
 
         # Please let me, and why the hell not
         self.name = solver_names[randint(0, len(solver_names))]
@@ -25,8 +27,7 @@ class SimpleSolver:
             return brain
 
         else:
-            # What consitutes a brain anway?
-            # Currently thinking a known state
+            # What consitutes a brain anway? Currently thinking a known state
             new_brain = {
                 'sight': {
                     'up': None,
@@ -36,8 +37,8 @@ class SimpleSolver:
                 },
                 'memory': {
                     'steps': 0
-                }
-
+                },
+                'last_known_position': None
             }
         return new_brain
 
@@ -47,7 +48,7 @@ class SimpleSolver:
             return path
 
         else:
-            # Somthing special here
+            # Somthing special here or not?
             new_path = []
         return new_path
 
@@ -56,4 +57,4 @@ class SimpleSolver:
         return self.path_taken.append(coords)
 
     def __repr__(self) -> str:
-        return 'tbd'
+        return f"SIMPLE_SOLVER (name: {self.name})"

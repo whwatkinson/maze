@@ -21,6 +21,7 @@ class SimpleWall:
 
     @staticmethod
     def get_wall_coords(v: bool, length: int, x: int, y: int) -> List[Tuple[int, int]]:
+        """As it says on the tin"""
 
         wall_coords = []
 
@@ -34,6 +35,7 @@ class SimpleWall:
         return wall_coords
 
     def get_walls_meta(self, height: int, width: int, max_wall_length: int) -> List[dict]:
+        """Generates a list of wall objects"""
 
         walls_meta = []
 

@@ -1,4 +1,3 @@
-from typing import List, Tuple
 from solver.mk1 import SimpleSolver, solver_names
 
 
