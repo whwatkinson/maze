@@ -2,7 +2,7 @@ from typing import List, Tuple
 from random import randint
 
 
-from solver.mk1.names import solver_names
+from solver.mk1.solver_meta import solver_names
 
 
 class SimpleSolver:
@@ -13,7 +13,7 @@ class SimpleSolver:
             self.brain = self.get_brain(brain)
 
         if not path_taken:
-            self.path_taken = self.get_path(path_taken)
+            self.path_taken = self.get_path_taken(path_taken)
 
         # Please let me, and why the hell not
         self.name = solver_names[randint(0, len(solver_names))]
@@ -33,13 +33,16 @@ class SimpleSolver:
                     'down': None,
                     'left': None,
                     'right': None
+                },
+                'memory': {
+                    'steps': 0
                 }
 
             }
         return new_brain
 
     @staticmethod
-    def get_path(path: List[int]):
+    def get_path_taken(path: List[int]):
         if path:
             return path
 
