@@ -4,11 +4,9 @@ from typing import Tuple, List
 
 class SimpleWall:
 
-    def __init__(self, height: int, width: int, number_of_walls: int = 10, wall_length: int = 5):
+    def __init__(self, height: int, width: int, number_of_walls: int = 10, max_wall_length: int = 5):
         self.number_of_walls = number_of_walls
-        self.walls_meta = self.get_walls_meta(height=height, width=width, wall_length=wall_length)
-
-    #  need check to not place on wall
+        self.walls_meta = self.get_walls_meta(height=height, width=width, max_wall_length=max_wall_length)
 
     @staticmethod
     def get_wall_coords(v: bool, length: int, x: int, y: int) -> List[Tuple[int, int]]:
@@ -24,7 +22,7 @@ class SimpleWall:
 
         return wall_coords
 
-    def get_walls_meta(self, height: int, width: int, wall_length: int) -> List[dict]:
+    def get_walls_meta(self, height: int, width: int, max_wall_length: int) -> List[dict]:
 
         walls_meta = []
 
@@ -34,19 +32,20 @@ class SimpleWall:
             v = bool(randint(0, 1))
 
             # Length of wall
-            length = randint(1, wall_length)
+            wall_length = randint(1, max_wall_length)
 
             # x coordinate
             x = randint(1, height - 1)
 
             # y coordinate
             y = randint(1, width - 1)
-            wall_coords = self.get_wall_coords(v, length, x, y)
+
+            wall_coords = self.get_wall_coords(v, wall_length, x, y)
 
             walls_meta.append(
                 {
                     "v": v,
-                    "length": length,
+                    "wall_length": wall_length,
                     "x": x,
                     "y": y,
                     "wall_coords": wall_coords
