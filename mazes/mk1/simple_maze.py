@@ -1,17 +1,17 @@
 from random import randint
 from typing import List, Tuple
-from mazes.mk1.simple_wall import SimpleWall
+from walls.mk1.simple_wall import SimpleWall
 
 
 class SimpleMaze:
 
     markers = {
         'top': '_',
-        'start':  's',
+        'start':  'S',
         'side':  '|',
         'clear':  ' ',
         'wall': 'W',
-        'finish':  'f',
+        'finish':  'F',
         'bottom':  '‾'
     }
 
@@ -84,10 +84,11 @@ class SimpleMaze:
             for a, b in wall['wall_coords']:
 
                 try:
-                    if maze_with_wall[a][b] == ' ':
+                    if maze_with_wall[a][b] == self.markers['clear'] and maze_with_wall[a-1][b] == self.markers['start'] and maze_with_wall[a][b+1] == self.markers['finish']:
+
                         maze_with_wall[a][b] = self.markers['wall']
                 except IndexError:
-                    pass
+                    continue
 
         return maze_with_wall
 
