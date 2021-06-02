@@ -7,7 +7,7 @@ from solver import solver_names
 
 class SimpleSolver:
 
-    def __init__(self, brain: list = None, path_taken: list = None, position: Tuple[int, int] = None):
+    def __init__(self, brain: dict = None, path_taken: list = None, position: Tuple[int, int] = None):
 
         if not brain:
             self.brain = self.get_brain(brain)

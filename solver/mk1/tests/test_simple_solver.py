@@ -18,3 +18,5 @@ class TestSimpleSolver:
             ss = SimpleSolver(**case)
 
             assert ss.name in solver_names
+            assert type(ss.brain) is dict
+            assert type(ss.path_taken) is list
