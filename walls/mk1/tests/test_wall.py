@@ -1,4 +1,4 @@
-from mazes.mk1 import SimpleWall
+from walls.mk1 import SimpleWall
 
 
 class TestWall:
@@ -35,7 +35,6 @@ class TestWall:
 
             assert len(wall_meta) == case['number_of_walls']
 
-
     def test_get_wall_meta_return(self):
 
         for case in self.test_case:
@@ -53,3 +52,4 @@ class TestWall:
 
     def test_wall_length(self):
         pass
+

@@ -1,6 +1,6 @@
 from random import randint
 from typing import List, Tuple
-from mazes.mk1.simple_wall import SimpleWall
+from walls.mk1.simple_wall import SimpleWall
 
 
 class SimpleMaze:
