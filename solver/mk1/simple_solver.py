@@ -1,9 +1,10 @@
-from typing import List, Tuple, Optional
+from typing import List, Tuple
 from random import randint
 
 
 from solver import solver_names
 
+# TODO BRAIN CLASS after we are sentient beings
 
 class SimpleSolver:
 
@@ -33,12 +34,22 @@ class SimpleSolver:
                     'up': None,
                     'down': None,
                     'left': None,
-                    'right': None
+                    'right': None,
+                    'zd': None,
+                    'zm': None
                 },
+                'last_known_position': {
+                    'up': None,
+                    'down': None,
+                    'left': None,
+                    'right': None,
+                    'zd': None,
+                    'zm': None
+                },
+
                 'memory': {
                     'steps': 0
-                },
-                'last_known_position': None,
+                }
             }
         return new_brain
 
@@ -52,9 +63,31 @@ class SimpleSolver:
             new_path = []
         return new_path
 
-    def add_path(self, coords: Tuple[int, int]) -> List[Tuple[int, int]]:
+    def add_path(self, coords: Tuple[int, int]) -> str:
 
-        return self.path_taken.append(coords)
+        self.path_taken.append(coords)
+
+        return 'added :P'
+
+    def update_location(self, up: str, down: str, left: str, right: str, zm: str = None, zp: str = None) -> str:
+
+        # Replace current sight with last known position
+        self.brain['last_known_position'] = self.brain['sight']
+
+        # Get new position from args
+        current_position = {
+            'up': up,
+            'down': down,
+            'left': left,
+            'right': right,
+            'zd': zm,
+            'zu': zp
+        }
+
+        # Update brain
+        self.brain['sight'] = current_position
+
+        return 'Thinking complete!'
 
     def __repr__(self) -> str:
         return f"SIMPLE_SOLVER (name: {self.name})"
