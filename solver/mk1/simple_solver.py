@@ -35,16 +35,16 @@ class SimpleSolver:
                     'down': None,
                     'left': None,
                     'right': None,
-                    'zd': None,
-                    'zm': None
+                    'z_minus': None,
+                    'z_plus': None
                 },
                 'last_known_position': {
                     'up': None,
                     'down': None,
                     'left': None,
                     'right': None,
-                    'zd': None,
-                    'zm': None
+                    'z_minus': None,
+                    'z_plus': None
                 },
 
                 'memory': {
@@ -69,7 +69,15 @@ class SimpleSolver:
 
         return 'added :P'
 
-    def update_location(self, up: str, down: str, left: str, right: str, zm: str = None, zp: str = None) -> str:
+    def update_step_count(self):
+
+        steps = self.brain['memory']['steps']
+
+        steps += 1
+
+        return f'steps remainig {10000 - steps}!'
+
+    def update_location(self, up: str, down: str, left: str, right: str, z_minus: str = None, z_plus: str = None) -> str:
 
         # Replace current sight with last known position
         self.brain['last_known_position'] = self.brain['sight']
@@ -80,8 +88,8 @@ class SimpleSolver:
             'down': down,
             'left': left,
             'right': right,
-            'zd': zm,
-            'zu': zp
+            'z_minus': z_minus,
+            'z_plus': z_plus
         }
 
         # Update brain

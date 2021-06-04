@@ -20,3 +20,10 @@ class TestSimpleSolver:
             assert ss.name in solver_names
             assert type(ss.brain) is dict
             assert type(ss.path_taken) is list
+
+
+    def test_brain_position(self):
+        pass
+
+    def test_brain_step_count(self):
+        pass
