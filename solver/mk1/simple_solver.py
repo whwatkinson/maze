@@ -4,7 +4,8 @@ from random import randint
 
 from solver import solver_names
 
-# TODO BRAIN CLASS after we are sentient beings
+# TODO BRAIN CLASS after all we are sentient beings
+
 
 class SimpleSolver:
 
@@ -70,11 +71,11 @@ class SimpleSolver:
         return 'added :P'
 
     def update_step_count(self):
-
+        print(self.brain['memory']['steps'])
         steps = self.brain['memory']['steps']
 
-        steps += 1
-
+        self.brain['memory']['steps'] = self.brain['memory']['steps'] + 1
+        print(self.brain['memory']['steps'])
         return f'steps remainig {10000 - steps}!'
 
     def update_location(self, up: str, down: str, left: str, right: str, z_minus: str = None, z_plus: str = None) -> str:
