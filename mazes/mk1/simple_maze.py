@@ -2,18 +2,18 @@ from random import randint
 from typing import List, Tuple
 from walls.mk1.simple_wall import SimpleWall
 
-markers = {
-    'top': '_',
-    'start': 'S',
-    'side': '|',
-    'clear': ' ',
-    'wall': 'W',
-    'finish': 'F',
-    'bottom': '‾'
-}
-
 
 class SimpleMaze:
+
+    markers = {
+        'top': '_',
+        'start':  'S',
+        'side':  '|',
+        'clear':  ' ',
+        'wall': 'W',
+        'finish':  'F',
+        'bottom':  '‾'
+    }
 
     def __init__(
             self,
@@ -58,7 +58,7 @@ class SimpleMaze:
         """Get the middle rows"""
         clear_markers_needed = width - 2
         # TODO: ugly can do better
-        row_n = [[markers['side']] + [markers['clear'] for _ in range(clear_markers_needed)] + [markers['side']]]
+        row_n = [[self.markers['side']] + [self.markers['clear'] for _ in range(clear_markers_needed)] + [self.markers['side']]]
 
         return row_n
 
@@ -68,8 +68,8 @@ class SimpleMaze:
         start_pos, finish_pos = self.get_start_end_pos(width=width)
 
         # Get top row
-        top = [markers['top'] for _ in range(width)]
-        top[start_pos] = markers['start']
+        top = [self.markers['top'] for _ in range(width)]
+        top[start_pos] = self.markers['start']
         maze = [top]
 
         # Get n middle rows
@@ -78,17 +78,17 @@ class SimpleMaze:
             maze += self.get_n_row(width)
 
         # Get bottom row
-        bottom = [markers['bottom'] for _ in range(width)]
-        bottom[finish_pos] = markers['finish']
+        bottom = [self.markers['bottom'] for _ in range(width)]
+        bottom[finish_pos] = self.markers['finish']
         maze += [bottom]
 
         return maze, (0, start_pos), (height-1, finish_pos)
 
     def ok_to_place_wall(self, blank_maze: List[List[str]], a: int, b: int) -> bool:
         """Check the placement of the wall"""
-        if blank_maze[a][b] == markers['clear']:
-            if blank_maze[a-1][b] != markers['start']:
-                if blank_maze[a+1][b] != markers['finish']:
+        if blank_maze[a][b] == self.markers['clear']:
+            if blank_maze[a-1][b] != self.markers['start']:
+                if blank_maze[a+1][b] != self.markers['finish']:
                     return True
         else:
             return False
@@ -102,7 +102,7 @@ class SimpleMaze:
 
                 try:
                     if self.ok_to_place_wall(blank_maze, a, b):
-                        blank_maze[a][b] = markers['wall']
+                        blank_maze[a][b] = self.markers['wall']
                 except IndexError:
                     # Got to love and except inde error
                     continue
