@@ -1,5 +1,7 @@
 from random import randint
 from typing import List, Tuple
+
+
 from walls.mk1.simple_wall import SimpleWall
 
 

@@ -17,7 +17,7 @@ class SimpleSolver:
     ):
 
         if not brain:
-            self.brain = self.get_brain(brain)
+            self.brain = SimpleBrain(brain)
 
         if not path_taken:
             self.path_taken = self.get_path_taken(path_taken)
@@ -28,19 +28,7 @@ class SimpleSolver:
         self.name = solver_names[randint(0, len(solver_names))]
 
     @staticmethod
-    def get_brain(brain):
-
-        if brain:
-            return brain
-
-        else:
-            # What consitutes a brain anway? Currently thinking a known state
-            new_brain = SimpleBrain()
-
-            return new_brain
-
-    @staticmethod
-    def get_path_taken(path: List[Tuple[int, int]]) -> List:
+    def get_path_taken(path: List[Tuple[int, int]]) -> List[Tuple[int, int]]:
         if path:
             return path
 
