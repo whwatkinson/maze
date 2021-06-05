@@ -21,7 +21,8 @@ class SimpleMaze:
             self,
             height: int = 10,
             width: int = 10,
-            number_of_walls: int = 10
+            number_of_walls: int = 10,
+            level: int = 0
     ):
 
         if height < 3:
@@ -36,8 +37,7 @@ class SimpleMaze:
         (
             blank_maze,
             self.start_coords,
-            self.finish_coords
-        ) = self.get_blank_maze(
+            self.finish_coords ) = self.get_blank_maze(
             height=self.height,
             width=self.width,
         )
