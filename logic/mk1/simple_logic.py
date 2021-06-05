@@ -1,32 +1,35 @@
 from typing import List, Tuple
 
 
-def get_sight(maze: List[List[str]], position: Tuple[int, int]):
+class SimpleLogic:
 
-    x, y = position
+    @staticmethod
+    def get_sight(maze: List[List[str]], position: Tuple[int, int]):
 
-    sight_coords_map = {
-        'up': (x + 1, y),
-        'down': (x - 1, y),
-        'left': (x, y - 1),
-        'right': (x, y + 1),
-        'z_minus': (None, None),
-        'z_plus': (None, None)
-    }
+        x, y = position
 
-    new_sight = {
-        'up': None,
-        'down': None,
-        'left': None,
-        'right': None,
-        'z_minus': None,
-        'z_plus': None
-    }
+        sight_coords_map = {
+            'up': (x + 1, y),
+            'down': (x - 1, y),
+            'left': (x, y - 1),
+            'right': (x, y + 1),
+            'z_minus': (None, None),
+            'z_plus': (None, None)
+        }
 
-    for line_of_sight, coords in sight_coords_map.items():
+        new_sight = {
+            'up': None,
+            'down': None,
+            'left': None,
+            'right': None,
+            'z_minus': None,
+            'z_plus': None
+        }
 
-        x, y = coords
+        for line_of_sight, coords in sight_coords_map.items():
 
-        new_sight[line_of_sight] = maze[x][y]
+            x, y = coords
 
-    return new_sight
+            new_sight[line_of_sight] = maze[x][y]
+
+        return new_sight
