@@ -38,3 +38,39 @@ class TestSimpleSolver:
             ss.update_step_count()
 
             assert ss.get_step_count() == case['total_steps']
+
+    def test_update_position(self):
+
+        test_cases = [
+            {
+                'old_position': {
+                    'up': 'W',
+                    'down': 'W',
+                    'left': ' ',
+                    'right': '|',
+                    'z_minus': None,
+                    'z_plus': None
+                },
+                'new_position': {
+                    'up': ' ',
+                    'down': ' ',
+                    'left': ' ',
+                    'right': ' ',
+                    'z_minus': None,
+                    'z_plus': None
+                }
+            }
+        ]
+
+        for case in test_cases:
+            ss = SimpleSolver()
+            ss.brain.brain['sight'] = case['old_position']
+            ss.update_location(**case['new_position'])
+
+            # Check old sight is LKP
+            assert ss.brain.brain['last_known_position'] == case['old_position']
+
+            # Check new sight in NP
+            assert ss.get_currecnt_postion() == case['new_position']
+
+

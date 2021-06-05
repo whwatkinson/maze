@@ -53,7 +53,6 @@ class SimpleSolver:
     def update_step_count(self) -> bool:
 
         self.brain.brain['memory']['steps'] += 1
-        # self.brain['memory']['steps'] += 1
 
         return True
 
@@ -64,9 +63,7 @@ class SimpleSolver:
     def update_location(self, up: str, down: str, left: str, right: str, z_minus: str = None, z_plus: str = None) -> bool:
 
         # Replace current sight with last known position
-
-
-        self.brain['last_known_position'] = self.brain['sight']
+        self.brain.brain['last_known_position'] = self.brain.brain['sight']
 
         # Get new position from args
         current_position = {
@@ -79,9 +76,13 @@ class SimpleSolver:
         }
 
         # Update brain
-        self.brain['sight'] = current_position
+        self.brain.brain['sight'] = current_position
 
         return True
+
+    def get_currecnt_postion(self):
+
+        return self.brain.brain['sight']
 
     def __repr__(self) -> str:
         return f"SIMPLE_SOLVER (name: {self.name})"
