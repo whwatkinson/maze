@@ -1,5 +1,7 @@
 from random import randint
 from typing import List, Tuple
+
+
 from walls.mk1.simple_wall import SimpleWall
 
 
@@ -19,7 +21,8 @@ class SimpleMaze:
             self,
             height: int = 10,
             width: int = 10,
-            number_of_walls: int = 10
+            number_of_walls: int = 10,
+            level: int = 0
     ):
 
         if height < 3:
@@ -31,7 +34,10 @@ class SimpleMaze:
         self.width = width
         self.number_of_walls = number_of_walls
 
-        blank_maze, self.start_coords, self.finish_coords = self.get_blank_maze(
+        (
+            blank_maze,
+            self.start_coords,
+            self.finish_coords ) = self.get_blank_maze(
             height=self.height,
             width=self.width,
         )
@@ -58,11 +64,21 @@ class SimpleMaze:
         """Get the middle rows"""
         clear_markers_needed = width - 2
         # TODO: ugly can do better
-        row_n = [[self.markers['side']] + [self.markers['clear'] for _ in range(clear_markers_needed)] + [self.markers['side']]]
+        row_n = [
+            [
+                self.markers['side']
+            ] + [
+                self.markers['clear'] for _ in range(clear_markers_needed)
+            ] + [
+                self.markers['side']
+            ]
+        ]
 
         return row_n
 
-    def get_blank_maze(self, height: int, width: int) -> Tuple[List[List[str]], Tuple[int, int], Tuple[int, int]]:
+    def get_blank_maze(
+            self, height: int, width: int
+    ) -> Tuple[List[List[str]], Tuple[int, int], Tuple[int, int]]:
         """Get a new maze with walls"""
         # Get start and finish postions
         start_pos, finish_pos = self.get_start_end_pos(width=width)
@@ -84,7 +100,9 @@ class SimpleMaze:
 
         return maze, (0, start_pos), (height-1, finish_pos)
 
-    def ok_to_place_wall(self, blank_maze: List[List[str]], a: int, b: int) -> bool:
+    def ok_to_place_wall(
+            self, blank_maze: List[List[str]], a: int, b: int
+    ) -> bool:
         """Check the placement of the wall"""
         if blank_maze[a][b] == self.markers['clear']:
             if blank_maze[a-1][b] != self.markers['start']:
@@ -93,7 +111,9 @@ class SimpleMaze:
         else:
             return False
 
-    def place_walls(self, blank_maze: List[List[str]], walls_meta: dict) -> List[List[str]]:
+    def place_walls(
+            self, blank_maze: List[List[str]], walls_meta: dict
+    ) -> List[List[str]]:
 
         # Each row
         for wall in walls_meta:
