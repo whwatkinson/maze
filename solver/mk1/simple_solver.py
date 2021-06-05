@@ -9,7 +9,12 @@ from solver import solver_names
 
 class SimpleSolver:
 
-    def __init__(self, brain: SimpleBrain = None, path_taken: list = None, position: Tuple[int, int] = None):
+    def __init__(
+            self,
+            brain: SimpleBrain = None,
+            path_taken: list = None,
+            position: Tuple[int, int] = None
+    ):
 
         if not brain:
             self.brain = self.get_brain(brain)
@@ -60,7 +65,10 @@ class SimpleSolver:
 
         return self.brain.brain['memory']['steps']
 
-    def update_location(self, up: str, down: str, left: str, right: str, z_minus: str = None, z_plus: str = None) -> bool:
+    def update_location(
+            self, up: str, down: str, left: str, right: str,
+            z_minus: str = None, z_plus: str = None
+    ) -> bool:
 
         # Replace current sight with last known position
         self.brain.brain['last_known_position'] = self.brain.brain['sight']

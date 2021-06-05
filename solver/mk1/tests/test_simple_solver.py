@@ -68,9 +68,10 @@ class TestSimpleSolver:
             ss.update_location(**case['new_position'])
 
             # Check old sight is LKP
-            assert ss.brain.brain['last_known_position'] == case['old_position']
+            assert (
+                    ss.brain.brain['last_known_position']
+                    == case['old_position']
+            )
 
             # Check new sight in NP
             assert ss.get_currecnt_postion() == case['new_position']
-
-
