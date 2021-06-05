@@ -18,7 +18,7 @@ class SimpleBrain:
 
     def get_brain(self, brain):
 
-        if brain:
+        if type(brain) is self:
             return brain
 
         else:
