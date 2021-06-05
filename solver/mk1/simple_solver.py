@@ -1,7 +1,7 @@
 from typing import List, Tuple
 from random import randint
 
-
+from solver.mk1.simple_brain import SimpleBrain
 from solver import solver_names
 
 # TODO BRAIN CLASS after all we are sentient beings
@@ -9,7 +9,7 @@ from solver import solver_names
 
 class SimpleSolver:
 
-    def __init__(self, brain: dict = None, path_taken: list = None, position: Tuple[int, int] = None):
+    def __init__(self, brain: SimpleBrain = None, path_taken: list = None, position: Tuple[int, int] = None):
 
         if not brain:
             self.brain = self.get_brain(brain)
@@ -30,29 +30,9 @@ class SimpleSolver:
 
         else:
             # What consitutes a brain anway? Currently thinking a known state
-            new_brain = {
-                'sight': {
-                    'up': None,
-                    'down': None,
-                    'left': None,
-                    'right': None,
-                    'z_minus': None,
-                    'z_plus': None
-                },
-                'last_known_position': {
-                    'up': None,
-                    'down': None,
-                    'left': None,
-                    'right': None,
-                    'z_minus': None,
-                    'z_plus': None
-                },
+            new_brain = SimpleBrain()
 
-                'memory': {
-                    'steps': 0
-                }
-            }
-        return new_brain
+            return new_brain
 
     @staticmethod
     def get_path_taken(path: List[Tuple[int, int]]) -> List:
@@ -64,23 +44,28 @@ class SimpleSolver:
             new_path = []
         return new_path
 
-    def add_path(self, coords: Tuple[int, int]) -> str:
+    def add_path(self, coords: Tuple[int, int]) -> bool:
 
         self.path_taken.append(coords)
 
-        return 'added :P'
+        return True
 
-    def update_step_count(self):
-        print(self.brain['memory']['steps'])
-        steps = self.brain['memory']['steps']
+    def update_step_count(self) -> bool:
 
-        self.brain['memory']['steps'] = self.brain['memory']['steps'] + 1
-        print(self.brain['memory']['steps'])
-        return f'steps remainig {10000 - steps}!'
+        self.brain.brain['memory']['steps'] += 1
+        # self.brain['memory']['steps'] += 1
 
-    def update_location(self, up: str, down: str, left: str, right: str, z_minus: str = None, z_plus: str = None) -> str:
+        return True
+
+    def get_step_count(self):
+
+        return self.brain.brain['memory']['steps']
+
+    def update_location(self, up: str, down: str, left: str, right: str, z_minus: str = None, z_plus: str = None) -> bool:
 
         # Replace current sight with last known position
+
+
         self.brain['last_known_position'] = self.brain['sight']
 
         # Get new position from args
@@ -96,7 +81,7 @@ class SimpleSolver:
         # Update brain
         self.brain['sight'] = current_position
 
-        return 'Thinking complete!'
+        return True
 
     def __repr__(self) -> str:
         return f"SIMPLE_SOLVER (name: {self.name})"

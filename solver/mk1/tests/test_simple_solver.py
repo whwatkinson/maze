@@ -18,7 +18,7 @@ class TestSimpleSolver:
             ss = SimpleSolver(**case)
 
             assert ss.name in solver_names
-            assert type(ss.brain) is dict
+            # assert type(ss.brain) is dict
             assert type(ss.path_taken) is list
 
     def test_brain_position(self):
@@ -35,6 +35,6 @@ class TestSimpleSolver:
         ss = SimpleSolver()
         for case in test_cases:
 
-            test_result = ss.update_step_count()
+            ss.update_step_count()
 
-            assert ss.brain['memory']['steps'] == case['total_steps']
+            assert ss.get_step_count() == case['total_steps']
