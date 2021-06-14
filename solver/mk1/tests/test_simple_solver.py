@@ -1,4 +1,4 @@
-from solver import solver_names
+from solver import SolverMeta
 from solver.mk1 import SimpleSolver
 
 
@@ -16,8 +16,9 @@ class TestSimpleSolver:
         for case in self.test_cases:
 
             ss = SimpleSolver(**case)
+            sm = SolverMeta()
 
-            assert ss.name in solver_names
+            assert ss.name in sm.solver_names
             # assert type(ss.brain) is dict
             assert type(ss.path_taken) is list
 
