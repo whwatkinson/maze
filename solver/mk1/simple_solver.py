@@ -38,14 +38,24 @@ class SimpleSolver:
         return new_path
 
     def add_path(self, coords: Tuple[int, int]) -> bool:
+        """Add path to memory"""
 
         self.path_taken.append(coords)
 
         return True
 
     def update_step_count(self) -> bool:
+        """Updates the step count"""
 
-        self.brain.brain['memory']['steps'] += 1
+        # Get bain dict
+        steps = self.brain.brain['memory']
+
+        # GOALS
+        if steps['steps'] > 10000:
+            print("STEP GOAL REACHED")
+
+        # Update steps
+        steps['steps'] += 1
 
         return True
 
@@ -73,6 +83,8 @@ class SimpleSolver:
 
         # Update brain
         self.brain.brain['sight'] = current_position
+
+        # TODO add check you have not rambled to far
 
         return True
 
