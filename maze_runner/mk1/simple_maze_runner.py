@@ -6,16 +6,14 @@ simple_maze = SimpleMaze(height=25, width=25, number_of_walls=5)
 
 simple_solver = SimpleSolver()
 
-# random
+# random?
 
-# with sight
+# with sight?
 
 # graph?
 
 
-
-
-def the_show( ):
+def the_show():
     pass
 
 
