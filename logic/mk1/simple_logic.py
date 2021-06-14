@@ -4,7 +4,7 @@ from typing import List, Tuple
 class LogicBase:
 
     @staticmethod
-    def update_sight(maze: List[List[str]], position: Tuple[int, int]):
+    def update_sight(maze: List[List[str]], position: Tuple[int, int]) -> dict:
 
         x, y = position
 

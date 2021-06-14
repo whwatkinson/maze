@@ -81,4 +81,4 @@ class SimpleSolver:
         return self.brain.brain['sight']
 
     def __repr__(self) -> str:
-        return f"SIMPLE_SOLVER (name: {self.name})"
+        return f"|SIMPLE_SOLVER| name: {self.name}"

@@ -36,8 +36,8 @@ class SimpleMaze:
 
         (
             blank_maze,
-            self.start_coords,
-            self.finish_coords
+            self.coords_start,
+            self.coords_finish
         ) = self.get_blank_maze(
             height=self.height,
             width=self.width,
@@ -99,7 +99,9 @@ class SimpleMaze:
         bottom[finish_pos] = self.markers['finish']
         maze += [bottom]
 
-        return maze, (0, start_pos), (height-1, finish_pos)
+        coords_start = (0, start_pos)
+        coords_finish = (height-1, finish_pos)
+        return maze, coords_start, coords_finish
 
     def ok_to_place_wall(
             self, blank_maze: List[List[str]], a: int, b: int
@@ -138,4 +140,9 @@ class SimpleMaze:
         return None
 
     def __repr__(self) -> str:
-        return f"SIMPLE_MAZE (height: {self.height}, width {self.width})"
+        return (
+            f"|SIMPLE_MAZE| "
+            "(height: {self.height}, "
+            "width: {self.width}), "
+            "number_of_walls: {number_of_walls}"
+                )
