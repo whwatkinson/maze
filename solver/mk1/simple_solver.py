@@ -67,6 +67,7 @@ class SimpleSolver:
             self, up: str, down: str, left: str, right: str,
             z_minus: str = None, z_plus: str = None
     ) -> bool:
+        """Update the sight and last_known_position"""
 
         # Replace current sight with last known position
         self.brain.brain['last_known_position'] = self.brain.brain['sight']
