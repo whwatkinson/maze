@@ -1,5 +1,5 @@
-from solver.solver_meta import solver_names
+from solver.solver_meta import SolverMeta
 
 __all__ = [
-    "solver_names"
+    "SolverMeta",
 ]

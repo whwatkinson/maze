@@ -30,14 +30,17 @@ class SimpleMaze:
         if width < 3:
             raise ValueError('This maze is to narrow.')
 
+        # OOP
         self.height = height
         self.width = width
         self.number_of_walls = number_of_walls
+        self.level = level
 
         (
             blank_maze,
-            self.start_coords,
-            self.finish_coords ) = self.get_blank_maze(
+            self.coords_start,
+            self.coords_finish
+        ) = self.get_blank_maze(
             height=self.height,
             width=self.width,
         )
@@ -61,7 +64,7 @@ class SimpleMaze:
         return start_pos, end_pos
 
     def get_n_row(self, width: int) -> List[List[str]]:
-        """Get the middle rows"""
+        """Get the middle rows of the maze"""
         clear_markers_needed = width - 2
         # TODO: ugly can do better
         row_n = [
@@ -98,12 +101,15 @@ class SimpleMaze:
         bottom[finish_pos] = self.markers['finish']
         maze += [bottom]
 
-        return maze, (0, start_pos), (height-1, finish_pos)
+        coords_start = (0, start_pos)
+        coords_finish = (height-1, finish_pos)
+
+        return maze, coords_start, coords_finish
 
     def ok_to_place_wall(
             self, blank_maze: List[List[str]], a: int, b: int
     ) -> bool:
-        """Check the placement of the wall"""
+        """Checks the placement of the wall"""
         if blank_maze[a][b] == self.markers['clear']:
             if blank_maze[a-1][b] != self.markers['start']:
                 if blank_maze[a+1][b] != self.markers['finish']:
@@ -114,22 +120,25 @@ class SimpleMaze:
     def place_walls(
             self, blank_maze: List[List[str]], walls_meta: dict
     ) -> List[List[str]]:
-
+        """Place the walls on the maze"""
         # Each row
         for wall in walls_meta:
             # Over each pair of coordinates
             for a, b in wall['wall_coords']:
 
                 try:
+                    # TODO BETTER PLEASE, really?!? also skips bad placements
+                    # maybe this is preferred?
                     if self.ok_to_place_wall(blank_maze, a, b):
                         blank_maze[a][b] = self.markers['wall']
                 except IndexError:
-                    # Got to love and except inde error
+                    # Got to love and except index error
                     continue
 
         return blank_maze
 
     def display_maze(self) -> None:
+        """Displays the maze in real time"""
 
         for row in self.simple_maze:
             print(row)
@@ -137,4 +146,10 @@ class SimpleMaze:
         return None
 
     def __repr__(self) -> str:
-        return f"SIMPLE_MAZE (height: {self.height}, width {self.width})"
+        """goal is to be unambiguous..."""
+        return (
+            f"|SIMPLE_MAZE| "
+            f"(height: {self.height}, "
+            f"width: {self.width}), "
+            f"number_of_walls: {self.number_of_walls}"
+                )

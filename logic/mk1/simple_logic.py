@@ -1,13 +1,17 @@
 from typing import List, Tuple
 
 
-class SimpleLogic:
+class LogicBase:
 
     @staticmethod
-    def get_sight(maze: List[List[str]], position: Tuple[int, int]):
+    def update_sight(maze: List[List[str]], position: Tuple[int, int]) -> dict:
+        """Updates the current line of sight"""
 
+        # Current location
         x, y = position
 
+        # Mapping of sight
+        # TODO needs to be in "const" or somthing appropriate?
         sight_coords_map = {
             'up': (x + 1, y),
             'down': (x - 1, y),
