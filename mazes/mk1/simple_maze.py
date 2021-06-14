@@ -148,7 +148,7 @@ class SimpleMaze:
         """goal is to be unambiguous..."""
         return (
             f"|SIMPLE_MAZE| "
-            "(height: {self.height}, "
-            "width: {self.width}), "
-            "number_of_walls: {number_of_walls}"
+            f"(height: {self.height}, "
+            f"width: {self.width}), "
+            f"number_of_walls: {self.number_of_walls}"
                 )
