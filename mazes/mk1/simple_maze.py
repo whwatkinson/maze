@@ -109,7 +109,7 @@ class SimpleMaze:
     def ok_to_place_wall(
             self, blank_maze: List[List[str]], a: int, b: int
     ) -> bool:
-        """Check the placement of the wall"""
+        """Checks the placement of the wall"""
         if blank_maze[a][b] == self.markers['clear']:
             if blank_maze[a-1][b] != self.markers['start']:
                 if blank_maze[a+1][b] != self.markers['finish']:
@@ -120,14 +120,15 @@ class SimpleMaze:
     def place_walls(
             self, blank_maze: List[List[str]], walls_meta: dict
     ) -> List[List[str]]:
-        """Ronseal"""
+        """Place the walls on the maze"""
         # Each row
         for wall in walls_meta:
             # Over each pair of coordinates
             for a, b in wall['wall_coords']:
 
-                # TODO BETTER PLEASE
                 try:
+                    # TODO BETTER PLEASE, really?!? also skips bad placements
+                    # maybe this is preferred?
                     if self.ok_to_place_wall(blank_maze, a, b):
                         blank_maze[a][b] = self.markers['wall']
                 except IndexError:
@@ -137,7 +138,7 @@ class SimpleMaze:
         return blank_maze
 
     def display_maze(self) -> None:
-        """Displays the maze"""
+        """Displays the maze in real time"""
 
         for row in self.simple_maze:
             print(row)
