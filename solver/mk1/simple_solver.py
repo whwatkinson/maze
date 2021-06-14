@@ -2,9 +2,11 @@ from typing import List, Tuple
 from random import randint
 
 from solver.mk1.simple_brain import SimpleBrain
-from solver import solver_names
+from solver import SolverMeta
 
 # TODO BRAIN CLASS after all we are sentient beings
+
+sm = SolverMeta()
 
 
 class SimpleSolver:
@@ -25,10 +27,13 @@ class SimpleSolver:
         self.position = position
 
         # Please let me, and why the hell not
-        self.name = solver_names[randint(0, len(solver_names))]
+        self.name = sm.solver_names[randint(0, len(sm.solver_names))]
+        self.language = sm.language[randint(0, len(sm.language))]
 
     @staticmethod
     def get_path_taken(path: List[Tuple[int, int]]) -> List[Tuple[int, int]]:
+        """Get a new path taken if memory is foggy"""
+
         if path:
             return path
 
@@ -60,7 +65,7 @@ class SimpleSolver:
         return True
 
     def get_step_count(self):
-
+        """Returns the current step count"""
         return self.brain.brain['memory']['steps']
 
     def update_location(
