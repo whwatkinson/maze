@@ -37,7 +37,8 @@ class SimpleMaze:
         (
             blank_maze,
             self.start_coords,
-            self.finish_coords ) = self.get_blank_maze(
+            self.finish_coords
+        ) = self.get_blank_maze(
             height=self.height,
             width=self.width,
         )

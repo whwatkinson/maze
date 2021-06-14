@@ -33,4 +33,3 @@ class LogicBase:
             new_sight[line_of_sight] = maze[x][y]
 
         return new_sight
-
