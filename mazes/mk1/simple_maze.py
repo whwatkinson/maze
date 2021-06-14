@@ -120,7 +120,7 @@ class SimpleMaze:
     def place_walls(
             self, blank_maze: List[List[str]], walls_meta: dict
     ) -> List[List[str]]:
-        """RONSIL"""
+        """Ronseal"""
         # Each row
         for wall in walls_meta:
             # Over each pair of coordinates

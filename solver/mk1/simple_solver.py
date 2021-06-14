@@ -93,4 +93,5 @@ class SimpleSolver:
         return self.brain.brain['sight']
 
     def __repr__(self) -> str:
+        """Ronseal"""
         return f"|SIMPLE_SOLVER| name: {self.name}"
