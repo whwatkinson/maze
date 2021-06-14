@@ -1,10 +1,10 @@
 from typing import List, Tuple
 
 
-class SimpleLogic:
+class LogicBase:
 
     @staticmethod
-    def get_sight(maze: List[List[str]], position: Tuple[int, int]):
+    def update_sight(maze: List[List[str]], position: Tuple[int, int]):
 
         x, y = position
 
@@ -33,3 +33,4 @@ class SimpleLogic:
             new_sight[line_of_sight] = maze[x][y]
 
         return new_sight
+

@@ -74,4 +74,4 @@ class TestSimpleSolver:
             )
 
             # Check new sight in NP
-            assert ss.get_currecnt_postion() == case['new_position']
+            assert ss.get_current_postion() == case['new_position']

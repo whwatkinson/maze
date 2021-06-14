@@ -10,6 +10,15 @@ simple_solver = SimpleSolver()
 
 # random
 
+
 # with sight
 
 # graph?
+
+
+def the_show():
+    pass
+
+
+if __name__ == "__main__":
+    the_show()

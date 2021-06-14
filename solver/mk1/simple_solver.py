@@ -76,7 +76,7 @@ class SimpleSolver:
 
         return True
 
-    def get_currecnt_postion(self):
+    def get_current_postion(self):
 
         return self.brain.brain['sight']
 
