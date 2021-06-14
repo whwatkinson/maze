@@ -89,7 +89,7 @@ class SimpleSolver:
         return True
 
     def get_current_postion(self):
-
+        """Where am I?"""
         return self.brain.brain['sight']
 
     def __repr__(self) -> str:
