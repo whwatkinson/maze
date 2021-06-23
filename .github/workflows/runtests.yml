@@ -27,4 +27,4 @@ jobs:
           flake8 .  --exclude .git,.github,__pycache__,venv,--count --exit-zero
       - name: Test with pytest
         run: |
-          pytest
+          python -m pytest
