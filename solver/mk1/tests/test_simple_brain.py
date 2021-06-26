@@ -1,10 +1,10 @@
-from solver.mk1 import SimpleBrain, SimpleOrgans
+from solver.mk1.simple_brain import SimpleBrain, SimpleOrgans
 
 
 so = SimpleOrgans()
 
-class TestSimpleBrain:
 
+class TestSimpleBrain:
 
     def test_get_new_brain(self):
 
@@ -19,7 +19,7 @@ class TestSimpleBrain:
                         'z_minus': None,
                         'z_plus': None
                     },
-                    'last_known_position': so.sight_clean
+                    'last_known_position': so.sight_clean,
                     'memory': {
                         'steps': 2
                     }

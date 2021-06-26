@@ -1,4 +1,4 @@
-from solver.mk1 import SimpleOrgans
+from solver.mk1.simple_organs import SimpleOrgans
 
 so = SimpleOrgans()
 

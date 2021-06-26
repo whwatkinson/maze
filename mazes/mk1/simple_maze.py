@@ -85,7 +85,7 @@ class SimpleMaze:
         maze = [top]
 
         # Get n middle rows
-        rows_n_needed = height - 2
+        rows_n_needed = self.height - 2
         for _ in range(rows_n_needed):
             maze += self.get_n_row()
 
