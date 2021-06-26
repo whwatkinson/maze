@@ -33,5 +33,5 @@ class SolverMeta:
     ]
 
     language = [
-        "Python", "JS", "C", "C++", "SQL", "Cypher", "Rookie"
+        "Python", "JavaScript", "C", "C++", "SQL", "Cypher", "Rookie"
     ]

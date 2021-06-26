@@ -129,4 +129,4 @@ dmypy.json
 .pyre/
 
 # Harry
-dev/
+backend_dev/

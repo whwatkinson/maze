@@ -1,15 +1,9 @@
+from solver.mk1.simple_organs import SimpleOrgans
+
+so = SimpleOrgans()
 
 
 class SimpleBrain:
-
-    new_sight = {
-        'up': None,
-        'down': None,
-        'left': None,
-        'right': None,
-        'z_minus': None,
-        'z_plus': None
-    }
 
     def __init__(self, brain: dict = None):
 
@@ -24,8 +18,8 @@ class SimpleBrain:
 
         else:
             new_brain = {
-                'sight': self.new_sight,
-                'last_known_position': self.new_sight,
+                'sight': so.sight_clean,
+                'last_known_position': so.sight_clean,
                 'memory': {
                     'steps': 0
                 }

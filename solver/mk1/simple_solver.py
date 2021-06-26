@@ -27,8 +27,8 @@ class SimpleSolver:
         self.position = position
 
         # Please let me, and why the hell not
-        self.name = sm.solver_names[randint(0, len(sm.solver_names))]
-        self.language = sm.language[randint(0, len(sm.language))]
+        self.name = sm.solver_names[randint(0, len(sm.solver_names)-1)]
+        self.language = sm.language[randint(0, len(sm.language)-1)]
 
     @staticmethod
     def get_path_taken(path: List[Tuple[int, int]]) -> List[Tuple[int, int]]:

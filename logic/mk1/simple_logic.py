@@ -1,7 +1,7 @@
 from typing import List, Tuple
 
 
-class LogicBase:
+class SimpleLogic:
 
     @staticmethod
     def update_sight(maze: List[List[str]], position: Tuple[int, int]) -> dict:
