@@ -43,6 +43,8 @@ class SimpleWall:
 
         walls_meta = []
 
+        # TODO namedtuple?
+        # No list comp as need x and y vars
         for _ in range(self.number_of_walls):
 
             # Vertical
