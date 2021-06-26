@@ -35,12 +35,8 @@ class SimpleMaze:
         self.width = width
         self.number_of_walls = number_of_walls
         self.level = level
-
-        (
-            blank_maze,
-            self.coords_start,
-            self.coords_finish
-        ) = self.get_blank_maze(
+        self.coords_start, self.coords_finish = self.get_start_finish_pos()
+        self.blank_maze = self.get_blank_maze(
             height=self.height,
             width=self.width,
         )
@@ -50,18 +46,21 @@ class SimpleMaze:
             number_of_walls=self.number_of_walls
         )
         self.simple_maze = self.place_walls(
-            blank_maze=blank_maze,
             walls_meta=self.walls.walls_meta
         )
 
-    @staticmethod
-    def get_start_end_pos(width: int) -> Tuple[int, int]:
-        """Get the postionion of the start and finish"""
-        ub = width - 2
-        start_pos = randint(1, ub)
-        end_pos = randint(1, ub)
+    # TODO @property for start and end coords
 
-        return start_pos, end_pos
+    def get_start_finish_pos(self) -> Tuple[Tuple[int, int], Tuple[int, int]]:
+        """Get the postionion of the start and finish"""
+        ub = self.width - 2
+        start_pos = randint(1, ub)
+        finish_pos = randint(1, ub)
+
+        coords_start = (0, start_pos)
+        coords_finish = (self.height-1, finish_pos)
+
+        return coords_start, coords_finish
 
     def get_n_row(self, width: int) -> List[List[str]]:
         """Get the middle rows of the maze"""
@@ -81,14 +80,15 @@ class SimpleMaze:
 
     def get_blank_maze(
             self, height: int, width: int
-    ) -> Tuple[List[List[str]], Tuple[int, int], Tuple[int, int]]:
+    ) -> List[List[str]]:
         """Get a new maze with walls"""
         # Get start and finish postions
-        start_pos, finish_pos = self.get_start_end_pos(width=width)
+        _, y_s = self.coords_start
+        _, y_f = self.coords_start
 
         # Get top row
         top = [self.markers['top'] for _ in range(width)]
-        top[start_pos] = self.markers['start']
+        top[y_s] = self.markers['start']
         maze = [top]
 
         # Get n middle rows
@@ -98,17 +98,13 @@ class SimpleMaze:
 
         # Get bottom row
         bottom = [self.markers['bottom'] for _ in range(width)]
-        bottom[finish_pos] = self.markers['finish']
+        bottom[y_f] = self.markers['finish']
         maze += [bottom]
 
-        coords_start = (0, start_pos)
-        coords_finish = (height-1, finish_pos)
-
-        return maze, coords_start, coords_finish
+        return maze
 
     def ok_to_place_wall(
-            self, blank_maze: List[List[str]], a: int, b: int
-    ) -> bool:
+            self, blank_maze: List[List[str]], a: int, b: int) -> bool:
         """Checks the placement of the wall"""
         if blank_maze[a][b] == self.markers['clear']:
             if blank_maze[a-1][b] != self.markers['start']:
@@ -117,10 +113,10 @@ class SimpleMaze:
         else:
             return False
 
-    def place_walls(
-            self, blank_maze: List[List[str]], walls_meta: dict
-    ) -> List[List[str]]:
+    def place_walls(self, walls_meta: dict) -> List[List[str]]:
         """Place the walls on the maze"""
+        # blank_maze = self.get_blank_maze(height=self.height, width=self.width)
+        blank_maze = self.blank_maze.copy()
         # Each row
         for wall in walls_meta:
             # Over each pair of coordinates

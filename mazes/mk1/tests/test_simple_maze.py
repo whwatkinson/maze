@@ -89,14 +89,24 @@ class TestSimpleMaze:
 
                 # Test top of the maze
                 if idx == 0:
-                    # Test start position
-                    if row == x_s and idx == y_s:
-                        assert row[y_s] == s.markers['start']
-                    # todo check rest DHH fix
+                    for top in range(width - 1):
+                        # Test start position
+                        if top == y_s:
+                            assert row[top] == s.markers['start']
+                        else:
+                            # Test the other positions
+
+                            assert row[top] == s.markers['top']
 
                 # Test the bottom of the maze
                 if idx == height - 1:
-                    # Test finish position
-                    if row == x_f and idx == y_f:
-                        assert row[y_s] == s.markers['finish']
-                    # todo check rest DHH fix
+
+                    for bottom in range(width - 1):
+                        # Test finish position
+                        if bottom == y_f:
+
+                            assert row[bottom] == s.markers['finish']
+                            # Test the other positions
+                        else:
+
+                            assert row[bottom] == s.markers['bottom']
