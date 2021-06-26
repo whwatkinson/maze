@@ -1,3 +1,6 @@
+from typing import List, Dict
+from random import randint
+
 from pytest import raises
 
 from mazes.mk1 import SimpleMaze
@@ -32,6 +35,19 @@ class TestSimpleMaze:
             'number_of_walls': 200
         }
     ]
+
+    @staticmethod
+    def get_test_cases(number: int) -> List[Dict[str, int]]:
+
+        test_cases = [
+            {
+                'height': randint(0, 250),
+                'width': randint(0, 250),
+                'number_of_walls': randint(0, 250)
+            }
+            for _ in range(number)]
+
+        return test_cases
 
     def test_start(self):
 
@@ -76,20 +92,20 @@ class TestSimpleMaze:
             x_s, y_s = s.coords_start
             x_f, y_f = s.coords_start
 
-            height = case['height']
-            width = case['width']
+            height = case['height'] - 1
+            width = case['width'] - 1
 
-            void = {0, height-1}
+            void = {0, height}
 
             for idx, row in enumerate(maze):
 
                 # Test side of maze
                 if idx not in void:
-                    assert row[0] == row[width-1] == s.markers['side']
+                    assert row[0] == row[width] == s.markers['side']
 
                 # Test top of the maze
                 if idx == 0:
-                    for top in range(width - 1):
+                    for top in range(width):
                         # Test start position
                         if top == y_s:
                             assert row[top] == s.markers['start']
@@ -99,9 +115,9 @@ class TestSimpleMaze:
                             assert row[top] == s.markers['top']
 
                 # Test the bottom of the maze
-                if idx == height - 1:
+                if idx == height:
 
-                    for bottom in range(width - 1):
+                    for bottom in range(width):
                         # Test finish position
                         if bottom == y_f:
 
