@@ -49,12 +49,31 @@ class SimpleSolver:
 
         return True
 
+    def update_step_count(self) -> bool:
+        """Updates the step count"""
+
+        # Get bain dict
+        steps = self.brain.brain['memory']
+
+        # GOALS
+        if steps['steps'] > 10000:
+            print("STEP GOAL REACHED")
+
+        # Update steps
+        steps['steps'] += 1
+
+        return True
+
+    def get_step_count(self):
+        """Returns the current step count"""
+        return self.brain.brain['memory']['steps']
+
     def update_location(
             self, up: str, down: str, left: str, right: str,
             z_minus: str = None, z_plus: str = None
     ) -> bool:
         """Update the sight and last_known_position"""
-        # TODO, what is going on here...
+
         # Replace current sight with last known position
         self.brain.brain['last_known_position'] = self.brain.brain['sight']
 

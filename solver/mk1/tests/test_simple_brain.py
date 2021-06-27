@@ -32,18 +32,3 @@ class TestSimpleBrain:
             sb = SimpleBrain(brain=case['brain'])
 
             assert type(sb) is SimpleBrain
-
-    def test_brain_step_count(self):
-        test_cases = [
-            {
-                'steps': 0,
-                'movement': 1,
-                'total_steps': 1
-            }
-        ]
-        sb = SimpleBrain()
-        for case in test_cases:
-
-            sb.update_step_count()
-
-            assert sb.get_step_count() == case['total_steps']
