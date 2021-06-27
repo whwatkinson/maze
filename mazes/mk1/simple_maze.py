@@ -14,7 +14,8 @@ class SimpleMaze:
         'clear':  ' ',
         'wall': 'W',
         'finish':  'F',
-        'bottom':  '‾'
+        'bottom':  '‾',
+        'path_taken': '·'
     }
 
     def __init__(

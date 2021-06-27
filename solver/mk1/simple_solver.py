@@ -15,7 +15,7 @@ class SimpleSolver:
             self,
             brain: SimpleBrain = None,
             path_taken: list = None,
-            position: Tuple[int, int] = None
+            current_position: Tuple[int, int] = None
     ):
 
         if not brain:
@@ -24,7 +24,7 @@ class SimpleSolver:
         if not path_taken:
             self.path_taken = self.get_path_taken(path_taken)
 
-        self.position = position
+        self.current_position = current_position
 
         # Please let me, and why the hell not
         self.name = sm.solver_names[randint(0, len(sm.solver_names)-1)]
@@ -48,25 +48,6 @@ class SimpleSolver:
         self.path_taken.append(coords)
 
         return True
-
-    def update_step_count(self) -> bool:
-        """Updates the step count"""
-
-        # Get bain dict
-        steps = self.brain.brain['memory']
-
-        # GOALS
-        if steps['steps'] > 10000:
-            print("STEP GOAL REACHED")
-
-        # Update steps
-        steps['steps'] += 1
-
-        return True
-
-    def get_step_count(self):
-        """Returns the current step count"""
-        return self.brain.brain['memory']['steps']
 
     def update_location(
             self, up: str, down: str, left: str, right: str,

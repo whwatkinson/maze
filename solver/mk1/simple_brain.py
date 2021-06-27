@@ -25,3 +25,22 @@ class SimpleBrain:
                 }
             }
         return new_brain
+
+    def update_step_count(self) -> bool:
+        """Updates the step count"""
+
+        # Get bain dict
+        steps = self.brain['memory']
+
+        # GOALS
+        if steps['steps'] > 10000:
+            print("STEP GOAL REACHED")
+
+        # Update steps
+        steps['steps'] += 1
+
+        return True
+
+    def get_step_count(self):
+        """Returns the current step count"""
+        return self.brain['memory']['steps']

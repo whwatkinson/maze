@@ -25,21 +25,6 @@ class TestSimpleSolver:
     def test_brain_position(self):
         pass
 
-    def test_brain_step_count(self):
-        test_cases = [
-            {
-                'steps': 0,
-                'movement': 1,
-                'total_steps': 1
-            }
-        ]
-        ss = SimpleSolver()
-        for case in test_cases:
-
-            ss.update_step_count()
-
-            assert ss.get_step_count() == case['total_steps']
-
     def test_update_position(self):
 
         test_cases = [
