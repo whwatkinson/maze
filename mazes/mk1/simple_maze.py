@@ -120,7 +120,7 @@ class SimpleMaze:
         # Each row
         for wall in walls_meta:
             # Over each pair of coordinates
-            for x, y in wall['wall_coords']:
+            for x, y in wall.wall_coords:
 
                 try:
                     # TODO BETTER PLEASE, really?!? also skips bad placements

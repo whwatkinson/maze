@@ -2,6 +2,7 @@ from typing import List, Tuple
 from random import randint
 
 from solver.mk1.simple_brain import SimpleBrain
+from solver.mk1.simple_organs import Sight
 from solver import SolverMeta
 
 # TODO BRAIN CLASS after all we are sentient beings
@@ -49,6 +50,7 @@ class SimpleSolver:
         """
         Add path to memory
         :param coords:
+        :returns:
         """
 
         self.path_taken.append(coords)
@@ -93,14 +95,14 @@ class SimpleSolver:
         self.brain.brain['last_known_position'] = self.brain.brain['sight']
 
         # Get new position from args
-        current_position = {
-            'up': up,
-            'down': down,
-            'left': left,
-            'right': right,
-            'z_minus': z_minus,
-            'z_plus': z_plus
-        }
+        current_position = Sight(
+            up=up,
+            down=down,
+            left=left,
+            right=right,
+            z_minus=z_minus,
+            z_plus=z_plus
+        )
 
         # Update brain
         self.brain.brain['sight'] = current_position

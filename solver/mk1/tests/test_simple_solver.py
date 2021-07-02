@@ -1,5 +1,5 @@
 from solver import SolverMeta
-from solver.mk1 import SimpleSolver
+from solver.mk1 import SimpleSolver, Sight
 
 
 class TestSimpleSolver:
@@ -44,29 +44,29 @@ class TestSimpleSolver:
 
         test_cases = [
             {
-                'old_position': {
-                    'up': 'W',
-                    'down': 'W',
-                    'left': ' ',
-                    'right': '|',
-                    'z_minus': None,
-                    'z_plus': None
-                },
-                'new_position': {
-                    'up': ' ',
-                    'down': ' ',
-                    'left': ' ',
-                    'right': ' ',
-                    'z_minus': None,
-                    'z_plus': None
-                }
+                'old_position': Sight(
+                    up='W',
+                    down='W',
+                    left=' ',
+                    right='|',
+                    z_minus=None,
+                    z_plus=None
+        ),
+                'new_position': Sight(
+                    up=' ',
+                    down=' ',
+                    left=' ',
+                    right=' ',
+                    z_minus=None,
+                    z_plus=None
+        )
             }
         ]
 
         for case in test_cases:
             ss = SimpleSolver()
             ss.brain.brain['sight'] = case['old_position']
-            ss.update_location(**case['new_position'])
+            ss.update_location(**case['new_position']._asdict())
 
             # Check old sight is LKP
             assert (

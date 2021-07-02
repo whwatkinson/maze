@@ -10,6 +10,7 @@ WallMeta = namedtuple('WallMeta', [
     "wall_coords"
 ])
 
+
 class SimpleWall:
 
     def __init__(
@@ -53,7 +54,7 @@ class SimpleWall:
 
     def get_walls_meta(
             self, height: int, width: int, max_wall_length: int
-    ) -> List[dict]:
+    ) -> List[WallMeta]:
         """
         Generates a list of wall objects
         :param height: The height of the maze
