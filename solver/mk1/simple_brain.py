@@ -22,8 +22,8 @@ class SimpleBrain:
 
         else:
             new_brain = {
-                'sight': so.sight_clean,
-                'last_known_position': so.sight_clean,
+                'sight': so.sight_clean.copy(),
+                'last_known_position': so.sight_clean.copy(),
                 'memory': {
                     'steps': 0
                 }

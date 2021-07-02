@@ -1,6 +1,14 @@
 from random import randint
 from typing import Tuple, List
+from collections import namedtuple
 
+WallMeta = namedtuple('WallMeta', [
+    "vertical",
+    "wall_length",
+    "x",
+    "y",
+    "wall_coords"
+])
 
 class SimpleWall:
 
@@ -25,11 +33,11 @@ class SimpleWall:
     ) -> List[Tuple[int, int]]:
         """
         As it says on the tin
-        :param vertical:
-        :param length:
-        :param x:
-        :param y:
-        :returns:
+        :param vertical: Is the wall vertical
+        :param length: The length of the wall
+        :param x: The x coordinate
+        :param y: The y coordinate
+        :returns: The
         """
 
         wall_coords = []
@@ -48,10 +56,10 @@ class SimpleWall:
     ) -> List[dict]:
         """
         Generates a list of wall objects
-        :param height:
-        :param width:
-        :param max_wall_length:
-        :return:
+        :param height: The height of the maze
+        :param width: The width of the maze
+        :param max_wall_length: The length of the maze
+        :return: A list of wall_metas
         """
 
         walls_meta = []
@@ -74,15 +82,14 @@ class SimpleWall:
 
             wall_coords = self.get_wall_coords(vertical, wall_length, x, y)
 
-            walls_meta.append(
-                {
-                    "vertical": vertical,
-                    "wall_length": wall_length,
-                    "x": x,
-                    "y": y,
-                    "wall_coords": wall_coords
-                }
+            wm = WallMeta(
+                vertical=vertical,
+                wall_length=wall_length,
+                x=x,
+                y=y,
+                wall_coords=wall_coords
             )
+            walls_meta.append(wm)
 
         return walls_meta
 

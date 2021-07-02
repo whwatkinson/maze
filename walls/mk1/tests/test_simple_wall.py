@@ -47,11 +47,11 @@ class TestSimpleWall:
 
             for wall in wall_meta:
 
-                assert type(wall['vertical']) is bool
-                assert type(wall['wall_length']) is int
-                assert type(wall['x']) is int
-                assert type(wall['y']) is int
-                assert type(wall['wall_coords']) is list
+                assert type(wall.vertical) is bool
+                assert type(wall.wall_length) is int
+                assert type(wall.x) is int
+                assert type(wall.y) is int
+                assert type(wall.wall_coords) is list
 
     def test_wall_length(self):
         pass

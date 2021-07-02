@@ -98,16 +98,17 @@ class SimpleMaze:
         return maze
 
     def ok_to_place_wall(
-            self, blank_maze: List[List[str]], a: int, b: int) -> bool:
+            self, blank_maze: List[List[str]], x: int, y: int) -> bool:
         """
         Checks the placement of the wall
         :param blank_maze:
-        :param a:
-        :param b:
+        :param x: The x coordinate
+        :param y: The y coordinate
+        :returns ?:
         """
-        if blank_maze[a][b] == self.markers['clear']:
-            if blank_maze[a-1][b] != self.markers['start']:
-                if blank_maze[a+1][b] != self.markers['finish']:
+        if blank_maze[x][y] == self.markers['clear']:
+            if blank_maze[x-1][y] != self.markers['start']:
+                if blank_maze[x+1][y] != self.markers['finish']:
                     return True
         else:
             return False
@@ -119,13 +120,13 @@ class SimpleMaze:
         # Each row
         for wall in walls_meta:
             # Over each pair of coordinates
-            for a, b in wall['wall_coords']:
+            for x, y in wall['wall_coords']:
 
                 try:
                     # TODO BETTER PLEASE, really?!? also skips bad placements
                     # maybe this is preferred?
-                    if self.ok_to_place_wall(blank_maze, a, b):
-                        blank_maze[a][b] = self.markers['wall']
+                    if self.ok_to_place_wall(blank_maze, x, y):
+                        blank_maze[x][y] = self.markers['wall']
                 except IndexError:
                     # Got to love and except index error
                     continue
@@ -141,7 +142,7 @@ class SimpleMaze:
         return None
 
     def __repr__(self) -> str:
-        """goal is to be unambiguous..."""
+        """The goal is to be unambiguous..."""
         return (
             f"|SIMPLE_MAZE| "
             f"(height: {self.height}, "
