@@ -1,5 +1,9 @@
+from pytest import mark
+from collections import namedtuple
+
 from solver import SolverMeta
 from solver.mk1 import SimpleSolver, Sight
+from solver.mk1.tests.sample_mazes import maze0
 
 
 class TestSimpleSolver:
@@ -40,6 +44,7 @@ class TestSimpleSolver:
 
             assert ss.get_step_count() == case['total_steps']
 
+    @mark.xfail
     def test_update_position(self):
 
         test_cases = [
@@ -76,3 +81,44 @@ class TestSimpleSolver:
 
             # Check new sight in NP
             assert ss.get_current_postion() == case['new_position']
+
+    def test_update_sight(self):
+
+        TestCase = namedtuple('TestCase', ['maze', 'position', 'expected'])
+
+        test_cases = [
+            # Top Left
+            TestCase(maze0, (1, 1), Sight(
+                up='_',
+                down=' ',
+                left='|',
+                right=' ',
+                z_minus=None,
+                z_plus=None
+            )),
+            # Random
+            TestCase(maze0, (23, 17), Sight(
+                up=' ',
+                down=' ',
+                left='|',
+                right='W',
+                z_minus=None,
+                z_plus=None
+            ))
+            # Bottom right
+            TestCase(maze0, (2, 17), Sight(
+                up=' ',
+                down='‾',
+                left='|',
+                right='W',
+                z_minus=None,
+                z_plus=None
+            ))
+
+        ]
+
+        for case in test_cases:
+            ss = SimpleSolver()
+            sight = ss.update_sight(case.maze, case.position, len(case.maze), len(case.maze[0]))
+            for test, expected in zip(case.expected, sight):
+                assert test == expected

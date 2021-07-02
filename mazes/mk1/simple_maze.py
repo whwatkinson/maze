@@ -13,7 +13,8 @@ Markers = namedtuple('Markers', [
     'wall',
     'finish',
     'bottom',
-    'path_taken'
+    'path_taken',
+    'out_of_bounds'
 ])
 
 
@@ -27,7 +28,8 @@ class SimpleMaze:
         wall='W',
         finish='F',
         bottom='‾',
-        path_taken='·'
+        path_taken='·',
+        out_of_bounds='A'
     )
 
     def __init__(

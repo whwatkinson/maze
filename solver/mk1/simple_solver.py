@@ -4,10 +4,12 @@ from random import randint
 from solver.mk1.simple_brain import SimpleBrain
 from solver.mk1.simple_organs import Sight
 from solver import SolverMeta
+from mazes import SimpleMaze
 
 # TODO BRAIN CLASS after all we are sentient beings
 
-sm = SolverMeta()
+simple_meta = SolverMeta()
+simple_maze = SimpleMaze()
 
 
 class SimpleSolver:
@@ -28,8 +30,8 @@ class SimpleSolver:
         self.current_position = current_position
 
         # Please let me, and why the hell not
-        self.name = sm.solver_names[randint(0, len(sm.solver_names)-1)]
-        self.language = sm.language[randint(0, len(sm.language)-1)]
+        self.name = simple_meta.solver_names[randint(0, len(simple_meta.solver_names)-1)]
+        self.language = simple_meta.language[randint(0, len(simple_meta.language)-1)]
 
     @staticmethod
     def get_path_taken(path: List[Tuple[int, int]]) -> List[Tuple[int, int]]:
@@ -77,32 +79,23 @@ class SimpleSolver:
         return self.brain.brain['memory']['steps']
 
     def update_location(
-            self, up: str, down: str, left: str, right: str,
-            z_minus: str = None, z_plus: str = None
+            self, maze: List[List[str]], position: Tuple[int, int], width: int, height: int
 
     ) -> bool:
         """
         Update the sight and last_known_position
-        :param up:
-        :param down:
-        :param left:
-        :param right:
-        :param z_minus:
-        :param z_plus:
+        :param maze:
+        :param position:
+        :param width:
+        :param height:
         :returns ?:
         """
 
         # Replace current sight with last known position
         self.brain.brain['last_known_position'] = self.brain.brain['sight']
 
-        # Get new position from args
-        current_position = Sight(
-            up=up,
-            down=down,
-            left=left,
-            right=right,
-            z_minus=z_minus,
-            z_plus=z_plus
+        current_position = self.update_sight(
+            maze=maze, position=position,width=width, height=height
         )
 
         # Update brain
@@ -111,6 +104,64 @@ class SimpleSolver:
         # TODO add check you have not rambled to far
 
         return True
+
+    def update_sight(
+            self,
+            maze: List[List[str]],
+            position: Tuple[int, int]
+    ) -> Sight:
+        """
+        Updates the current line of sight
+        :param maze:
+        :param position:
+        :returns:
+        """
+
+        # Current location
+        x, y = position
+
+        # Mapping of sight
+        # TODO needs to be in "const" or somthing appropriate?
+        sight_coords_map = {
+            'up': self.look_around_you('up', maze, x, y),
+            'down': self.look_around_you('down', maze, x, y),
+            'left': self.look_around_you('left', maze, x, y),
+            'right': self.look_around_you('right', maze, x, y),
+            'z_minus': self.look_around_you('z_minus', maze, x, y),
+            'z_plus': self.look_around_you('z_plus', maze, x, y),
+        }
+        current_position = Sight(**sight_coords_map)
+
+        return current_position
+
+    @staticmethod
+    def look_around_you(
+            direction: str, maze: List[List[str]], x: int, y: int) -> str:
+        # WOW just WOW, better to ship and send
+        try:
+            if direction == 'up':
+                if x - 1 < 0:
+                    raise IndexError
+                marker = maze[x - 1][y]
+            elif direction == 'down':
+                marker = maze[x + 1][y]
+            elif direction == 'left':
+                if y - 1 < 0:
+                    raise IndexError
+                marker = maze[x][y - 1]
+            elif direction == 'right':
+                marker = maze[x][y + 1]
+            elif direction == 'z_minus':
+                marker = 'tbd'
+            elif direction == 'z_plus':
+                marker = 'tbd'
+            else:
+                raise ValueError('WHERE ARE YOU GOING?')
+
+        except IndexError:
+            marker = simple_maze.markers.out_of_bounds
+
+        return marker
 
     def get_current_postion(self):
         """Where am I?"""
