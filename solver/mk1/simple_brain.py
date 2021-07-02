@@ -31,4 +31,4 @@ class SimpleBrain:
         return new_brain
 
     def __repr__(self):
-        return f"|SIMPLE_BRAIN|"
+        return f"|SIMPLE_BRAIN| steps_taken {self.brain['memory']['steps']}"

@@ -56,7 +56,7 @@ class TestSimpleSolver:
                     right='|',
                     z_minus=None,
                     z_plus=None
-        ),
+                ),
                 'new_position': Sight(
                     up=' ',
                     down=' ',
@@ -64,7 +64,7 @@ class TestSimpleSolver:
                     right=' ',
                     z_minus=None,
                     z_plus=None
-        )
+                )
             }
         ]
 
@@ -88,29 +88,29 @@ class TestSimpleSolver:
 
         test_cases = [
             # Top Left
-            TestCase(maze0, (1, 1), Sight(
-                up='_',
-                down=' ',
-                left='|',
-                right=' ',
+            TestCase(maze0, (0, 0), Sight(
+                up='A',
+                down='|',
+                left='A',
+                right='_',
                 z_minus=None,
                 z_plus=None
             )),
             # Random
-            TestCase(maze0, (23, 17), Sight(
-                up=' ',
+            TestCase(maze0, (12, 17), Sight(
+                up='W',
                 down=' ',
-                left='|',
+                left='W',
                 right='W',
                 z_minus=None,
                 z_plus=None
-            ))
+            )),
             # Bottom right
-            TestCase(maze0, (2, 17), Sight(
-                up=' ',
-                down='‾',
-                left='|',
-                right='W',
+            TestCase(maze0, (24, 24), Sight(
+                up='|',
+                down='A',
+                left='‾',
+                right='A',
                 z_minus=None,
                 z_plus=None
             ))
@@ -119,6 +119,6 @@ class TestSimpleSolver:
 
         for case in test_cases:
             ss = SimpleSolver()
-            sight = ss.update_sight(case.maze, case.position, len(case.maze), len(case.maze[0]))
+            sight = ss.update_sight(case.maze, case.position)
             for test, expected in zip(case.expected, sight):
                 assert test == expected

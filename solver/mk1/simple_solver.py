@@ -30,8 +30,12 @@ class SimpleSolver:
         self.current_position = current_position
 
         # Please let me, and why the hell not
-        self.name = simple_meta.solver_names[randint(0, len(simple_meta.solver_names)-1)]
-        self.language = simple_meta.language[randint(0, len(simple_meta.language)-1)]
+        self.name = simple_meta.solver_names[
+            randint(0, len(simple_meta.solver_names)-1)
+        ]
+        self.language = simple_meta.language[
+            randint(0, len(simple_meta.language)-1)
+        ]
 
     @staticmethod
     def get_path_taken(path: List[Tuple[int, int]]) -> List[Tuple[int, int]]:
@@ -79,7 +83,11 @@ class SimpleSolver:
         return self.brain.brain['memory']['steps']
 
     def update_location(
-            self, maze: List[List[str]], position: Tuple[int, int], width: int, height: int
+            self,
+            maze: List[List[str]],
+            position: Tuple[int, int],
+            width: int,
+            height: int
 
     ) -> bool:
         """
@@ -95,7 +103,7 @@ class SimpleSolver:
         self.brain.brain['last_known_position'] = self.brain.brain['sight']
 
         current_position = self.update_sight(
-            maze=maze, position=position,width=width, height=height
+            maze=maze, position=position, width=width, height=height
         )
 
         # Update brain
@@ -137,6 +145,14 @@ class SimpleSolver:
     @staticmethod
     def look_around_you(
             direction: str, maze: List[List[str]], x: int, y: int) -> str:
+        """
+        This is our good friend Calcium
+        :param direction:
+        :param maze:
+        :param x:
+        :param y:
+        :return:
+        """
         # WOW just WOW, better to ship and send
         try:
             if direction == 'up':
@@ -152,9 +168,9 @@ class SimpleSolver:
             elif direction == 'right':
                 marker = maze[x][y + 1]
             elif direction == 'z_minus':
-                marker = 'tbd'
+                marker = None
             elif direction == 'z_plus':
-                marker = 'tbd'
+                marker = None
             else:
                 raise ValueError('WHERE ARE YOU GOING?')
 
