@@ -99,7 +99,12 @@ class SimpleMaze:
 
     def ok_to_place_wall(
             self, blank_maze: List[List[str]], a: int, b: int) -> bool:
-        """Checks the placement of the wall"""
+        """
+        Checks the placement of the wall
+        :param blank_maze:
+        :param a:
+        :param b:
+        """
         if blank_maze[a][b] == self.markers['clear']:
             if blank_maze[a-1][b] != self.markers['start']:
                 if blank_maze[a+1][b] != self.markers['finish']:

@@ -21,15 +21,22 @@ class SimpleWall:
 
     @staticmethod
     def get_wall_coords(
-            v: bool, length: int, x: int, y: int
+            vertical: bool, length: int, x: int, y: int
     ) -> List[Tuple[int, int]]:
-        """As it says on the tin"""
+        """
+        As it says on the tin
+        :param vertical:
+        :param length:
+        :param x:
+        :param y:
+        :returns:
+        """
 
         wall_coords = []
 
         for _ in range(length):
             wall_coords.append((x, y))
-            if v:
+            if vertical:
                 x += 1
             else:
                 y += 1
@@ -39,7 +46,13 @@ class SimpleWall:
     def get_walls_meta(
             self, height: int, width: int, max_wall_length: int
     ) -> List[dict]:
-        """Generates a list of wall objects"""
+        """
+        Generates a list of wall objects
+        :param height:
+        :param width:
+        :param max_wall_length:
+        :return:
+        """
 
         walls_meta = []
 
@@ -48,7 +61,7 @@ class SimpleWall:
         for _ in range(self.number_of_walls):
 
             # Vertical
-            v = bool(randint(0, 1))
+            vertical = bool(randint(0, 1))
 
             # Length of wall
             wall_length = randint(1, max_wall_length)
@@ -59,11 +72,11 @@ class SimpleWall:
             # y coordinate
             y = randint(1, width - 1)
 
-            wall_coords = self.get_wall_coords(v, wall_length, x, y)
+            wall_coords = self.get_wall_coords(vertical, wall_length, x, y)
 
             walls_meta.append(
                 {
-                    "v": v,
+                    "vertical": vertical,
                     "wall_length": wall_length,
                     "x": x,
                     "y": y,
@@ -74,4 +87,4 @@ class SimpleWall:
         return walls_meta
 
     def __repr__(self):
-        return f"SIMPLE_WALL (number_of_walls: {self.number_of_walls})"
+        return f"|SIMPLE_WALL| (number_of_walls: {self.number_of_walls})"

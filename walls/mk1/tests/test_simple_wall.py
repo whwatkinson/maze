@@ -47,7 +47,7 @@ class TestSimpleWall:
 
             for wall in wall_meta:
 
-                assert type(wall['v']) is bool
+                assert type(wall['vertical']) is bool
                 assert type(wall['wall_length']) is int
                 assert type(wall['x']) is int
                 assert type(wall['y']) is int

@@ -11,7 +11,11 @@ class SimpleBrain:
             self.brain = self.get_brain(brain)
 
     def get_brain(self, brain):
-        """What consitutes a brain anway? Currently thinking a known state"""
+        """
+        What consitutes a brain anway? Currently thinking a known state
+        :param brain:
+        :returns :
+        """
 
         if type(brain) is self:
             return brain
