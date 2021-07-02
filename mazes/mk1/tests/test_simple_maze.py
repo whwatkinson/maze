@@ -49,21 +49,21 @@ class TestSimpleMaze:
 
         return test_cases
 
-    def test_start(self):
+    def test_start_finish(self):
 
         for case in self.test_cases:
 
             s = SimpleMaze(**case)
             markers = s.markers
             maze = s.simple_maze
-            height = case['height']
-            width = case['width']
+            height = case['height'] - 1
+            width = case['width'] - 1
 
-            valid_pos_start = maze[0][1:width-1]
-            valid_pos_finish = maze[height-1][1:width-1]
+            valid_pos_start = maze[0][1:width]
+            valid_pos_finish = maze[height][1:width]
 
-            assert markers['start'] in valid_pos_start
-            assert markers['finish'] in valid_pos_finish
+            assert markers.start in valid_pos_start
+            assert markers.finish in valid_pos_finish
 
     def test_height_width(self):
 
@@ -82,12 +82,13 @@ class TestSimpleMaze:
             for row in maze:
                 assert len(row) == case['width']
 
-    def test_markers(self):
+    def test_blank_maze(self):
 
         for case in self.test_cases:
 
             s = SimpleMaze(**case)
-            maze = s.simple_maze
+            maze = s.blank_maze
+            markers = s.markers
 
             x_s, y_s = s.coords_start
             x_f, y_f = s.coords_start
@@ -101,18 +102,20 @@ class TestSimpleMaze:
 
                 # Test side of maze
                 if idx not in void:
-                    assert row[0] == row[width] == s.markers['side']
+                    assert row[0] == row[width] == markers.side
+                    # Test blank spaces
+                    for pos in range(1, width):
+                        assert row[pos] == markers.clear
 
                 # Test top of the maze
                 if idx == 0:
                     for top in range(width):
                         # Test start position
                         if top == y_s:
-                            assert row[top] == s.markers['start']
+                            assert row[top] == markers.start
                         else:
                             # Test the other positions
-
-                            assert row[top] == s.markers['top']
+                            assert row[top] == markers.top
 
                 # Test the bottom of the maze
                 if idx == height:
@@ -120,12 +123,10 @@ class TestSimpleMaze:
                     for bottom in range(width):
                         # Test finish position
                         if bottom == y_f:
-
-                            assert row[bottom] == s.markers['finish']
+                            assert row[bottom] == markers.finish
                             # Test the other positions
                         else:
-
-                            assert row[bottom] == s.markers['bottom']
+                            assert row[bottom] == markers.bottom
 
     def test_is_maze_passable(self):
         pass

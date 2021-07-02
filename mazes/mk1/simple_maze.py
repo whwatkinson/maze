@@ -1,22 +1,34 @@
 from random import randint
 from typing import List, Tuple
+from collections import namedtuple
 
 
 from walls.mk1.simple_wall import SimpleWall
 
+Markers = namedtuple('Markers', [
+    'top',
+    'start',
+    'side',
+    'clear',
+    'wall',
+    'finish',
+    'bottom',
+    'path_taken'
+])
+
 
 class SimpleMaze:
 
-    markers = {
-        'top': '_',
-        'start':  'S',
-        'side':  '|',
-        'clear':  ' ',
-        'wall': 'W',
-        'finish':  'F',
-        'bottom':  '‾',
-        'path_taken': '·'
-    }
+    markers = Markers(
+        top='_',
+        start='S',
+        side='|',
+        clear=' ',
+        wall='W',
+        finish='F',
+        bottom='‾',
+        path_taken='·'
+    )
 
     def __init__(
             self,
@@ -64,11 +76,11 @@ class SimpleMaze:
         # TODO: ugly can do better
         row_n = [
             [
-                self.markers['side']
+                self.markers.side
             ] + [
-                self.markers['clear'] for _ in range(clear_markers_needed)
+                self.markers.clear for _ in range(clear_markers_needed)
             ] + [
-                self.markers['side']
+                self.markers.side
             ]
         ]
 
@@ -81,8 +93,8 @@ class SimpleMaze:
         _, y_f = self.coords_start
 
         # Get top row
-        top = [self.markers['top'] for _ in range(self.width)]
-        top[y_s] = self.markers['start']
+        top = [self.markers.top for _ in range(self.width)]
+        top[y_s] = self.markers.start
         maze = [top]
 
         # Get n middle rows
@@ -91,8 +103,8 @@ class SimpleMaze:
             maze += self.get_n_row()
 
         # Get bottom row
-        bottom = [self.markers['bottom'] for _ in range(self.width)]
-        bottom[y_f] = self.markers['finish']
+        bottom = [self.markers.bottom for _ in range(self.width)]
+        bottom[y_f] = self.markers.finish
         maze += [bottom]
 
         return maze
@@ -106,9 +118,9 @@ class SimpleMaze:
         :param y: The y coordinate
         :returns ?:
         """
-        if blank_maze[x][y] == self.markers['clear']:
-            if blank_maze[x-1][y] != self.markers['start']:
-                if blank_maze[x+1][y] != self.markers['finish']:
+        if blank_maze[x][y] == self.markers.clear:
+            if blank_maze[x-1][y] != self.markers.start:
+                if blank_maze[x+1][y] != self.markers.finish:
                     return True
         else:
             return False
@@ -126,7 +138,7 @@ class SimpleMaze:
                     # TODO BETTER PLEASE, really?!? also skips bad placements
                     # maybe this is preferred?
                     if self.ok_to_place_wall(blank_maze, x, y):
-                        blank_maze[x][y] = self.markers['wall']
+                        blank_maze[x][y] = self.markers.wall
                 except IndexError:
                     # Got to love and except index error
                     continue
