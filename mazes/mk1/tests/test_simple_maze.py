@@ -141,5 +141,8 @@ class TestSimpleMaze:
                         else:
                             assert row[bottom] == markers.bottom
 
+    def a(self):
+        pass
+
     def test_is_maze_passable(self):
         pass
