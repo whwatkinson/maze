@@ -118,7 +118,7 @@ class SimpleMaze:
         :param blank_maze:
         :param x: The x coordinate
         :param y: The y coordinate
-        :return ?:
+        :return bool: Its all good man or not
         """
         if blank_maze[x][y] == self.markers.clear:
             if blank_maze[x-1][y] != self.markers.start:
@@ -130,7 +130,7 @@ class SimpleMaze:
     def place_walls(self) -> List[List[str]]:
         """Place the walls on the maze"""
         walls_meta = self.walls.walls_meta
-        blank_maze = [x.copy() for x in self.blank_maze]
+        new_blank_maze = [x.copy() for x in self.blank_maze]
         # Each row
         for wall in walls_meta:
             # Over each pair of coordinates
@@ -139,13 +139,13 @@ class SimpleMaze:
                 try:
                     # TODO BETTER PLEASE, really?!? also skips bad placements
                     # maybe this is preferred?
-                    if self.ok_to_place_wall(blank_maze, x, y):
-                        blank_maze[x][y] = self.markers.wall
+                    if self.ok_to_place_wall(new_blank_maze, x, y):
+                        new_blank_maze[x][y] = self.markers.wall
                 except IndexError:
                     # Got to love and except index error
                     continue
 
-        return blank_maze
+        return new_blank_maze
 
     def display_maze(self) -> None:
         """Displays the maze in real time"""

@@ -38,7 +38,7 @@ class SimpleWall:
         :param length: The length of the wall
         :param x: The x coordinate
         :param y: The y coordinate
-        :returns: The
+        :return: The coordinates of the wall
         """
 
         wall_coords = []
@@ -56,7 +56,7 @@ class SimpleWall:
             self, height: int, width: int, max_wall_length: int
     ) -> List[WallMeta]:
         """
-        Generates a list of wall objects
+        Generates a list of WallMeta tuples
         :param height: The height of the maze
         :param width: The width of the maze
         :param max_wall_length: The length of the maze

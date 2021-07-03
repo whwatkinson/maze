@@ -22,8 +22,6 @@ class SimpleSolver:
             current_position: Tuple[int, int] = None
     ):
         self.brain = self.brain_check(brain)
-        # if not brain:
-        #     self.brain = SimpleBrain(brain)
 
         if not path_taken:
             self.path_taken = self.get_path_taken(path_taken)
