@@ -96,7 +96,7 @@ class TestSimpleSolver:
                 z_minus=None,
                 z_plus=None
             )),
-            # Random
+            # Middle
             TestCase(maze0, (12, 17), Sight(
                 up='W',
                 down=' ',
