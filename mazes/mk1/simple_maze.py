@@ -118,7 +118,7 @@ class SimpleMaze:
         :param blank_maze:
         :param x: The x coordinate
         :param y: The y coordinate
-        :returns ?:
+        :return ?:
         """
         if blank_maze[x][y] == self.markers.clear:
             if blank_maze[x-1][y] != self.markers.start:

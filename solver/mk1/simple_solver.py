@@ -10,6 +10,7 @@ from mazes import SimpleMaze
 
 simple_meta = SolverMeta()
 simple_maze = SimpleMaze()
+path_clean = []
 
 
 class SimpleSolver:
@@ -58,14 +59,15 @@ class SimpleSolver:
 
         else:
             # Somthing special here or not?
-            new_path = []
+            new_path = path_clean.copy()
+
         return new_path
 
     def add_path(self, coords: Tuple[int, int]) -> bool:
         """
         Add path to memory
         :param coords:
-        :returns:
+        :return ?:
         """
 
         self.path_taken.append(coords)
@@ -95,16 +97,12 @@ class SimpleSolver:
             self,
             maze: List[List[str]],
             position: Tuple[int, int],
-
-
     ) -> bool:
         """
         Update the sight and last_known_position
         :param maze:
         :param position:
-        :param width:
-        :param height:
-        :returns ?:
+        :return ?:
         """
 
         # Replace current sight with last known position
@@ -128,7 +126,7 @@ class SimpleSolver:
         Updates the current line of sight
         :param maze:
         :param position:
-        :returns:
+        :return:
         """
 
         # Current location

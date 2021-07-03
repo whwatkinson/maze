@@ -1,4 +1,4 @@
-from pytest import mark
+from pytest import raises
 from collections import namedtuple
 
 from solver import SolverMeta
@@ -23,9 +23,9 @@ class TestSimpleSolver:
         for case in self.test_cases:
 
             ss = SimpleSolver(**case)
-            sm = SolverMeta()
+            smeta = SolverMeta()
 
-            assert ss.name in sm.solver_names
+            assert ss.name in smeta.solver_names
             # assert type(ss.brain) is dict
             assert type(ss.path_taken) is list
 
@@ -55,21 +55,44 @@ class TestSimpleSolver:
 
     def test_look_around_you(self):
 
-        TestCase = namedtuple('TestCase', ['direction', 'maze', 'x', 'y', 'exception'])
+        TestCase = namedtuple('TestCase', [
+            'direction',
+            'maze',
+            'x',
+            'y',
+            'exception'
+        ]
+                              )
 
         markers = set(sm.markers._asdict().values())
 
         test_cases = [
-            TestCase('up', maze0, 1, 1, None)
+            TestCase('up', maze0, 1, 1, None),
+            TestCase('UP', maze0, 1, 1, ValueError)
         ]
 
         for case in test_cases:
-
             ss = SimpleSolver()
+            if case.exception:
+                with raises(case.exception) as exec_info:
+                    ss.look_around_you(
+                        direction=case.direction,
+                        maze=case.maze,
+                        x=case.x,
+                        y=case.y
+                    )
+                assert exec_info.type == case.exception
 
-            calcium = ss.look_around_you(**case._asdict())
+            else:
 
-            assert calcium in markers
+                calcium = ss.look_around_you(
+                    direction=case.direction,
+                    maze=case.maze,
+                    x=case.x,
+                    y=case.y
+                )
+
+                assert calcium in markers
 
     def test_update_sight(self):
 
