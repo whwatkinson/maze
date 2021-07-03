@@ -4,6 +4,9 @@ from collections import namedtuple
 from solver import SolverMeta
 from solver.mk1 import SimpleSolver, Sight
 from solver.mk1.tests.sample_mazes import maze0
+from mazes.mk1.simple_maze import SimpleMaze
+
+sm = SimpleMaze()
 
 
 class TestSimpleSolver:
@@ -50,43 +53,23 @@ class TestSimpleSolver:
 
             assert ss.get_step_count() == case.total_steps
 
-    @mark.xfail
-    def test_update_position(self):
+    def test_look_around_you(self):
+
+        TestCase = namedtuple('TestCase', ['direction', 'maze', 'x', 'y', 'exception'])
+
+        markers = set(sm.markers._asdict().values())
 
         test_cases = [
-            {
-                'old_position': Sight(
-                    up='W',
-                    down='W',
-                    left=' ',
-                    right='|',
-                    z_minus=None,
-                    z_plus=None
-                ),
-                'new_position': Sight(
-                    up=' ',
-                    down=' ',
-                    left=' ',
-                    right=' ',
-                    z_minus=None,
-                    z_plus=None
-                )
-            }
+            TestCase('up', maze0, 1, 1, None)
         ]
 
         for case in test_cases:
+
             ss = SimpleSolver()
-            ss.brain.memory['sight'] = case['old_position']
-            ss.update_location(**case['new_position']._asdict())
 
-            # Check old sight is LKP
-            assert (
-                    ss.brain.last_known_position
-                    == case['old_position']
-            )
+            calcium = ss.look_around_you(**case._asdict())
 
-            # Check new sight in NP
-            assert ss.get_current_postion() == case['new_position']
+            assert calcium in markers
 
     def test_update_sight(self):
 
