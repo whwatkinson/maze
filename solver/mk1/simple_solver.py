@@ -185,7 +185,7 @@ class SimpleSolver:
 
     def get_current_postion(self):
         """Where am I?"""
-        return self.brain.brain['sight']
+        return self.brain.memory['sight']
 
     def __repr__(self) -> str:
         """Ronseal"""

@@ -29,9 +29,6 @@ class TestSimpleSolver:
             # assert type(ss.brain) is dict
             assert type(ss.path_taken) is list
 
-    def test_brain_position(self):
-        pass
-
     def test_brain_step_count(self):
         TestCase = namedtuple('TestCase', ['steps', 'movement', 'total_steps'])
 

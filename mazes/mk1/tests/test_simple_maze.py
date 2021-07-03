@@ -1,5 +1,6 @@
 from typing import List, Dict
 from random import randint
+from collections import namedtuple
 
 from pytest import raises
 
