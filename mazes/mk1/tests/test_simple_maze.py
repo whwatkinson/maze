@@ -54,9 +54,9 @@ class TestSimpleMaze:
 
         for case in self.test_cases:
 
-            s = SimpleMaze(**case)
-            markers = s.markers
-            maze = s.simple_maze
+            sm = SimpleMaze(**case)
+            markers = sm.markers
+            maze = sm.simple_maze
             height = case['height'] - 1
             width = case['width'] - 1
 
@@ -66,15 +66,15 @@ class TestSimpleMaze:
             assert markers.start in valid_pos_start
             assert markers.finish in valid_pos_finish
 
-    def test_entry_exit(self):
+    def test_entry_exit_clear(self):
 
         for case in self.test_cases:
 
-            s = SimpleMaze(**case)
-            markers = s.markers
-            maze = s.simple_maze
-            x_s, y_s = s.coords_start
-            x_f, y_f = s.coords_finish
+            sm = SimpleMaze(**case)
+            markers = sm.markers
+            maze = sm.simple_maze
+            x_s, y_s = sm.coords_start
+            x_f, y_f = sm.coords_finish
             assert maze[x_s + 1][y_s] == markers.clear
             assert maze[x_f - 1][y_f] == markers.clear
 
@@ -85,8 +85,8 @@ class TestSimpleMaze:
         assert exec_info.type is ValueError
 
         for case in self.test_cases:
-            s = SimpleMaze(**case)
-            maze = s.simple_maze
+            sm = SimpleMaze(**case)
+            maze = sm.simple_maze
 
             # Test height of maze
             assert len(maze) == case['height']
@@ -99,12 +99,12 @@ class TestSimpleMaze:
 
         for case in self.test_cases:
 
-            s = SimpleMaze(**case)
-            maze = s.blank_maze
-            markers = s.markers
+            sm = SimpleMaze(**case)
+            maze = sm.blank_maze
+            markers = sm.markers
 
-            x_s, y_s = s.coords_start
-            x_f, y_f = s.coords_finish
+            x_s, y_s = sm.coords_start
+            x_f, y_f = sm.coords_finish
 
             height = case['height'] - 1
             width = case['width'] - 1
