@@ -70,12 +70,12 @@ class TestSimpleSolver:
 
         for case in test_cases:
             ss = SimpleSolver()
-            ss.brain.brain['sight'] = case['old_position']
+            ss.brain.memory['sight'] = case['old_position']
             ss.update_location(**case['new_position']._asdict())
 
             # Check old sight is LKP
             assert (
-                    ss.brain.brain['last_known_position']
+                    ss.brain.last_known_position
                     == case['old_position']
             )
 

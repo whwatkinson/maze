@@ -1,4 +1,4 @@
-from typing import List, Tuple
+from typing import List, Tuple, Optional
 from random import randint
 
 from solver.mk1.simple_brain import SimpleBrain
@@ -20,9 +20,9 @@ class SimpleSolver:
             path_taken: list = None,
             current_position: Tuple[int, int] = None
     ):
-
-        if not brain:
-            self.brain = SimpleBrain(brain)
+        self.brain = self.brain_check(brain)
+        # if not brain:
+        #     self.brain = SimpleBrain(brain)
 
         if not path_taken:
             self.path_taken = self.get_path_taken(path_taken)
@@ -36,6 +36,15 @@ class SimpleSolver:
         self.language = simple_meta.language[
             randint(0, len(simple_meta.language)-1)
         ]
+
+    @staticmethod
+    def brain_check(brain: Optional[SimpleBrain]) -> SimpleBrain:
+
+        if type(brain) is SimpleBrain:
+            return brain
+        else:
+            new_brain = SimpleBrain()
+            return new_brain
 
     @staticmethod
     def get_path_taken(path: List[Tuple[int, int]]) -> List[Tuple[int, int]]:
@@ -67,27 +76,26 @@ class SimpleSolver:
         """Updates the step count"""
 
         # Get bain dict
-        steps = self.brain.brain['memory']
+        steps = self.brain.memory['steps']
 
         # GOALS
-        if steps['steps'] > 10000:
+        if steps > 10000:
             print("STEP GOAL REACHED")
 
         # Update steps
-        steps['steps'] += 1
+        self.brain.memory['steps'] = steps + 1
 
         return True
 
     def get_step_count(self):
         """Returns the current step count"""
-        return self.brain.brain['memory']['steps']
+        return self.brain.memory['steps']
 
     def update_location(
             self,
             maze: List[List[str]],
             position: Tuple[int, int],
-            width: int,
-            height: int
+
 
     ) -> bool:
         """
@@ -100,14 +108,12 @@ class SimpleSolver:
         """
 
         # Replace current sight with last known position
-        self.brain.brain['last_known_position'] = self.brain.brain['sight']
+        self.brain.last_known_position = self.brain.sight
 
-        current_position = self.update_sight(
-            maze=maze, position=position, width=width, height=height
-        )
+        current_position = self.update_sight(maze=maze, position=position)
 
         # Update brain
-        self.brain.brain['sight'] = current_position
+        self.brain.sight = current_position
 
         # TODO add check you have not rambled to far
 

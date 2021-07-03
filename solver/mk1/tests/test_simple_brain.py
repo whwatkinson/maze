@@ -1,5 +1,6 @@
 from solver.mk1.simple_brain import SimpleBrain, SimpleOrgans
-
+from solver.mk1.simple_solver import SimpleSolver
+from solver.mk1 import Sight
 
 so = SimpleOrgans()
 
@@ -10,25 +11,25 @@ class TestSimpleBrain:
 
         test_cases = [
             {
-                'brain': {
-                    'sight': {
-                        'up': 'S',
-                        'down': 'W',
-                        'left': ' ',
-                        'right': '|',
-                        'z_minus': None,
-                        'z_plus': None
-                    },
-                    'last_known_position': so.sight_clean,
-                    'memory': {
-                        'steps': 2
+                'sight': Sight(
+                    up='S',
+                    down='W',
+                    left=' ',
+                    right='|',
+                    z_minus=None,
+                    z_plus=None
+                ),
+                'last_known_position': so.sight_clean,
+                'memory': {
+                    'steps': 2
                     }
                 }
-            }
+
         ]
 
         for case in test_cases:
 
-            sb = SimpleBrain(brain=case['brain'])
+            test_brain = SimpleBrain(**case)
 
-            assert type(sb) is SimpleBrain
+            ss = SimpleSolver(brain=test_brain)
+            assert type(ss.brain) is SimpleBrain
