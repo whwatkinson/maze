@@ -66,6 +66,18 @@ class TestSimpleMaze:
             assert markers.start in valid_pos_start
             assert markers.finish in valid_pos_finish
 
+    def test_entry_exit(self):
+
+        for case in self.test_cases:
+
+            s = SimpleMaze(**case)
+            markers = s.markers
+            maze = s.simple_maze
+            x_s, y_s = s.coords_start
+            x_f, y_f = s.coords_finish
+            assert maze[x_s][y_s] == markers.start
+            assert maze[x_f][y_f] == markers.finish
+
     def test_height_width(self):
 
         with raises(ValueError) as exec_info:
@@ -83,6 +95,7 @@ class TestSimpleMaze:
             for row in maze:
                 assert len(row) == case['width']
 
+
     def test_blank_maze(self):
 
         for case in self.test_cases:
@@ -92,7 +105,7 @@ class TestSimpleMaze:
             markers = s.markers
 
             x_s, y_s = s.coords_start
-            x_f, y_f = s.coords_start
+            x_f, y_f = s.coords_finish
 
             height = case['height'] - 1
             width = case['width'] - 1

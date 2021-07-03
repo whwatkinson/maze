@@ -92,7 +92,7 @@ class SimpleMaze:
         """Get a new maze with walls"""
         # Get start and finish postions
         _, y_s = self.coords_start
-        _, y_f = self.coords_start
+        _, y_f = self.coords_finish
 
         # Get top row
         top = [self.markers.top for _ in range(self.width)]
