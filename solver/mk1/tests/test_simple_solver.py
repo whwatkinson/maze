@@ -33,16 +33,21 @@ class TestSimpleSolver:
         test_cases = [
             {
                 'steps': 0,
-                'movement': 1,
-                'total_steps': 1
+                'movement': 2,
+                'total_steps': 2
             }
         ]
-        ss = SimpleSolver()
         for case in test_cases:
 
-            ss.update_step_count()
+            ss = SimpleSolver()
 
-            assert ss.get_step_count() == case['total_steps']
+            for steps in range(case['total_steps'])
+
+                ss.update_step_count()
+
+                assert ss.get_step_count() == case['total_steps']
+
+
 
     @mark.xfail
     def test_update_position(self):
