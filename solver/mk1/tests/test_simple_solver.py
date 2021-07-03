@@ -30,24 +30,25 @@ class TestSimpleSolver:
         pass
 
     def test_brain_step_count(self):
+        TestCase = namedtuple('TestCase', ['steps', 'movement', 'total_steps'])
+
         test_cases = [
-            {
-                'steps': 0,
-                'movement': 2,
-                'total_steps': 2
-            }
+            TestCase(steps=0, movement=1, total_steps=1),
+            TestCase(steps=420, movement=69, total_steps=489),
+            TestCase(steps=10000, movement=1, total_steps=10001),
+
         ]
         for case in test_cases:
 
+            # New SimpleSolver
             ss = SimpleSolver()
+            # Update steps
+            ss.brain.memory['steps'] = case.steps
 
-            for steps in range(case['total_steps'])
-
+            for steps in range(case.movement):
                 ss.update_step_count()
 
-                assert ss.get_step_count() == case['total_steps']
-
-
+            assert ss.get_step_count() == case.total_steps
 
     @mark.xfail
     def test_update_position(self):

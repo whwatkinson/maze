@@ -37,7 +37,8 @@ class SimpleBrain:
     @staticmethod
     def get_new_memory(attribute):
         if not attribute:
-            return memory_clean
+            # Dicts are mutable afterall
+            return memory_clean.copy()
         else:
             return attribute
 
