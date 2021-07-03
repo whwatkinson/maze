@@ -75,8 +75,8 @@ class TestSimpleMaze:
             maze = s.simple_maze
             x_s, y_s = s.coords_start
             x_f, y_f = s.coords_finish
-            assert maze[x_s][y_s] == markers.start
-            assert maze[x_f][y_f] == markers.finish
+            assert maze[x_s + 1][y_s] == markers.clear
+            assert maze[x_f - 1][y_f] == markers.clear
 
     def test_height_width(self):
 
@@ -94,7 +94,6 @@ class TestSimpleMaze:
             # Test width of maze
             for row in maze:
                 assert len(row) == case['width']
-
 
     def test_blank_maze(self):
 
