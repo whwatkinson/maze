@@ -7,7 +7,19 @@ so = SimpleOrgans()
 
 class TestSimpleBrain:
 
-    def test_get_new_brain(self):
+    def test_new_brain(self):
+
+        test_brain = SimpleBrain()
+
+        for attribute in test_brain.sight:
+            assert attribute is None
+
+        for attribute in test_brain.last_known_position:
+            assert attribute is None
+
+        assert test_brain.memory['steps'] == 0
+
+    def test_inherited_brain(self):
 
         test_cases = [
             {
@@ -30,6 +42,11 @@ class TestSimpleBrain:
         for case in test_cases:
 
             test_brain = SimpleBrain(**case)
-
             ss = SimpleSolver(brain=test_brain)
             assert type(ss.brain) is SimpleBrain
+            assert ss.brain.memory['steps'] == case['memory']['steps']
+
+            for expected, test in zip(case['sight'], ss.brain.sight):
+                assert expected == test
+
+

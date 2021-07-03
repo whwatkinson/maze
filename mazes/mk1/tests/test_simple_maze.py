@@ -144,6 +144,5 @@ class TestSimpleMaze:
     def test_ok_to_place_wall(self):
         pass
 
-
     def test_is_maze_passable(self):
         pass
