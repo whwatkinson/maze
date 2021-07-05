@@ -1,8 +1,10 @@
 from solver.mk1.simple_brain import SimpleBrain, SimpleOrgans
 from solver.mk1.simple_solver import SimpleSolver
+from solver.mk1.simple_memory import SimpleMemory
 from solver.mk1 import Sight
 
 so = SimpleOrgans()
+sm = SimpleMemory()
 
 
 class TestSimpleBrain:
@@ -30,10 +32,8 @@ class TestSimpleBrain:
                     z_plus=None
                 ),
                 'last_known_position': so.sight_clean,
-                'memory': {
-                    'steps': 2
-                    }
-                }
+                'memory': SimpleMemory(steps=2)
+            }
 
         ]
 

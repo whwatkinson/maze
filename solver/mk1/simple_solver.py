@@ -6,7 +6,6 @@ from solver.mk1.simple_organs import Sight
 from solver import SolverMeta
 from mazes import SimpleMaze
 
-# TODO BRAIN CLASS after all we are sentient beings
 
 simple_meta = SolverMeta()
 simple_maze = SimpleMaze()
