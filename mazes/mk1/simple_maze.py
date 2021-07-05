@@ -1,21 +1,36 @@
 from random import randint
 from typing import List, Tuple
+from collections import namedtuple
 
 
 from walls.mk1.simple_wall import SimpleWall
 
+Markers = namedtuple('Markers', [
+    'top',
+    'start',
+    'side',
+    'clear',
+    'wall',
+    'finish',
+    'bottom',
+    'path_taken',
+    'out_of_bounds'
+])
+
 
 class SimpleMaze:
 
-    markers = {
-        'top': '_',
-        'start':  'S',
-        'side':  '|',
-        'clear':  ' ',
-        'wall': 'W',
-        'finish':  'F',
-        'bottom':  '‾'
-    }
+    markers = Markers(
+        top='_',
+        start='S',
+        side='|',
+        clear=' ',
+        wall='W',
+        finish='F',
+        bottom='‾',
+        path_taken='·',
+        out_of_bounds='A'
+    )
 
     def __init__(
             self,
@@ -63,11 +78,11 @@ class SimpleMaze:
         # TODO: ugly can do better
         row_n = [
             [
-                self.markers['side']
+                self.markers.side
             ] + [
-                self.markers['clear'] for _ in range(clear_markers_needed)
+                self.markers.clear for _ in range(clear_markers_needed)
             ] + [
-                self.markers['side']
+                self.markers.side
             ]
         ]
 
@@ -77,11 +92,11 @@ class SimpleMaze:
         """Get a new maze with walls"""
         # Get start and finish postions
         _, y_s = self.coords_start
-        _, y_f = self.coords_start
+        _, y_f = self.coords_finish
 
         # Get top row
-        top = [self.markers['top'] for _ in range(self.width)]
-        top[y_s] = self.markers['start']
+        top = [self.markers.top for _ in range(self.width)]
+        top[y_s] = self.markers.start
         maze = [top]
 
         # Get n middle rows
@@ -90,18 +105,24 @@ class SimpleMaze:
             maze += self.get_n_row()
 
         # Get bottom row
-        bottom = [self.markers['bottom'] for _ in range(self.width)]
-        bottom[y_f] = self.markers['finish']
+        bottom = [self.markers.bottom for _ in range(self.width)]
+        bottom[y_f] = self.markers.finish
         maze += [bottom]
 
         return maze
 
     def ok_to_place_wall(
-            self, blank_maze: List[List[str]], a: int, b: int) -> bool:
-        """Checks the placement of the wall"""
-        if blank_maze[a][b] == self.markers['clear']:
-            if blank_maze[a-1][b] != self.markers['start']:
-                if blank_maze[a+1][b] != self.markers['finish']:
+            self, blank_maze: List[List[str]], x: int, y: int) -> bool:
+        """
+        Checks the placement of the wall
+        :param blank_maze:
+        :param x: The x coordinate
+        :param y: The y coordinate
+        :return bool: Its all good man or not
+        """
+        if blank_maze[x][y] == self.markers.clear:
+            if blank_maze[x-1][y] != self.markers.start:
+                if blank_maze[x+1][y] != self.markers.finish:
                     return True
         else:
             return False
@@ -109,22 +130,22 @@ class SimpleMaze:
     def place_walls(self) -> List[List[str]]:
         """Place the walls on the maze"""
         walls_meta = self.walls.walls_meta
-        blank_maze = [x.copy() for x in self.blank_maze]
+        new_blank_maze = [x.copy() for x in self.blank_maze]
         # Each row
         for wall in walls_meta:
             # Over each pair of coordinates
-            for a, b in wall['wall_coords']:
+            for x, y in wall.wall_coords:
 
                 try:
                     # TODO BETTER PLEASE, really?!? also skips bad placements
                     # maybe this is preferred?
-                    if self.ok_to_place_wall(blank_maze, a, b):
-                        blank_maze[a][b] = self.markers['wall']
+                    if self.ok_to_place_wall(new_blank_maze, x, y):
+                        new_blank_maze[x][y] = self.markers.wall
                 except IndexError:
                     # Got to love and except index error
                     continue
 
-        return blank_maze
+        return new_blank_maze
 
     def display_maze(self) -> None:
         """Displays the maze in real time"""
@@ -135,7 +156,7 @@ class SimpleMaze:
         return None
 
     def __repr__(self) -> str:
-        """goal is to be unambiguous..."""
+        """The goal is to be unambiguous..."""
         return (
             f"|SIMPLE_MAZE| "
             f"(height: {self.height}, "

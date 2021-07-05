@@ -1,6 +1,9 @@
 from typing import List, Tuple
 
 
+from solver.mk1 import Sight
+
+
 class SimpleLogic:
 
     @staticmethod
@@ -20,20 +23,14 @@ class SimpleLogic:
             'z_minus': (None, None),
             'z_plus': (None, None)
         }
+        new_sight = Sight()
 
-        new_sight = {
-            'up': None,
-            'down': None,
-            'left': None,
-            'right': None,
-            'z_minus': None,
-            'z_plus': None
-        }
-
-        for line_of_sight, coords in sight_coords_map.items():
+        for direction, coords in sight_coords_map.items():
 
             x, y = coords
-
-            new_sight[line_of_sight] = maze[x][y]
+            try:
+                new_sight.direction = maze[x][y]
+            except IndexError:
+                new_sight.direction = 'OUT OF BOUNDS'
 
         return new_sight

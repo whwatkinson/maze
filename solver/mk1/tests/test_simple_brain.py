@@ -1,34 +1,50 @@
 from solver.mk1.simple_brain import SimpleBrain, SimpleOrgans
-
+from solver.mk1.simple_solver import SimpleSolver
+from solver.mk1 import Sight
 
 so = SimpleOrgans()
 
 
 class TestSimpleBrain:
 
-    def test_get_new_brain(self):
+    def test_new_brain(self):
+
+        test_brain = SimpleBrain()
+
+        for attribute in test_brain.sight:
+            assert attribute is None
+
+        for attribute in test_brain.last_known_position:
+            assert attribute is None
+
+        assert test_brain.memory.steps == 0
+
+    def test_inherited_brain(self):
 
         test_cases = [
             {
-                'brain': {
-                    'sight': {
-                        'up': 'S',
-                        'down': 'W',
-                        'left': ' ',
-                        'right': '|',
-                        'z_minus': None,
-                        'z_plus': None
-                    },
-                    'last_known_position': so.sight_clean,
-                    'memory': {
-                        'steps': 2
+                'sight': Sight(
+                    up='S',
+                    down='W',
+                    left=' ',
+                    right='|',
+                    z_minus=None,
+                    z_plus=None
+                ),
+                'last_known_position': so.sight_clean,
+                'memory': {
+                    'steps': 2
                     }
                 }
-            }
+
         ]
 
         for case in test_cases:
 
-            sb = SimpleBrain(brain=case['brain'])
+            test_brain = SimpleBrain(**case)
+            ss = SimpleSolver(brain=test_brain)
+            assert type(ss.brain) is SimpleBrain
+            assert ss.brain.memory['steps'] == case['memory']['steps']
 
-            assert type(sb) is SimpleBrain
+            for expected, test in zip(case['sight'], ss.brain.sight):
+                assert expected == test
