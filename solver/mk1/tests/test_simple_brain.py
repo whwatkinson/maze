@@ -17,8 +17,6 @@ class TestSimpleBrain:
         for attribute in test_brain.last_known_position:
             assert attribute is None
 
-        assert test_brain.memory.steps == 0
-
     def test_inherited_brain(self):
 
         test_cases = [

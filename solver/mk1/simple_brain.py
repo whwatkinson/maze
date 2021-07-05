@@ -1,16 +1,8 @@
 from solver.mk1.simple_organs import SimpleOrgans
+from solver.mk1.simple_memory import SimpleMemory
 
 so = SimpleOrgans()
 sight_clean = so.sight_clean
-
-memory_clean = {'steps': 0}
-
-
-class SimpleMemory:
-
-    def __init__(self, steps: int = 0):
-
-        self.steps = steps
 
 
 class SimpleBrain:
