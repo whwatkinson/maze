@@ -3,10 +3,10 @@ from collections import namedtuple
 
 from solver import SolverMeta
 from solver.mk1 import SimpleSolver, Sight
-from solver.mk1.tests.sample_mazes import maze0
-from mazes.mk1.simple_maze import SimpleMaze
+from mazes import SimpleMaze, SampleSimpleMazes
 
 sm = SimpleMaze()
+sample_simple_mazes = SampleSimpleMazes()
 
 
 class TestSimpleSolver:
@@ -62,10 +62,13 @@ class TestSimpleSolver:
                               )
 
         markers = set(sm.markers._asdict().values())
+        as_of_yet_unsure = {'z_minus', 'z_plus'}
+        maze0 = sample_simple_mazes.maze0
 
         test_cases = [
             TestCase('up', maze0, 1, 1, None),
-            TestCase('UP', maze0, 1, 1, ValueError)
+            TestCase('UP', maze0, 1, 1, ValueError),
+            TestCase('z_plus', maze0, 1, 1, None),
         ]
 
         for case in test_cases:
@@ -81,20 +84,21 @@ class TestSimpleSolver:
                 assert exec_info.type == case.exception
 
             else:
-
                 calcium = ss.look_around_you(
                     direction=case.direction,
                     maze=case.maze,
                     x=case.x,
                     y=case.y
                 )
-
-                assert calcium in markers
+                if case.direction in as_of_yet_unsure:
+                    assert calcium is None
+                else:
+                    assert calcium in markers
 
     def test_update_sight(self):
 
         TestCase = namedtuple('TestCase', ['maze', 'position', 'expected'])
-
+        maze0 = sample_simple_mazes.maze0
         test_cases = [
             # Top Left
             TestCase(maze0, (0, 0), Sight(

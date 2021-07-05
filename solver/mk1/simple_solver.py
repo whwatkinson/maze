@@ -63,7 +63,7 @@ class SimpleSolver:
 
         return new_path
 
-    def add_path(self, coords: Tuple[int, int]) -> bool:
+    def update_path_taken(self, coords: Tuple[int, int]) -> bool:
         """
         Add path to memory
         :param coords:
@@ -182,10 +182,6 @@ class SimpleSolver:
             marker = simple_maze.markers.out_of_bounds
 
         return marker
-
-    def get_current_postion(self):
-        """Where am I?"""
-        return self.brain.memory['sight']
 
     def __repr__(self) -> str:
         """Ronseal"""
