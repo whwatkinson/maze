@@ -48,5 +48,3 @@ class TestSimpleBrain:
 
             for expected, test in zip(case['sight'], ss.brain.sight):
                 assert expected == test
-
-

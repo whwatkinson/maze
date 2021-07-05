@@ -46,7 +46,9 @@ class SimpleSolver:
             return new_brain
 
     @staticmethod
-    def get_new_path_taken(path: List[Tuple[int, int]]) -> List[Tuple[int, int]]:
+    def get_new_path_taken(
+            path: Optional[List[Tuple[int, int]]]
+    ) -> List[Tuple[int, int]]:
         """
         Get a new path taken if memory is foggy
         :param path:
