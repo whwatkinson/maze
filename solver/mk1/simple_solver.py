@@ -19,12 +19,12 @@ class SimpleSolver:
             self,
             brain: SimpleBrain = None,
             path_taken: list = None,
-            current_position: Tuple[int, int] = None
+            current_position: Tuple[int, int] = None,
     ):
         self.brain = self.brain_check(brain)
 
         if not path_taken:
-            self.path_taken = self.get_path_taken(path_taken)
+            self.path_taken = self.get_new_path_taken(path_taken)
 
         self.current_position = current_position
 
@@ -46,7 +46,7 @@ class SimpleSolver:
             return new_brain
 
     @staticmethod
-    def get_path_taken(path: List[Tuple[int, int]]) -> List[Tuple[int, int]]:
+    def get_new_path_taken(path: List[Tuple[int, int]]) -> List[Tuple[int, int]]:
         """
         Get a new path taken if memory is foggy
         :param path:
@@ -76,20 +76,20 @@ class SimpleSolver:
         """Updates the step count"""
 
         # Get bain dict
-        steps = self.brain.memory['steps']
+        steps = self.brain.memory.steps
 
         # GOALS
         if steps > 10000:
             print("STEP GOAL REACHED")
 
         # Update steps
-        self.brain.memory['steps'] = steps + 1
+        self.brain.memory.steps += 1
 
         return True
 
     def get_step_count(self):
         """Returns the current step count"""
-        return self.brain.memory['steps']
+        return self.brain.memory.steps
 
     def update_location(
             self,

@@ -43,7 +43,7 @@ class TestSimpleSolver:
             # New SimpleSolver
             ss = SimpleSolver()
             # Update steps
-            ss.brain.memory['steps'] = case.steps
+            ss.brain.memory.steps = case.steps
 
             for steps in range(case.movement):
                 ss.update_step_count()
