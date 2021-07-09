@@ -2,7 +2,7 @@ from pytest import raises
 from collections import namedtuple
 
 from solver import SolverMeta
-from solver.mk1 import SimpleSolver, Sight, SimpleBrain
+from solver.mk1 import SimpleSolver, Sight, SimpleBrain, SimpleDirection
 from mazes import SimpleMaze, SampleSimpleMazes
 
 sm = SimpleMaze()
@@ -71,7 +71,7 @@ class TestSimpleSolver:
 
         test_cases = [
             TestCase('up', maze0, 1, 1, None),
-            TestCase('Up', maze0, 5, 7, ValueError),
+            TestCase('Up', maze0, 5, 7, KeyError),
             TestCase('z_minus', maze0, 1, 2, None),
             TestCase('z_plus', maze0, 3, 2, None),
         ]
@@ -81,7 +81,7 @@ class TestSimpleSolver:
             if case.exception:
                 with raises(case.exception) as exec_info:
                     ss.look_around_you(
-                        direction=case.direction,
+                        direction=SimpleDirection[case.direction],
                         maze=case.maze,
                         x=case.x,
                         y=case.y
@@ -90,7 +90,7 @@ class TestSimpleSolver:
 
             else:
                 calcium = ss.look_around_you(
-                    direction=case.direction,
+                    direction=SimpleDirection[case.direction],
                     maze=case.maze,
                     x=case.x,
                     y=case.y
