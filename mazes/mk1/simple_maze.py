@@ -14,7 +14,8 @@ Markers = namedtuple('Markers', [
     'finish',
     'bottom',
     'path_taken',
-    'out_of_bounds'
+    'out_of_bounds',
+    'solver'
 ])
 
 
@@ -29,7 +30,8 @@ class SimpleMaze:
         finish='F',
         bottom='‾',
         path_taken='·',
-        out_of_bounds='A'
+        out_of_bounds='A',
+        solver='%'
     )
 
     def __init__(
@@ -40,10 +42,10 @@ class SimpleMaze:
             level: int = 0
     ):
 
-        if height < 3:
-            raise ValueError('This maze is to short.')
-        if width < 3:
-            raise ValueError('This maze is to narrow.')
+        if height < 3 or width < 3:
+            raise ValueError(
+                f'This maze is too small height: {height}, width {width}'
+            )
 
         # OOP
         self.height = height
@@ -68,7 +70,7 @@ class SimpleMaze:
         finish_position = randint(1, upper_bound)
 
         coords_start = (0, start_position)
-        coords_finish = (self.height-1, finish_position)
+        coords_finish = (self.height - 1, finish_position)
 
         return coords_start, coords_finish
 

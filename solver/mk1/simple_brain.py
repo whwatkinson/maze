@@ -19,7 +19,7 @@ class SimpleBrain:
         :param sight:
         :param last_known_position:
         :param memory:
-        :returns :
+        :return :
         """
 
         self.sight = self.get_new_vision(sight)
@@ -42,4 +42,4 @@ class SimpleBrain:
             return memory
 
     def __repr__(self):
-        return f"|SIMPLE_BRAIN| steps_taken {self.memory['steps']}"
+        return f"|SIMPLE_BRAIN| steps_taken {self.memory.steps}"
