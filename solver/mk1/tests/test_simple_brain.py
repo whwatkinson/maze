@@ -24,7 +24,9 @@ class TestSimpleBrain:
 
     def test_inherited_brain(self):
 
-        TestCase = namedtuple('TestCase', ["sight", "last_known_position", "memory"])
+        TestCase = namedtuple('TestCase', [
+            "sight", "last_known_position", "memory"
+        ])
 
         test_cases = [
             TestCase(
@@ -44,7 +46,7 @@ class TestSimpleBrain:
                     z_minus=None,
                     z_plus=None
                 ),
-                memory=SimpleMemory(steps=2))
+                memory=SimpleMemory(steps=55))
         ]
 
         for case in test_cases:

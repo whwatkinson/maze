@@ -26,6 +26,7 @@ class TestSimpleSolver:
             smeta = SolverMeta()
 
             assert ss.name in smeta.solver_names
+            assert ss.language in smeta.language
             # assert type(ss.brain) is dict
             assert type(ss.path_taken) is list
 
@@ -42,9 +43,11 @@ class TestSimpleSolver:
 
             # New SimpleSolver
             ss = SimpleSolver()
-            # Update steps
+
+            # Replace steps taken
             ss.brain.memory.steps = case.steps
 
+            # Update steps
             for steps in range(case.movement):
                 ss.update_step_count()
 
