@@ -2,7 +2,7 @@ from pytest import raises
 from collections import namedtuple
 
 from solver import SolverMeta
-from solver.mk1 import SimpleSolver, Sight
+from solver.mk1 import SimpleSolver, Sight, SimpleBrain
 from mazes import SimpleMaze, SampleSimpleMazes
 
 sm = SimpleMaze()
@@ -27,8 +27,9 @@ class TestSimpleSolver:
 
             assert ss.name in smeta.solver_names
             assert ss.language in smeta.language
-            # assert type(ss.brain) is dict
-            assert type(ss.path_taken) is list
+            assert type(ss.brain) is SimpleBrain
+            assert len(ss.path_taken) == 0
+            assert ss.current_position is None
 
     def test_brain_step_count(self):
         TestCase = namedtuple('TestCase', ['steps', 'movement', 'total_steps'])
