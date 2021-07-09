@@ -41,6 +41,13 @@ class SimpleMaze:
             number_of_walls: int = 10,
             level: int = 0
     ):
+        """
+        Generate a SimpleMaze object
+        :param height: The height of the maze
+        :param width: The width of the maze
+        :param number_of_walls: The number of walls in the maze
+        :param level: The level of the maze
+        """
 
         if height < 3 or width < 3:
             raise ValueError(

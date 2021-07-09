@@ -31,6 +31,12 @@ class SimpleSolver:
             path_taken: list = None,
             current_position: Tuple[int, int] = None,
     ):
+        """
+        Generate a Simple Solver object
+        :param brain: The brains behind the madness
+        :param path_taken: Where have I gone?
+        :param current_position: WHere am I?
+        """
         self.brain = self.brain_check(brain)
 
         if not path_taken:
