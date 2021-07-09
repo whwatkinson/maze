@@ -67,8 +67,9 @@ class TestSimpleSolver:
 
         test_cases = [
             TestCase('up', maze0, 1, 1, None),
-            TestCase('Up', maze0, 1, 1, ValueError),
-            TestCase('z_plus', maze0, 1, 1, None),
+            TestCase('Up', maze0, 5, 7, ValueError),
+            TestCase('z_minus', maze0, 1, 2, None),
+            TestCase('z_plus', maze0, 3, 2, None),
         ]
 
         for case in test_cases:

@@ -56,3 +56,6 @@ class TestSimpleBrain:
 
             for expected, test in zip(case.sight, ss.brain.sight):
                 assert expected == test
+
+            for expected, test in zip(case.last_known_position, ss.brain.last_known_position):
+                assert expected == test
