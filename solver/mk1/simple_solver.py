@@ -168,23 +168,21 @@ class SimpleSolver:
         :return:
         """
         # WOW just WOW, better to ship and send
+        # TODO MSP OF WHERE TF TO GO?
+
+        direction_map = {
+            SimpleDirection.up: maze[x - 1][y],
+            SimpleDirection.down: maze[x + 1][y],
+            SimpleDirection.left: maze[x][y - 1],
+            SimpleDirection.right: maze[x][y + 1],
+            SimpleDirection.z_minus: None,
+            SimpleDirection.z_plus: None,
+        }
+
         try:
-            if direction is SimpleDirection.up:
-                if x - 1 < 0:
-                    raise IndexError
-                marker = maze[x - 1][y]
-            elif direction is SimpleDirection.down:
-                marker = maze[x + 1][y]
-            elif direction is SimpleDirection.left:
-                if y - 1 < 0:
-                    raise IndexError
-                marker = maze[x][y - 1]
-            elif direction is SimpleDirection.right:
-                marker = maze[x][y + 1]
-            elif direction is SimpleDirection.z_minus:
-                marker = None
-            elif direction is SimpleDirection.z_plus:
-                marker = None
+            if direction is SimpleDirection:
+                marker = direction_map[direction]
+
             else:
                 raise ValueError('WHERE ARE YOU GOING?')
 
