@@ -176,6 +176,15 @@ class SimpleSolver:
         # WOW just WOW, better to ship and send
         # TODO MAP OF WHERE TF TO GO?
 
+        direction_map = {
+            SimpleDirection.up: (x - 1, y) if x - 1 > 0 else None,
+            SimpleDirection.down: (x + 1, y),
+            SimpleDirection.left: (x, y - 1) if y - 1 > 0 else None,
+            SimpleDirection.right: (x, y + 1),
+            SimpleDirection.z_minus: None,
+            SimpleDirection.z_plus: None,
+        }
+
         try:
             if direction is SimpleDirection.up:
                 if x - 1 < 0:

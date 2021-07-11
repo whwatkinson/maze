@@ -1,4 +1,4 @@
-from mazes.sample_mazes.simple import SampleSimpleMazes
+from mazes.sample_mazes.simple_simple_mazes import SampleSimpleMazes
 
 __all__ = [
     "SampleSimpleMazes"
