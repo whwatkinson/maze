@@ -1,13 +1,16 @@
 from random import randint
 from typing import Tuple, List
 from collections import namedtuple
+from random import getrandbits
+
 
 WallMeta = namedtuple('WallMeta', [
     "vertical",
     "wall_length",
     "x",
     "y",
-    "wall_coords"
+    "wall_coords",
+    "is_door"
 ])
 
 
@@ -52,6 +55,25 @@ class SimpleWall:
 
         return wall_coords
 
+    @staticmethod
+    def narnia(x: int, y: int) -> bool:
+        """
+        Is they a
+        :param x:
+        :param y:
+        :return:
+        """
+
+        # Combine coords to get unique identifier
+        lucy = f'{x}{y}'
+
+        # Generate a id obj
+        edmund = str(id(lucy))
+
+        aslan = True if not edmund[-1] else False
+
+        return aslan
+
     def get_walls_meta(
             self, height: int, width: int, max_wall_length: int
     ) -> List[WallMeta]:
@@ -65,12 +87,11 @@ class SimpleWall:
 
         walls_meta = []
 
-        # TODO namedtuple?
         # No list comp as need x and y vars
         for _ in range(self.number_of_walls):
 
             # Vertical
-            vertical = bool(randint(0, 1))
+            vertical = bool(getrandbits(1))
 
             # Length of wall
             wall_length = randint(1, max_wall_length)
@@ -81,14 +102,19 @@ class SimpleWall:
             # y coordinate
             y = randint(1, width - 1)
 
+            # Get the wall coordinates
             wall_coords = self.get_wall_coords(vertical, wall_length, x, y)
+
+            # Is there a door? If so unlinkely!
+            is_door = self.narnia(x, y)
 
             wm = WallMeta(
                 vertical=vertical,
                 wall_length=wall_length,
                 x=x,
                 y=y,
-                wall_coords=wall_coords
+                wall_coords=wall_coords,
+                is_door=is_door
             )
             walls_meta.append(wm)
 

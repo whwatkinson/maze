@@ -1,16 +1,8 @@
 from solver.mk1.simple_organs import SimpleOrgans
+from solver.mk1.simple_memory import SimpleMemory
 
 so = SimpleOrgans()
 sight_clean = so.sight_clean
-
-memory_clean = {'steps': 0}
-
-
-class SimpleMemory:
-
-    def __init__(self, steps: int = 0):
-
-        self.steps = steps
 
 
 class SimpleBrain:
@@ -27,7 +19,7 @@ class SimpleBrain:
         :param sight:
         :param last_known_position:
         :param memory:
-        :returns :
+        :return :
         """
 
         self.sight = self.get_new_vision(sight)
@@ -50,4 +42,4 @@ class SimpleBrain:
             return memory
 
     def __repr__(self):
-        return f"|SIMPLE_BRAIN| steps_taken {self.memory['steps']}"
+        return f"|SIMPLE_BRAIN| steps_taken {self.memory.steps}"

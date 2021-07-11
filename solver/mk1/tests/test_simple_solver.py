@@ -1,12 +1,12 @@
-from pytest import raises
+from pytest import raises, mark
 from collections import namedtuple
 
 from solver import SolverMeta
-from solver.mk1 import SimpleSolver, Sight
-from solver.mk1.tests.sample_mazes import maze0
-from mazes.mk1.simple_maze import SimpleMaze
+from solver.mk1 import SimpleSolver, Sight, SimpleBrain, SimpleDirection, SimpleOrgans
+from mazes import SimpleMaze, SampleSimpleMazes
 
 sm = SimpleMaze()
+sample_simple_mazes = SampleSimpleMazes()
 
 
 class TestSimpleSolver:
@@ -24,10 +24,16 @@ class TestSimpleSolver:
 
             ss = SimpleSolver(**case)
             smeta = SolverMeta()
+            s0 = SimpleOrgans()
 
             assert ss.name in smeta.solver_names
-            # assert type(ss.brain) is dict
-            assert type(ss.path_taken) is list
+            assert ss.language in smeta.language
+            assert type(ss.brain) is SimpleBrain
+            assert ss.path_taken == []
+            assert ss.current_position is None
+            assert ss.brain.sight == s0.sight_clean
+            assert ss.brain.last_known_position == s0.sight_clean
+            assert ss.brain.memory.steps == 0
 
     def test_brain_step_count(self):
         TestCase = namedtuple('TestCase', ['steps', 'movement', 'total_steps'])
@@ -42,9 +48,11 @@ class TestSimpleSolver:
 
             # New SimpleSolver
             ss = SimpleSolver()
-            # Update steps
+
+            # Replace steps taken
             ss.brain.memory.steps = case.steps
 
+            # Update steps
             for steps in range(case.movement):
                 ss.update_step_count()
 
@@ -62,10 +70,14 @@ class TestSimpleSolver:
                               )
 
         markers = set(sm.markers._asdict().values())
+        as_of_yet_unsure = {'z_minus', 'z_plus'}
+        maze0 = sample_simple_mazes.maze0
 
         test_cases = [
             TestCase('up', maze0, 1, 1, None),
-            TestCase('UP', maze0, 1, 1, ValueError)
+            TestCase('Up', maze0, 5, 7, KeyError),
+            TestCase('z_minus', maze0, 1, 2, None),
+            TestCase('z_plus', maze0, 3, 2, None),
         ]
 
         for case in test_cases:
@@ -73,7 +85,7 @@ class TestSimpleSolver:
             if case.exception:
                 with raises(case.exception) as exec_info:
                     ss.look_around_you(
-                        direction=case.direction,
+                        direction=SimpleDirection[case.direction],
                         maze=case.maze,
                         x=case.x,
                         y=case.y
@@ -81,20 +93,21 @@ class TestSimpleSolver:
                 assert exec_info.type == case.exception
 
             else:
-
                 calcium = ss.look_around_you(
-                    direction=case.direction,
+                    direction=SimpleDirection[case.direction],
                     maze=case.maze,
                     x=case.x,
                     y=case.y
                 )
-
-                assert calcium in markers
+                if case.direction in as_of_yet_unsure:
+                    assert calcium is None
+                else:
+                    assert calcium in markers
 
     def test_update_sight(self):
 
         TestCase = namedtuple('TestCase', ['maze', 'position', 'expected'])
-
+        maze0 = sample_simple_mazes.maze0
         test_cases = [
             # Top Left
             TestCase(maze0, (0, 0), Sight(
