@@ -185,6 +185,26 @@ class SimpleSolver:
             SimpleDirection.z_plus: None,
         }
 
+        line_of_sight = direction_map[direction]
+
+        if line_of_sight:
+
+            x_n, y_n = line_of_sight
+
+            try:
+                marker = maze[x_n][y_n]
+            except IndexError:
+                marker = simple_maze.markers.out_of_bounds
+
+        else:
+            marker = None
+
+
+        return marker
+
+
+
+
         try:
             if direction is SimpleDirection.up:
                 if x - 1 < 0:
