@@ -25,6 +25,15 @@ class SimpleDirection(Enum):
 
 class SimpleSolver:
 
+    direction_map = {
+        SimpleDirection.up: (-1, 0),
+        SimpleDirection.down: (1, 0),
+        SimpleDirection.left: (0, -1),
+        SimpleDirection.right: (0, 1),
+        SimpleDirection.z_minus: None,
+        SimpleDirection.z_plus: None,
+    }
+
     def __init__(
             self,
             brain: SimpleBrain = None,
@@ -160,9 +169,9 @@ class SimpleSolver:
         current_position = Sight(**sight_coords_map)
         return current_position
 
-    @staticmethod
+
     def look_around_you(
-            direction: SimpleDirection, maze: List[List[str]], x: int, y: int) -> str:
+            self, direction: SimpleDirection, maze: List[List[str]], x: int, y: int) -> str:
         """
         This is our good friend Calcium
         :param direction:
@@ -174,25 +183,24 @@ class SimpleSolver:
         # WOW just WOW, better to ship and send
         # TODO MAP OF WHERE TF TO GO?
 
-        direction_map = {
-            SimpleDirection.up: (x - 1, y),
-            SimpleDirection.down: (x + 1, y),
-            SimpleDirection.left: (x, y - 1),
-            SimpleDirection.right: (x, y + 1),
-            SimpleDirection.z_minus: None,
-            SimpleDirection.z_plus: None,
-        }
-
-        line_of_sight = direction_map[direction]
+        line_of_sight = self.direction_map[direction]
         if line_of_sight:
 
             try:
-                x_new, y_new = line_of_sight
-                marker = maze[x_new][y_new]
+                x_d, y_d = line_of_sight
+
+                x_new = x + x_d
+                y_new = y + y_d
 
                 # Not the best implementation
                 if x_new < 0 or y_new < 0:
                     raise IndexError('LOOK AROUND YOU')
+
+
+
+                marker = maze[x_new][y_new]
+
+
 
             except IndexError:
                 marker = simple_maze.markers.out_of_bounds
