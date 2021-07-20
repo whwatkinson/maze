@@ -149,17 +149,15 @@ class SimpleSolver:
         x, y = position
 
         # Mapping of sight
-        # TODO needs to be in "const" or somthing appropriate?
-        sight_coords_map = {
-            'up': self.look_around_you(SimpleDirection['up'], maze, x, y),
-            'down': self.look_around_you(SimpleDirection['down'], maze, x, y),
-            'left': self.look_around_you(SimpleDirection['left'], maze, x, y),
-            'right': self.look_around_you(SimpleDirection['right'], maze, x, y),
-            'z_minus': self.look_around_you(SimpleDirection['z_minus'], maze, x, y),
-            'z_plus': self.look_around_you(SimpleDirection['z_plus'], maze, x, y),
-        }
-        current_position = Sight(**sight_coords_map)
+        # TODO DICT comp
 
+        # Get the keys from the enum
+        sight_coords_map = {
+            item: self.look_around_you(SimpleDirection[item], maze, x, y)
+            for item in [field.value for field in SimpleDirection]
+        }
+
+        current_position = Sight(**sight_coords_map)
         return current_position
 
     @staticmethod
@@ -177,58 +175,33 @@ class SimpleSolver:
         # TODO MAP OF WHERE TF TO GO?
 
         direction_map = {
-            SimpleDirection.up: (x - 1, y) if x - 1 > 0 else None,
+            SimpleDirection.up: (x - 1, y),
             SimpleDirection.down: (x + 1, y),
-            SimpleDirection.left: (x, y - 1) if y - 1 > 0 else None,
+            SimpleDirection.left: (x, y - 1),
             SimpleDirection.right: (x, y + 1),
             SimpleDirection.z_minus: None,
             SimpleDirection.z_plus: None,
         }
 
         line_of_sight = direction_map[direction]
-
         if line_of_sight:
 
-            x_n, y_n = line_of_sight
-
             try:
-                marker = maze[x_n][y_n]
+                x_new, y_new = line_of_sight
+                marker = maze[x_new][y_new]
+
+                # Not the best implementation
+                if x_new < 0 or y_new < 0:
+                    raise IndexError('LOOK AROUND YOU')
+
             except IndexError:
                 marker = simple_maze.markers.out_of_bounds
 
         else:
             marker = None
 
-
         return marker
 
-
-
-
-        try:
-            if direction is SimpleDirection.up:
-                if x - 1 < 0:
-                    raise IndexError
-                marker = maze[x - 1][y]
-            elif direction is SimpleDirection.down:
-                marker = maze[x + 1][y]
-            elif direction is SimpleDirection.left:
-                if y - 1 < 0:
-                    raise IndexError
-                marker = maze[x][y - 1]
-            elif direction is SimpleDirection.right:
-                marker = maze[x][y + 1]
-            elif direction is SimpleDirection.z_minus:
-                marker = None
-            elif direction is SimpleDirection.z_plus:
-                marker = None
-            else:
-                raise ValueError('WHERE ARE YOU GOING?')
-
-        except IndexError:
-            marker = simple_maze.markers.out_of_bounds
-
-        return marker
 
     def __repr__(self) -> str:
         """Ronseal"""
