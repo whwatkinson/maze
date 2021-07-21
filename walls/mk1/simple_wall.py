@@ -1,7 +1,7 @@
 from random import randint,getrandbits
 from typing import Tuple, List
 from collections import namedtuple
-from uuid import uuid4
+from datetime import datetime
 
 
 WallMeta = namedtuple('WallMeta', [
@@ -60,29 +60,24 @@ class SimpleWall:
         return wall_coords
 
     @staticmethod
-    def narnia(x: int, y: int) -> bool:
+    def narnia(x: int, y: int, temporal: int = None) -> bool:
         """
         Is there a door, deterministic with the illusion of randomness
         :param x:
         :param y:
+        :param temporal:
         :return:
         """
 
         # Combine coords to get unique identifier
-        combined = x + y
+        if not temporal:
+            temporal = datetime.now().second
 
-        if combined % 8 == 0:
+        lucy = (x + y) % 4
+        edmund = temporal % 8
+        aslan = True if (lucy == 0 and edmund == 0) else False
 
-            lucy = combined % 32
-
-            # Generate a id obj
-            edmund = str(uuid4())
-
-            aslan = True if edmund[lucy] == '-' else False
-
-            return aslan
-
-        return False
+        return aslan
 
     def get_walls_meta(
             self, height: int, width: int, max_wall_length: int

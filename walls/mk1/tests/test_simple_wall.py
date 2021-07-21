@@ -62,11 +62,11 @@ class TestSimpleWall:
 
     def test_narnia(self):
 
-        TestCase = namedtuple('TestCase', ['x', 'y', 'expected_result'])
+        TestCase = namedtuple('TestCase', ['x', 'y', 'temporal', 'expected_result'])
 
         test_cases = [
-            TestCase(1, 7, True),
-            TestCase(5, 7, False)
+            TestCase(4, 8, 16, True),
+            TestCase(3, 7, 57, False)
         ]
 
         # Known False results
@@ -75,5 +75,5 @@ class TestSimpleWall:
             # Random coords on random walls
             sw = SimpleWall(10, 10, 10, 5)
 
-            test = sw.narnia(case.x, case.y)
+            test = sw.narnia(case.x, case.y, case.temporal)
             assert test is case.expected_result
