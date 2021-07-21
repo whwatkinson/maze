@@ -25,7 +25,7 @@ class SimpleDirection(Enum):
 
 class SimpleSolver:
 
-    direction_map = {
+    look_around_direction_map = {
         SimpleDirection.up: (-1, 0),
         SimpleDirection.down: (1, 0),
         SimpleDirection.left: (0, -1),
@@ -169,9 +169,12 @@ class SimpleSolver:
         current_position = Sight(**sight_coords_map)
         return current_position
 
-
     def look_around_you(
-            self, direction: SimpleDirection, maze: List[List[str]], x: int, y: int) -> str:
+            self,
+            direction: SimpleDirection,
+            maze: List[List[str]],
+            x: int, y: int
+    ) -> str:
         """
         This is our good friend Calcium
         :param direction:
@@ -180,10 +183,8 @@ class SimpleSolver:
         :param y:
         :return:
         """
-        # WOW just WOW, better to ship and send
-        # TODO MAP OF WHERE TF TO GO?
 
-        line_of_sight = self.direction_map[direction]
+        line_of_sight = self.look_around_direction_map[direction]
         if line_of_sight:
 
             try:
@@ -192,16 +193,11 @@ class SimpleSolver:
                 x_new = x + x_d
                 y_new = y + y_d
 
-                # Not the best implementation
+                # Do not want to get a -ve index
                 if x_new < 0 or y_new < 0:
                     raise IndexError('LOOK AROUND YOU')
 
-
-
                 marker = maze[x_new][y_new]
-
-
-
             except IndexError:
                 marker = simple_maze.markers.out_of_bounds
 
@@ -210,7 +206,6 @@ class SimpleSolver:
 
         return marker
 
-
     def __repr__(self) -> str:
-        """Ronseal"""
+        """The goal is to be unambiguous."""
         return f"|SIMPLE_SOLVER| name: {self.name}"

@@ -1,3 +1,7 @@
+from collections import namedtuple
+from random import randint
+
+
 from walls.mk1 import SimpleWall
 
 
@@ -55,3 +59,21 @@ class TestSimpleWall:
 
     def test_wall_length(self):
         pass
+
+    def test_narnia(self):
+
+        TestCase = namedtuple('TestCase', ['x', 'y', 'expected_result'])
+
+        test_cases = [
+            TestCase(1, 7, True),
+            TestCase(5, 7, False)
+        ]
+
+        # Known False results
+        for case in test_cases:
+
+            # Random coords on random walls
+            sw = SimpleWall(10, 10, 10, 5)
+
+            test = sw.narnia(case.x, case.y)
+            assert test is case.expected_result

@@ -1,7 +1,7 @@
-from random import randint
+from random import randint,getrandbits
 from typing import Tuple, List
 from collections import namedtuple
-from random import getrandbits
+from uuid import uuid4
 
 
 WallMeta = namedtuple('WallMeta', [
@@ -10,7 +10,8 @@ WallMeta = namedtuple('WallMeta', [
     "x",
     "y",
     "wall_coords",
-    "is_door"
+    "is_door",
+    "door_coords"
 ])
 
 
@@ -25,6 +26,9 @@ class SimpleWall:
     ):
         self.number_of_walls = number_of_walls
         self.max_wall_length = max_wall_length
+
+        # TODO add a check for min number of walls if wift/ height is too small
+
         self.walls_meta = self.get_walls_meta(
             height=height,
             width=width,
@@ -58,21 +62,27 @@ class SimpleWall:
     @staticmethod
     def narnia(x: int, y: int) -> bool:
         """
-        Is they a
+        Is there a door, deterministic with the illusion of randomness
         :param x:
         :param y:
         :return:
         """
 
         # Combine coords to get unique identifier
-        lucy = f'{x}{y}'
+        combined = x + y
 
-        # Generate a id obj
-        edmund = str(id(lucy))
+        if combined % 8 == 0:
 
-        aslan = True if not edmund[-1] else False
+            lucy = combined % 32
 
-        return aslan
+            # Generate a id obj
+            edmund = str(uuid4())
+
+            aslan = True if edmund[lucy] == '-' else False
+
+            return aslan
+
+        return False
 
     def get_walls_meta(
             self, height: int, width: int, max_wall_length: int
@@ -108,17 +118,22 @@ class SimpleWall:
             # Is there a door? If so unlinkely!
             is_door = self.narnia(x, y)
 
+            # Door coords
+            door_coords = None
+
             wm = WallMeta(
                 vertical=vertical,
                 wall_length=wall_length,
                 x=x,
                 y=y,
                 wall_coords=wall_coords,
-                is_door=is_door
+                is_door=is_door,
+                door_coords=door_coords
             )
             walls_meta.append(wm)
 
         return walls_meta
 
     def __repr__(self):
+        """The goal is to be unambiguous."""
         return f"|SIMPLE_WALL| (number_of_walls: {self.number_of_walls})"

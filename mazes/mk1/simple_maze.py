@@ -167,7 +167,7 @@ class SimpleMaze:
         return None
 
     def __repr__(self) -> str:
-        """The goal is to be unambiguous..."""
+        """The goal is to be unambiguous."""
         return (
             f"|SIMPLE_MAZE| "
             f"(height: {self.height}, "
