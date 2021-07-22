@@ -72,6 +72,7 @@ class SimpleMaze:
 
     def get_start_finish_pos(self) -> Tuple[Tuple[int, int], Tuple[int, int]]:
         """Get the postionion of the start and finish"""
+        # TODO why width -2?
         upper_bound = self.width - 2
         start_position = randint(1, upper_bound)
         finish_position = randint(1, upper_bound)
@@ -83,7 +84,6 @@ class SimpleMaze:
     def get_n_row(self) -> List[List[str]]:
         """Get the middle rows of the maze"""
         clear_markers_needed = self.width - 2
-        # TODO: ugly can do better
         row_n = [
             [
                 self.markers.side
@@ -157,8 +157,6 @@ class SimpleMaze:
             if wall.is_door:
                 x_d, y_d = wall.door_coords
                 new_blank_maze[x_d][y_d] = self.markers.door
-
-
 
         return new_blank_maze
 

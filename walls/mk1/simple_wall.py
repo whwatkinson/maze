@@ -28,9 +28,6 @@ class SimpleWall:
         self.maze_width = maze_width
         self.number_of_walls = number_of_walls
         self.max_wall_length = max_wall_length
-
-        # TODO add a check for min number of walls if wift/ height is too small
-
         self.walls_meta = self.get_walls_meta()
 
     @staticmethod
@@ -81,6 +78,12 @@ class SimpleWall:
     def determine_wall_upper_bound(
             self, vertical: bool, wall_length: int
     ) -> Tuple[int, int]:
+        """
+        Get the upper bound for the wall to be placed on the maze.
+        :param vertical:
+        :param wall_length:
+        :return:
+        """
 
         if vertical:
 
