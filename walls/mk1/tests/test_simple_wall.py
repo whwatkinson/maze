@@ -8,25 +8,25 @@ class TestSimpleWall:
 
     test_case = [
         {
-            'height': 5,
-            'width': 5,
+            'maze_height': 5,
+            'maze_width': 5,
             'number_of_walls': 2,
             'max_wall_length': 1
         },
         {
-            'height': 7,
-            'width': 66,
+            'maze_height': 7,
+            'maze_width': 66,
             'number_of_walls': 25,
             'max_wall_length': 12
         },
         {
-            'height': 45,
-            'width': 23,
+            'maze_height': 45,
+            'maze_width': 23,
             'number_of_walls': 77
         },
         {
-            'height': 99,
-            'width': 99,
+            'maze_height': 99,
+            'maze_width': 99,
             'number_of_walls': 0,
             'max_wall_length': 12
         }

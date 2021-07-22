@@ -19,21 +19,19 @@ class SimpleWall:
 
     def __init__(
             self,
-            height: int,
-            width: int,
+            maze_height: int,
+            maze_width: int,
             number_of_walls: int = 10,
             max_wall_length: int = 5
     ):
+        self.maze_height = maze_height
+        self.maze_width = maze_width
         self.number_of_walls = number_of_walls
         self.max_wall_length = max_wall_length
 
         # TODO add a check for min number of walls if wift/ height is too small
 
-        self.walls_meta = self.get_walls_meta(
-            height=height,
-            width=width,
-            max_wall_length=max_wall_length
-        )
+        self.walls_meta = self.get_walls_meta()
 
     @staticmethod
     def get_wall_coords(
@@ -65,6 +63,7 @@ class SimpleWall:
         Is there a door, deterministic with the illusion of randomness
         :param x:
         :param y:
+        :param wall_length:
         :param temporal:
         :return:
         """
@@ -79,12 +78,22 @@ class SimpleWall:
 
         return aslan
 
-    def determine_wall_upper_bound(self, cart_part: str ,vertical: bool):
+    def determine_wall_upper_bound(self, cart_part: str, vertical: bool, wall_length: int):
+        # x coordinate
+        x = randint(1, (
+            self.maze_height - wall_length if self.maze_height - wall_length > 1 else wall_length - 1) if vertical else (
+                    self.maze_height - 1))
+
+        # y coordinate
+        y = randint(1, (self.maze_width - 1) if vertical else (
+            self.maze_width - wall_length if self.maze_width - wall_length > 1 else wall_length - 1))
+
+
+
+
         pass
 
-    def get_walls_meta(
-            self, height: int, width: int, max_wall_length: int
-    ) -> List[WallMeta]:
+    def get_walls_meta(self) -> List[WallMeta]:
         """
         Generates a list of WallMeta tuples
         :param height: The height of the maze
@@ -102,14 +111,14 @@ class SimpleWall:
             vertical = bool(getrandbits(1))
 
             # Length of wall
-            wall_length = randint(1, max_wall_length)
+            wall_length = randint(1, self.max_wall_length)
 
-            # TODO should be its own function.... nested ternary is ugly
+            # TODO should be its own function se above. nested ternary is ugly
             # x coordinate
-            x = randint(1, (height - wall_length if height - wall_length > 1 else wall_length -1) if vertical else (height - 1))
+            x = randint(1, (self.maze_height - wall_length if self.maze_height - wall_length > 1 else wall_length -1) if vertical else (self.maze_height - 1))
 
             # y coordinate
-            y = randint(1, (width - 1) if vertical else (width - wall_length if width - wall_length > 1 else wall_length - 1))
+            y = randint(1, (self.maze_width - 1) if vertical else (self.maze_width - wall_length if self.maze_width - wall_length > 1 else wall_length - 1))
 
             # Get the wall coordinates
             wall_coords = self.get_wall_coords(vertical, wall_length, x, y)

@@ -64,8 +64,8 @@ class SimpleMaze:
         self.coords_start, self.coords_finish = self.get_start_finish_pos()
         self.blank_maze = self.get_blank_maze()
         self.walls = SimpleWall(
-            height=self.height,
-            width=self.width,
+            maze_height=self.height,
+            maze_width=self.width,
             number_of_walls=self.number_of_walls
         )
         self.simple_maze = self.place_walls()
