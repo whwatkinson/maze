@@ -1,4 +1,4 @@
-from random import randint, getrandbits, choices
+from random import randint, getrandbits, choice
 from typing import Tuple, List
 from collections import namedtuple
 from datetime import datetime
@@ -60,7 +60,7 @@ class SimpleWall:
         return wall_coords
 
     @staticmethod
-    def narnia(x: int, y: int, temporal: int) -> bool:
+    def narnia(x: int, y: int, wall_length: int,  temporal: int) -> bool:
         """
         Is there a door, deterministic with the illusion of randomness
         :param x:
@@ -69,12 +69,22 @@ class SimpleWall:
         :return:
         """
 
+        if wall_length < 3:
+            return False
+
         # Combine coords to get unique identifier
         lucy = (x + y) % 4
         edmund = temporal % 8
         aslan = True if (lucy == 0 and edmund == 0) else False
 
         return aslan
+
+    def get_x_or_y_start(self,x, y,  vertical: bool):
+
+        if x:
+
+
+
 
     def get_walls_meta(
             self, height: int, width: int, max_wall_length: int
@@ -98,21 +108,22 @@ class SimpleWall:
             # Length of wall
             wall_length = randint(1, max_wall_length)
 
+            # TODO should be its own function.... nested ternary is ugly
             # x coordinate
-            x = randint(1, height - 1)
+            x = randint(1, (height - wall_length if height - wall_length > 1 else wall_length -1) if vertical else (height - 1))
 
             # y coordinate
-            y = randint(1, width - 1)
+            y = randint(1, (width - 1) if vertical else (width - wall_length if width - wall_length > 1 else wall_length - 1))
 
             # Get the wall coordinates
             wall_coords = self.get_wall_coords(vertical, wall_length, x, y)
 
             # Is there a door? If so unlinkely!
             temporal = datetime.now().second
-            is_door = self.narnia(x, y, temporal)
+            is_door = self.narnia(x, y, wall_length, temporal)
 
             # Door coords
-            door_coords = choices(wall_coords) if is_door else None
+            door_coords = choice(wall_coords) if is_door else None
 
             wm = WallMeta(
                 vertical=vertical,

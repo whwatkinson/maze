@@ -145,16 +145,22 @@ class SimpleMaze:
         # Each row
         for wall in walls_meta:
             # Over each pair of coordinates
-            for x, y in wall.wall_coords:
 
+            for x, y in wall.wall_coords:
                 try:
                     # TODO BETTER PLEASE, really?!? also skips bad placements
                     # maybe this is preferred?
                     if self.ok_to_place_wall(new_blank_maze, x, y):
                         new_blank_maze[x][y] = self.markers.wall
+
                 except IndexError:
                     # Got to love and except index error
                     continue
+
+            if wall.is_door:
+                x_d, y_d = wall.door_coords
+
+
 
         return new_blank_maze
 

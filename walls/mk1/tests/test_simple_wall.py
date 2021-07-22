@@ -55,6 +55,8 @@ class TestSimpleWall:
                 assert type(wall.x) is int
                 assert type(wall.y) is int
                 assert type(wall.wall_coords) is list
+                assert type(wall.is_door) is bool
+                # assert type(wall.door_coords) is None
 
     def test_wall_length(self):
         pass
@@ -83,5 +85,5 @@ class TestSimpleWall:
             # Random coords on random walls
             sw = SimpleWall(10, 10, 10, 5)
 
-            test = sw.narnia(case.x, case.y, case.temporal)
+            test = sw.narnia(case.x, case.y, 5, case.temporal)
             assert test is case.expected_result
