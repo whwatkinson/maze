@@ -46,7 +46,8 @@ class TestSimpleBrain:
                     z_minus=None,
                     z_plus=None
                 ),
-                memory=SimpleMemory(steps=55))
+                memory=SimpleMemory(steps=55)
+            )
         ]
 
         for case in test_cases:
@@ -59,5 +60,8 @@ class TestSimpleBrain:
             for expected, test in zip(case.sight, ss.brain.sight):
                 assert expected == test
 
-            for expected, test in zip(case.last_known_position, ss.brain.last_known_position):
+            for expected, test in zip(
+                    case.last_known_position,
+                    ss.brain.last_known_position
+            ):
                 assert expected == test

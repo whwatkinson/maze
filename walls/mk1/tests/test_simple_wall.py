@@ -1,5 +1,4 @@
 from collections import namedtuple
-from random import randint
 
 
 from walls.mk1 import SimpleWall
@@ -62,11 +61,20 @@ class TestSimpleWall:
 
     def test_narnia(self):
 
-        TestCase = namedtuple('TestCase', ['x', 'y', 'temporal', 'expected_result'])
+        TestCase = namedtuple(
+            'TestCase',
+            [
+                'x',
+                'y',
+                'temporal',
+                'expected_result'
+            ]
+        )
 
         test_cases = [
             TestCase(4, 8, 16, True),
-            TestCase(3, 7, 57, False)
+            TestCase(3, 7, 57, False),
+            TestCase(44, 4, 56, True)
         ]
 
         # Known False results

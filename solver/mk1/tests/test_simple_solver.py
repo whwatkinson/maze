@@ -1,8 +1,14 @@
-from pytest import raises, mark
+from pytest import raises
 from collections import namedtuple
 
 from solver import SolverMeta
-from solver.mk1 import SimpleSolver, Sight, SimpleBrain, SimpleDirection, SimpleOrgans
+from solver.mk1 import (
+    SimpleSolver,
+    Sight,
+    SimpleBrain,
+    SimpleDirection,
+    SimpleOrgans
+)
 from mazes import SimpleMaze, SampleSimpleMazes
 
 sm = SimpleMaze()

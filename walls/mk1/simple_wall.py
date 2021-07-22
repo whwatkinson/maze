@@ -1,4 +1,4 @@
-from random import randint,getrandbits
+from random import randint, getrandbits, choices
 from typing import Tuple, List
 from collections import namedtuple
 from datetime import datetime
@@ -60,7 +60,7 @@ class SimpleWall:
         return wall_coords
 
     @staticmethod
-    def narnia(x: int, y: int, temporal: int = None) -> bool:
+    def narnia(x: int, y: int, temporal: int) -> bool:
         """
         Is there a door, deterministic with the illusion of randomness
         :param x:
@@ -70,9 +70,6 @@ class SimpleWall:
         """
 
         # Combine coords to get unique identifier
-        if not temporal:
-            temporal = datetime.now().second
-
         lucy = (x + y) % 4
         edmund = temporal % 8
         aslan = True if (lucy == 0 and edmund == 0) else False
@@ -111,10 +108,11 @@ class SimpleWall:
             wall_coords = self.get_wall_coords(vertical, wall_length, x, y)
 
             # Is there a door? If so unlinkely!
-            is_door = self.narnia(x, y)
+            temporal = datetime.now().second
+            is_door = self.narnia(x, y, temporal)
 
             # Door coords
-            door_coords = None
+            door_coords = choices(wall_coords) if is_door else None
 
             wm = WallMeta(
                 vertical=vertical,
