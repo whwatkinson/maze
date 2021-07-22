@@ -1,8 +1,14 @@
-from pytest import raises, mark
+from pytest import raises
 from collections import namedtuple
 
 from solver import SolverMeta
-from solver.mk1 import SimpleSolver, Sight, SimpleBrain, SimpleDirection, SimpleOrgans
+from solver.mk1 import (
+    SimpleSolver,
+    Sight,
+    SimpleBrain,
+    SimpleDirection,
+    SimpleOrgans
+)
 from mazes import SimpleMaze, SampleSimpleMazes
 
 sm = SimpleMaze()
@@ -142,5 +148,6 @@ class TestSimpleSolver:
         for case in test_cases:
             ss = SimpleSolver()
             sight = ss.update_sight(case.maze, case.position)
-            for test, expected in zip(case.expected, sight):
+            for test, expected in zip(sight, case.expected):
+                print()
                 assert test == expected

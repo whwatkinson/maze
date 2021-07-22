@@ -25,6 +25,15 @@ class SimpleDirection(Enum):
 
 class SimpleSolver:
 
+    look_around_direction_map = {
+        SimpleDirection.up: (-1, 0),
+        SimpleDirection.down: (1, 0),
+        SimpleDirection.left: (0, -1),
+        SimpleDirection.right: (0, 1),
+        SimpleDirection.z_minus: None,
+        SimpleDirection.z_plus: None,
+    }
+
     def __init__(
             self,
             brain: SimpleBrain = None,
@@ -149,22 +158,23 @@ class SimpleSolver:
         x, y = position
 
         # Mapping of sight
-        # TODO needs to be in "const" or somthing appropriate?
-        sight_coords_map = {
-            'up': self.look_around_you(SimpleDirection['up'], maze, x, y),
-            'down': self.look_around_you(SimpleDirection['down'], maze, x, y),
-            'left': self.look_around_you(SimpleDirection['left'], maze, x, y),
-            'right': self.look_around_you(SimpleDirection['right'], maze, x, y),
-            'z_minus': self.look_around_you(SimpleDirection['z_minus'], maze, x, y),
-            'z_plus': self.look_around_you(SimpleDirection['z_plus'], maze, x, y),
-        }
-        current_position = Sight(**sight_coords_map)
+        # TODO DICT comp
 
+        # Get the keys from the enum
+        sight_coords_map = {
+            item: self.look_around_you(SimpleDirection[item], maze, x, y)
+            for item in [field.value for field in SimpleDirection]
+        }
+
+        current_position = Sight(**sight_coords_map)
         return current_position
 
-    @staticmethod
     def look_around_you(
-            direction: SimpleDirection, maze: List[List[str]], x: int, y: int) -> str:
+            self,
+            direction: SimpleDirection,
+            maze: List[List[str]],
+            x: int, y: int
+    ) -> str:
         """
         This is our good friend Calcium
         :param direction:
@@ -173,43 +183,29 @@ class SimpleSolver:
         :param y:
         :return:
         """
-        # WOW just WOW, better to ship and send
-        # TODO MAP OF WHERE TF TO GO?
 
-        direction_map = {
-            SimpleDirection.up: (x - 1, y) if x - 1 > 0 else None,
-            SimpleDirection.down: (x + 1, y),
-            SimpleDirection.left: (x, y - 1) if y - 1 > 0 else None,
-            SimpleDirection.right: (x, y + 1),
-            SimpleDirection.z_minus: None,
-            SimpleDirection.z_plus: None,
-        }
+        line_of_sight = self.look_around_direction_map[direction]
+        if line_of_sight:
 
-        try:
-            if direction is SimpleDirection.up:
-                if x - 1 < 0:
-                    raise IndexError
-                marker = maze[x - 1][y]
-            elif direction is SimpleDirection.down:
-                marker = maze[x + 1][y]
-            elif direction is SimpleDirection.left:
-                if y - 1 < 0:
-                    raise IndexError
-                marker = maze[x][y - 1]
-            elif direction is SimpleDirection.right:
-                marker = maze[x][y + 1]
-            elif direction is SimpleDirection.z_minus:
-                marker = None
-            elif direction is SimpleDirection.z_plus:
-                marker = None
-            else:
-                raise ValueError('WHERE ARE YOU GOING?')
+            try:
+                x_d, y_d = line_of_sight
 
-        except IndexError:
-            marker = simple_maze.markers.out_of_bounds
+                x_new = x + x_d
+                y_new = y + y_d
+
+                # Do not want to get a -ve index
+                if x_new < 0 or y_new < 0:
+                    raise IndexError('LOOK AROUND YOU')
+
+                marker = maze[x_new][y_new]
+            except IndexError:
+                marker = simple_maze.markers.out_of_bounds
+
+        else:
+            marker = None
 
         return marker
 
     def __repr__(self) -> str:
-        """Ronseal"""
+        """The goal is to be unambiguous."""
         return f"|SIMPLE_SOLVER| name: {self.name}"

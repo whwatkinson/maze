@@ -64,13 +64,11 @@ class SimpleMaze:
         self.coords_start, self.coords_finish = self.get_start_finish_pos()
         self.blank_maze = self.get_blank_maze()
         self.walls = SimpleWall(
-            height=self.height,
-            width=self.width,
+            maze_height=self.height,
+            maze_width=self.width,
             number_of_walls=self.number_of_walls
         )
         self.simple_maze = self.place_walls()
-
-    # TODO @property for start and end coords?
 
     def get_start_finish_pos(self) -> Tuple[Tuple[int, int], Tuple[int, int]]:
         """Get the postionion of the start and finish"""
@@ -80,7 +78,6 @@ class SimpleMaze:
 
         coords_start = (0, start_position)
         coords_finish = (self.height - 1, finish_position)
-
         return coords_start, coords_finish
 
     def get_n_row(self) -> List[List[str]]:
@@ -145,16 +142,23 @@ class SimpleMaze:
         # Each row
         for wall in walls_meta:
             # Over each pair of coordinates
-            for x, y in wall.wall_coords:
 
+            for x, y in wall.wall_coords:
                 try:
                     # TODO BETTER PLEASE, really?!? also skips bad placements
                     # maybe this is preferred?
                     if self.ok_to_place_wall(new_blank_maze, x, y):
                         new_blank_maze[x][y] = self.markers.wall
+
                 except IndexError:
                     # Got to love and except index error
                     continue
+
+            if wall.is_door:
+                x_d, y_d = wall.door_coords
+                new_blank_maze[x_d][y_d] = self.markers.door
+
+
 
         return new_blank_maze
 
@@ -167,7 +171,7 @@ class SimpleMaze:
         return None
 
     def __repr__(self) -> str:
-        """The goal is to be unambiguous..."""
+        """The goal is to be unambiguous."""
         return (
             f"|SIMPLE_MAZE| "
             f"(height: {self.height}, "
