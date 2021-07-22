@@ -70,8 +70,6 @@ class SimpleMaze:
         )
         self.simple_maze = self.place_walls()
 
-    # TODO @property for start and end coords?
-
     def get_start_finish_pos(self) -> Tuple[Tuple[int, int], Tuple[int, int]]:
         """Get the postionion of the start and finish"""
         upper_bound = self.width - 2
@@ -80,7 +78,6 @@ class SimpleMaze:
 
         coords_start = (0, start_position)
         coords_finish = (self.height - 1, finish_position)
-
         return coords_start, coords_finish
 
     def get_n_row(self) -> List[List[str]]:

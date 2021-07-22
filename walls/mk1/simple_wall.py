@@ -78,27 +78,31 @@ class SimpleWall:
 
         return aslan
 
-    def determine_wall_upper_bound(self, cart_part: str, vertical: bool, wall_length: int):
-        # x coordinate
-        x = randint(1, (
-            self.maze_height - wall_length if self.maze_height - wall_length > 1 else wall_length - 1) if vertical else (
-                    self.maze_height - 1))
+    def determine_wall_upper_bound(
+            self, vertical: bool, wall_length: int
+    ) -> Tuple[int, int]:
 
-        # y coordinate
-        y = randint(1, (self.maze_width - 1) if vertical else (
-            self.maze_width - wall_length if self.maze_width - wall_length > 1 else wall_length - 1))
+        if vertical:
 
+            try:
+                x = randint(1, self.maze_height - wall_length - 1)
+            except ValueError:
+                x = 1
+            y = randint(1, self.maze_width - 1)
 
+        else:
 
+            x = randint(1, self.maze_height - 1)
+            try:
+                y = randint(1, self.maze_width - wall_length - 1)
+            except ValueError:
+                y = 1
 
-        pass
+        return x, y
 
     def get_walls_meta(self) -> List[WallMeta]:
         """
         Generates a list of WallMeta tuples
-        :param height: The height of the maze
-        :param width: The width of the maze
-        :param max_wall_length: The length of the maze
         :return: A list of wall_metas
         """
 
@@ -113,12 +117,8 @@ class SimpleWall:
             # Length of wall
             wall_length = randint(1, self.max_wall_length)
 
-            # TODO should be its own function se above. nested ternary is ugly
-            # x coordinate
-            x = randint(1, (self.maze_height - wall_length if self.maze_height - wall_length > 1 else wall_length -1) if vertical else (self.maze_height - 1))
-
-            # y coordinate
-            y = randint(1, (self.maze_width - 1) if vertical else (self.maze_width - wall_length if self.maze_width - wall_length > 1 else wall_length - 1))
+            # Wall starting coordinates
+            x, y = self.determine_wall_upper_bound(vertical, wall_length)
 
             # Get the wall coordinates
             wall_coords = self.get_wall_coords(vertical, wall_length, x, y)
