@@ -159,6 +159,7 @@ class SimpleMaze:
 
             if wall.is_door:
                 x_d, y_d = wall.door_coords
+                new_blank_maze[x_d][y_d] = self.markers.door
 
 
 
