@@ -158,8 +158,6 @@ class SimpleMaze:
                 x_d, y_d = wall.door_coords
                 new_blank_maze[x_d][y_d] = self.markers.door
 
-
-
         return new_blank_maze
 
     def display_maze(self) -> None:
