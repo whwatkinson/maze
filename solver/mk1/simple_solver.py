@@ -22,15 +22,6 @@ class SimpleDirection(Enum):
     z_minus = 'z_minus'
     z_plus = 'z_plus'
 
-    movement = {
-        up: (-1, 0),
-        down: (1, 0),
-        left: (0, -1),
-        right: (0, 1),
-        z_minus: -1,
-        z_plus: 1,
-    }
-
 
 class SimpleSolver:
 

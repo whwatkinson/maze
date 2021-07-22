@@ -41,6 +41,9 @@ class TestSimpleWall:
 
             assert len(wall_meta) == case['number_of_walls']
 
+            for wall in wall_meta:
+                assert len(wall.wall_coords) == wall.wall_length
+
     def test_get_wall_meta_return(self):
 
         for case in self.test_case:

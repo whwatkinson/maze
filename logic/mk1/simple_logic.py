@@ -1,11 +1,12 @@
 from typing import Tuple, List
 
 from mazes import SimpleMaze
-from solver import SimpleOrgans, SimpleDirection
+from solver import SimpleOrgans, SimpleDirection, SimpleSolver
 
 
 sm = SimpleMaze()
 so = SimpleOrgans()
+ss = SimpleSolver()
 
 
 class SimpleLogic:
@@ -25,7 +26,7 @@ class SimpleLogic:
 
                 get_move = SimpleDirection[direction]
 
-                x_m, y_m = SimpleDirection.movement[get_move]
+                x_m, y_m = ss.look_around_direction_map[get_move]
 
                 new_coords = x + x_m, y + y_m
 
