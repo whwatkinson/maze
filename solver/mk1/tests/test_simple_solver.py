@@ -145,9 +145,25 @@ class TestSimpleSolver:
 
         ]
 
+        expected_last_known_position = Sight(
+                up='A',
+                down='A',
+                left='A',
+                right='A',
+                z_minus=None,
+                z_plus=None
+            )
+
         for case in test_cases:
-            ss = SimpleSolver()
+            sb = SimpleBrain(last_known_position=expected_last_known_position)
+            ss = SimpleSolver(brain=sb)
             sight = ss.update_sight(case.maze, case.position)
             for test, expected in zip(sight, case.expected):
-                print()
+                assert test == expected
+
+            test_last_known_position = ss.brain.last_known_position
+
+            for test, expected in zip(
+                    test_last_known_position, expected_last_known_position
+            ):
                 assert test == expected

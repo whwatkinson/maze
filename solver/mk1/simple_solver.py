@@ -138,8 +138,6 @@ class SimpleSolver:
         # Update brain
         self.brain.sight = current_position
 
-        # TODO add check you have not rambled to far
-
         return True
 
     def update_sight(
@@ -157,13 +155,13 @@ class SimpleSolver:
         # Current location
         x, y = position
 
-        # Mapping of sight
-        # TODO DICT comp
-
         # Get the keys from the enum
+        simple_direction_keys = [field.value for field in SimpleDirection]
+
+        # Mapping of sight
         sight_coords_map = {
             item: self.look_around_you(SimpleDirection[item], maze, x, y)
-            for item in [field.value for field in SimpleDirection]
+            for item in simple_direction_keys
         }
 
         current_position = Sight(**sight_coords_map)
