@@ -79,12 +79,8 @@ class SimpleWall:
 
         return aslan
 
-    def get_x_or_y_start(self,x, y,  vertical: bool):
-
-        if x:
-
-
-
+    def determine_wall_upper_bound(self, cart_part: str ,vertical: bool):
+        pass
 
     def get_walls_meta(
             self, height: int, width: int, max_wall_length: int
